@@ -1,0 +1,188 @@
+.btn-sm1{
+    padding: 3px 10px 3px 10px;
+    background-color: white;
+    color: black;
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+.btn-sm1:hover{
+    background-color: #f46363;
+    color: white;
+}
+
+
+.box-Card{
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+
+.intervieBox{
+    display: flex;
+}
+
+.learningBox{
+    display: flex;
+}
+
+
+.guestImg{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: end;
+}
+
+.guestText{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    align-items: center;
+    display: flex;
+}
+
+.guestFont{
+    font-size: 40px;
+}
+
+.ImgBoxGuets{
+    width: 85%;
+    border-radius: 15px;
+}
+
+.ImgBoxGuets2{
+    width: 80%;
+    border-radius: 15px;
+}
+
+.guestPtag{
+    font-size: 18px;
+}
+
+.quickImgBox{
+    width: 26%;
+}
+
+.cardText{
+    font-size: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 576px) {
+
+   
+   
+}
+
+@media (max-width: 767px) {
+ 
+    .tabMobile{
+        border: 1px solid grey;
+        height: 40px;
+        width: 250px;
+    }
+
+    
+.intervieBox{
+    display: grid;
+}
+
+.intervieBox .box-Card{
+    margin-top: 20px;
+        
+}
+
+.learningBox{
+    display: grid;
+}
+
+.guestImg{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: start;
+}
+
+.guestText{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    align-items: center;
+    
+}
+
+.guestFont{
+    font-size: 22px;
+    width: 90%;
+}
+
+.btn-pod{
+    margin-top: 10px;
+}
+
+.ImgBoxGuets{
+    width: 100%;
+}
+
+.ImgBoxGuets2{
+    width: 100%;
+}
+
+.guestPtag{
+    font-size: 15px;
+}
+
+.guestFont2{
+    font-size: 22px;
+}
+    
+.quickImgBox{
+    width: 50%;
+}
+
+.quickText{
+    font-size: 14px;
+}
+    
+  
+}
+
+@media (max-width: 992px) {
+ 
+ 
+}
+
+@media (max-width: 1200px) {
+ 
+}
+
+@media (max-width: 1400px) {
+ 
+}
+

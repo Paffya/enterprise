@@ -1,25 +1,21 @@
-
+import React from 'react';
 import './App.css';
 import Navbar from './Components/Navbar';
-import Mainroute from './Pages/Mainroute';
-import Homepage from './Pages/Homepage';
 
-// import Footer from "./Components/Footer";
-// import Newsletter from './Components/Newsletter';
+import MainRoutes from './Pages/MainRoutes';
 
-
+import Footer from './Components/Footer';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Navbar />
-      <Mainroute />
-      <Homepage />
-   
-      {/* <Newsletter /> */}
-      {/* <Footer /> */}
+      <MainRoutes />
+      <Footer />
     </div>
   );
 }
 
 export default App;
+
+

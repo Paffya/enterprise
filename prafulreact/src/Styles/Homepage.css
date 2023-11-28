@@ -1,0 +1,341 @@
+
+
+#tabs-example{
+   
+}
+
+.paddings{
+    padding: 10px 0px 0px 10px;
+}
+
+
+.tabBtn{
+    justify-content: center;
+    border: none;
+    color: black !important;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+    border-color: none !important;
+    background-color: #f46363 !important;
+    color: white !important;
+    
+}
+
+.padLR{
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+
+.flexAddver{
+    display: flex;
+}
+
+
+.addvert{
+    width: 50%;
+}
+
+
+.homeImg{
+    height: 500px;
+    width:100%;
+    border-radius:15px;
+    object-fit:cover;
+}
+
+
+.swiperBox{
+    background-color:#f46363;
+    /* padding: 80px 30px 80px 30px; */
+    padding: 30px 28px 2px 28px;
+    font-size: 15px;
+}
+
+/* .card{
+   width: 80%;
+}
+*/
+
+.card-img{
+    /* height: 300px; */
+} 
+
+/* .card-title, .card-text{
+    font-size: 15px;
+} */
+
+/* .swiper-button-prev{
+    border: 1px solid white;
+    margin-left: -30px;
+    border-radius: 20px;
+    position:relative !important;
+} */
+
+
+.btn-nav{
+    background-color: #f46363;
+    color: #f46363;
+    border: none;
+}
+
+.podText{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+}
+
+.btn-pod{
+    background-color: #f46363;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    padding: 5px 10px 5px 10px;
+}
+
+
+.borderR{
+    border-right:1px solid #eaeaea ;
+}
+
+
+.borderL{
+    border-left:1px solid #eaeaea ;
+}
+
+.borderB{
+    border-bottom:1px solid #eaeaea ;
+}
+
+.borderT{
+    border-top:1px solid #eaeaea ;
+}
+
+.guestAthor{
+    margin-left: 250px;
+}
+
+.nav-link1{
+  
+    line-height: 0.6;
+   
+  }
+  .cardHover{
+    padding: 10px;
+  }
+
+  .cardHover:hover{
+    color: #f46363 ;
+  }
+
+  .hoverHead:hover{
+    color: #f46363 !important;
+  }
+
+  .line-clamp {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;  
+  overflow: hidden !important;
+}
+
+.line-clamp1 {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 1 !important;
+    -webkit-box-orient: vertical !important;  
+    overflow: hidden !important;
+  }
+
+
+
+.zoom-in:hover{
+    /* background-color: crimson; */
+    transition: all .5s;
+    transform: scale(1.05);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.container-max{
+    width: 100%;
+    /* margin-left: 20px; */
+    /* margin-right: 20px; */
+    padding: 0 30px;
+    max-width: 1440px;
+}
+
+
+.podImg{
+    float: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 576px) {
+
+   
+   
+  }
+  
+  @media (max-width: 767px) {
+   
+    body{
+        margin-left: 5px ;
+        margin-right: 5px ;
+    }
+
+    .flexAddver{
+        display: grid;
+        width: 100%;
+    }
+
+    .addvert{
+        width: 100%;
+    }
+
+    .paddings{
+        padding: 0px;
+    }
+    .padLR{
+        padding: 0px;
+    }
+
+    .homeImg{
+        height: 300px;
+    width:100%;
+    border-radius:15px;
+    object-fit:cover;
+    }
+
+    .tabBtn button{
+        margin-top: 20px;
+        color: black !important;
+    }
+
+    .marTop{
+        margin-top: 20px;
+    }
+
+    .podText{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+    }
+
+    .container-max{
+        padding: 10px;
+      }
+
+      .podImg{
+        float:none;
+        margin: auto;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        display: block;
+        height: auto;
+    }
+
+    .guestAthor{
+        margin-left: 0px;
+    }
+
+    body{
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    .sidebarRespon{
+        display: none;
+    }
+
+
+    .borderR{
+        border-right:0px solid #eaeaea ;
+    }
+    
+    
+    .borderL{
+        border-left:0px solid #eaeaea ;
+    }
+    
+    .borderB{
+        border-bottom:1px solid #eaeaea ;
+    }
+    
+    .borderT{
+        border-top:1px solid #eaeaea ;
+    }
+
+    
+  }
+  
+  @media (max-width: 992px) {
+    .podImg{
+        float:none;
+        margin: auto;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        display: block;
+        
+    }
+   
+  }
+  
+  @media (max-width: 1200px) {
+    .guestAthor{
+        margin-left: 0px;
+    }
+  }
+  
+  @media (max-width: 1400px) {
+    .guestAthor{
+        margin-left: 20px;
+    }
+  }
+  
