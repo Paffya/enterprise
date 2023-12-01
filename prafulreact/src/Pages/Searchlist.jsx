@@ -1,10 +1,10 @@
 import React from "react";
 
 import "../Styles/Content.css";
-import SelectTab from "../Components/SelectTab";
+import SearchTab from "../Components/SearchTab";
 import { useParams } from "react-router-dom";
 
-const ContentCategory = () => {
+const Searchlist = () => {
   const { cat } = useParams();
   return (
     <div>
@@ -17,7 +17,7 @@ const ContentCategory = () => {
           </div>
           <div className="hr"></div>
 
-          <SelectTab />
+          <SearchTab />
 
           
 
@@ -40,4 +40,4 @@ const ContentCategory = () => {
   );
 };
 
-export default ContentCategory;
+export default Searchlist;

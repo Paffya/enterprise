@@ -13,9 +13,9 @@ import { useParams } from 'react-router-dom'
 const Tag  = () => {
 
   const options = {
-    weekday: 'long',
+    
     year: 'numeric',
-    month: 'long',
+    month: 'short',
     day: 'numeric',
   };
 
@@ -36,6 +36,7 @@ const Tag  = () => {
         setData(response.data.posts);
         
       } catch (error) {
+        setError(error)
         console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
@@ -138,7 +139,7 @@ const Tag  = () => {
                 <img style={{ width: '100%', borderRadius: '20px', height: '250px', objectFit: 'cover' }} src={post.p_image} alt='' />
               </div>
               <div className='padLR'>
-                <h4 className='fw-bold h5 mt-3 hoverHead line-clamp'>{post.p_title}</h4>
+                <a href={`/topic/${post.post_id}`}><h4 className='fw-bold h5 mt-3 hoverHead line-clamp'>{post.p_title}</h4></a>
                 <p style={{ fontSize: '13px' }}>
                   By <span className='fw-bold'>{post.p_author}</span> | {new Date(post.publish_date).toLocaleDateString(undefined, options)}
                 </p>
@@ -171,7 +172,7 @@ const Tag  = () => {
  <div className='col-md-6 borderR paddings mt-3 mb-4'>
             {data.events && data.events.length > 0 ? (
               <React.Fragment>
-                <h3 className='fw-bold hoverHead'>{data.events[0].p_title}</h3>
+                <a href={`/topic/${data.events[0].post_id}`}><h3 className='fw-bold hoverHead'>{data.events[0].p_title}</h3></a>
                 <p style={{ fontSize: '13px' }}>
                   By <span className='fw-bold'>{data.events[0].p_author}</span> | {new Date(data.events[0].publish_date).toLocaleDateString(undefined, options)}
                 </p>
@@ -184,7 +185,7 @@ const Tag  = () => {
           <div className='col-md-6 paddings mt-3 mb-4'>
             {data.events && data.events.length > 1 ? (
               <React.Fragment>
-                <h3 className='fw-bold hoverHead'>{data.events[1].p_title}</h3>
+                <a href={`/topic/${data.events[1].post_id}`}><h3 className='fw-bold hoverHead'>{data.events[1].p_title}</h3></a>
                 <p style={{ fontSize: '13px' }}>
                   By <span className='fw-bold'>{data.events[1].p_author}</span> | {new Date(data.events[1].publish_date).toLocaleDateString(undefined, options)}
                 </p>
@@ -544,20 +545,20 @@ const Tag  = () => {
       ) : data && data.interview && data.interview.length > 0 ? (
         <div className="col-md-12 justify-content-center intervieBox">
           {data.interview.slice(0, cardLimit).map((interview, index) => (
-            <Card key={index} style={{ width: '21rem', marginRight: '10px' }} className='box-Card'>
+           <a href={`/topic/${interview.post_id}`}> <Card key={index} style={{ width: '21rem', marginRight: '10px' }} className='box-Card'>
               <Card.Img variant="top" src={interview.p_image} />
               <Card className='p-md-3 cardHover' style={{ fontSize: '14px' }}>
                 <div id="future"></div>
                 <Card.Title className='fw-bold'>
-                  Names <br />
+                  {/* Names <br /> */}
                   <span>
-                    <p>Title</p>
+                    {/* <p>Title</p> */}
                   </span>
                 </Card.Title>
-                <Card.Text className='fw-bold line-clamp'>{interview.p_title}</Card.Text>
+                <Card.Text className='fw-bold line-clamp hoverHead'>{interview.p_title}</Card.Text>
                 <Card.Text className='mt-1 line-clamp cardText'>{interview.p_content}</Card.Text>
               </Card>
-            </Card>
+            </Card></a>
           ))}
         </div>
       ) : null /* Render nothing when there is no data */}

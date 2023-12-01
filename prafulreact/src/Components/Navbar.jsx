@@ -8,8 +8,10 @@ import Search from "./NavbarCompo/Search";
 import Sidebar from "./Sidebar";
 import { Link } from "react-router-dom";
 import { useState } from 'react';
-
+import laptopImg from "../Images/enterpriselaptop.png"
 import Modal from 'react-bootstrap/Modal';
+
+
 
 const CustomNavbar = () => {
 
@@ -63,6 +65,9 @@ const CustomNavbar = () => {
 
     fetchData();
   }, []);
+
+
+  
 
  
   
@@ -130,8 +135,9 @@ const CustomNavbar = () => {
         </Modal.Header>
         <Container className="popupBack">
           <Row>
-            <Col  md={5} className="mb-3">
-              <img className="DesktopResponsive mt-3" style={{width:"100%", height:"-webkit-fill-available" ,objectFit:"cover", borderRadius:"10px"}} src="https://www.alexhyett.com/static/674af38197248298565547353d5a5069/5f237/newsletter-iphone.png" alt="" />
+            <Col  md={5} className="mb-3 laptopmImgback">
+              {/* <img className="DesktopResponsive mt-3" style={{width:"100%", height:"-webkit-fill-available" ,objectFit:"cover", borderRadius:"10px"}} src="https://www.alexhyett.com/static/674af38197248298565547353d5a5069/5f237/newsletter-iphone.png" alt="" /> */}
+              <img className="DesktopResponsive mt-3" style={{width:"100%" ,objectFit:"cover", borderRadius:"10px"}} src={laptopImg} alt="" />
              
             </Col>
             <Col  md={7} >
@@ -256,9 +262,11 @@ const CustomNavbar = () => {
 
                      
 
-                      <a href="./" className="text-black ended mx-4">
+                      <a href='/ContentCategory/news' className="text-black ended mx-4">
                         See more
                       </a>
+             
+
                     </div>
 
                     {/* <div style={{ borderLeft: "1px solid #bdbdbd" }}></div> */}
@@ -313,7 +321,7 @@ const CustomNavbar = () => {
                      
                       
 
-                      <a href="./" className="text-black ended mx-4">
+                      <a href="/ContentCategory/featured" className="text-black ended mx-4">
                         See more
                       </a>
                     </div>
@@ -376,7 +384,7 @@ const CustomNavbar = () => {
 
                       
 
-                      <a href="./" className="text-black ended mx-4">
+                      <a href="/ContentCategory/podcasts" className="text-black ended mx-4">
                         See more
                       </a>
                     </div>
@@ -433,7 +441,7 @@ const CustomNavbar = () => {
 
                       
 
-                      <a href="./" className="text-black ended mx-4">
+                      <a href="/ContentCategory/interview" className="text-black ended mx-4">
                         See more
                       </a>
                     </div>
@@ -488,7 +496,7 @@ const CustomNavbar = () => {
 
                   
 
-                      <a href="./" className="text-black ended mx-4">
+                      <a href="/ContentCategory/guest-author" className="text-black ended mx-4">
                         See more
                       </a>
                     </div>
@@ -497,7 +505,7 @@ const CustomNavbar = () => {
               </NavDropdown>
 
               
-              <Nav.Link href="/ContentCategory" className="text-black fw-bold hover-underline-animation ">
+              <Nav.Link href="/" className="text-black fw-bold hover-underline-animation ">
                 Resources
               </Nav.Link>
               <Nav.Link href="/Connect" className="text-black fw-bold hover-underline-animation ">

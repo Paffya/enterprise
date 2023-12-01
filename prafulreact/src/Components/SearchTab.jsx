@@ -5,7 +5,7 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
 
 
-const SelectTab = () => {
+const Searchtab = () => {
 
   const { cat } = useParams();
   const options = {
@@ -368,4 +368,4 @@ const SelectTab = () => {
   );
 };
 
-export default SelectTab;
+export default Searchtab;

@@ -7,79 +7,49 @@ import { useParams } from "react-router-dom";
 // const AUDIO_FILE = "https://www.learningcontainer.com/wp-content/uploads/2020/02/Sample-FLAC-File.flac";
 
 const Searchart = () => {
+  
   const options = {
     
-    year: "numeric",
-    month: "short",
-    day: "numeric",
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
   };
 
   const { searchval } = useParams();
-  // const [postId, setPostId] = useState(null);
-  // const [data, setData] = useState(null);
   const [postloading, setPostLoading] = useState(true);
-  const [ setLatestLoading] = useState(true);
-  // const [error, setError] = useState(null);
   const [htmlContent, setHtmlContent] = useState("");
   const [postData, setPostData] = useState([]);
-    const [latestPosts, setLatestPosts] = useState([]);
-  // const limit = 4;
-
-  // const fetchData = async () => {
-  //   try {
-  //     // Fetch data using the retrieved ID
-  //     const response = await axios.get(`http://192.168.17.8:3000/api/post/viewpost/${searchval}`);
-  //   console.log(response)
-  //     if (response.status !== 200) {
-  //       throw new Error(`HTTP error! Status: ${response.status}`);
-  //     }
-
-  //     setPostData(response.data);
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //     setError('An error occurred while fetching data.');
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const [latestPosts, setLatestPosts] = useState([]);
 
   useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await fetch(`http://192.168.17.8:3000/api/post/viewpost/${searchval}`);
-      const data = await response.json();
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://192.168.17.8:3000/api/post/viewpost/${searchval}`);
+        const data = await response.json();
 
-      // Assuming data.postData[0].post_content is a string
-      setHtmlContent(data.postData[0].post_content);
-      // Assuming data.postData is an array
-      // console.log(data.postData);
-      setPostData(data.postData);
+        setHtmlContent(data.postData[0].post_content);
+        setPostData(data.postData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setPostLoading(false);
+      }
+    };
 
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setPostLoading(false);
-    }
-  };
+    fetchData();
+  }, [searchval]);
 
-  fetchData();
-}, [searchval]);
-
-useEffect(() => {
-  // Fetch data from the API using Axios
-  axios
-    .get("http://192.168.17.8:3000/api/post/latest")
-    .then((response) => {
-      setLatestPosts(response.data);
-      // console.log(response.data);
-      setLatestLoading(false);
-      // setHtmlContent(data.postData[0].post_content); // You can add this line if needed
-    })
-    .catch((error) => {
-      console.error("Error fetching data:", error);
-      // setLatestLoading(false);
-    });
-}, []); // Empty dependency array to run the effect once on mount
+  useEffect(() => {
+    // Fetch data from the API using Axios
+    axios
+      .get("http://192.168.17.8:3000/api/post/latest")
+      .then((response) => {
+        setLatestPosts(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);// Empty dependency array to run the effect once on mount
 
   // useEffect(() => {
   //   // Fetch HTML content from your API
@@ -107,7 +77,7 @@ useEffect(() => {
                 {/* Content for the 70% column */}
                 <div className="paddings">
                   {/* <p> {console.log('postdata '+ postData[0].post_title)}</p> */}
-                  <h1 className="fw-bold mt-1 h2 hoverHead">{postData[0].post_title}</h1>
+                  <h1 className="fw-bold mt-1 h2 ">{postData[0].post_title}</h1>
                   <p style={{ fontSize: "14px" }}>
                     By{" "}
                     <span className="fw-bold">
@@ -201,6 +171,7 @@ useEffect(() => {
             >
               {/* Content for the 30% column */}
               <p className="bllack">340*1500</p>
+              {/* <img style={{width:"100%", height:"100%"}} src="https://img.freepik.com/free-vector/template-social-media-post_125964-643.jpg" alt="" /> */}
             </div>
           </div>
           

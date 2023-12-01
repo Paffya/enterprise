@@ -4,8 +4,11 @@ import "../Styles/Navbar.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
+import {  Container,  Form, Row, Col } from "react-bootstrap";
 import Search from "./NavbarCompo/Search";
 import axios from 'axios';
+import laptopImg from "../Images/enterpriselaptop.png"
+import Modal from 'react-bootstrap/Modal';
 
 
 
@@ -65,7 +68,10 @@ const MyProvider = (props) => {
     fetchMenuItems();
   }, []);
 
+  const [show, setShow] = useState(false);
 
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   const [newsPosts, setNewsPosts] = useState([]);
   const [ArticlePosts, setArticlePosts] = useState([]);
@@ -120,16 +126,16 @@ const MyProvider = (props) => {
           <Nav className="ml-auto borderB">
             
 
-            <Nav.Link className="text-white MobileResponsive">
+            <Nav.Link className="text-white MobileResponsive" href="/Latest">
               <p className="text-white"><a href="/Latest">Latest</a></p>
             </Nav.Link>
 
               
               <NavDropdown  title="Leadership" className=" text-white MobileResponsive">
-
-                <NavDropdown.Item >
+              {newsPosts.map((post, index) => (
+                <NavDropdown.Item href={`/topic/${post.id}`}>
                   News
-                  {newsPosts.map((post, index) => (
+                  
                   <div
                     className="d-flex"
                     style={{
@@ -150,17 +156,18 @@ const MyProvider = (props) => {
                       </div> */}
                     </div>
                   </div>
-                  ))}
+                 
                   
                   <a href="./" className="text-black ended">
                     See more
                   </a>
                 </NavDropdown.Item>
+                ))}
 
-
-                <NavDropdown.Item>
+{ArticlePosts.map((post, index) => (
+                <NavDropdown.Item href={`/topic/${post.id}`}>
                   Articles
-                  {ArticlePosts.map((post, index) => (
+                 
                   <div
                     className="d-flex"
                     style={{
@@ -181,24 +188,25 @@ const MyProvider = (props) => {
                       </div> */}
                     </div>
                   </div>
-                  ))}
+                 
                   
                   <a href="./" className="text-black ended">
                     See more
                   </a>
                 </NavDropdown.Item>
-
+))}
               </NavDropdown>
-            
+              
 
 
 
             
               <NavDropdown title="Featured" className="MobileResponsive">
                 
-                <NavDropdown.Item>
+              {newsPod.map((post, index) => (
+                <NavDropdown.Item  href={`/topic/${post.id}`}>
                   Podcasts
-                  {newsPod.map((post, index) => (
+                  
                   <div
                     className="d-flex"
                     style={{
@@ -219,18 +227,20 @@ const MyProvider = (props) => {
                       </div> */}
                     </div>
                   </div>
-                  ))}
+                 
 
                 
                   <a href="./" className="text-black ended">
                     See more
                   </a>
                 </NavDropdown.Item>
-               
-                <NavDropdown.Item>
+                ))}
+
+{interPosts.map((post, index) => (
+                <NavDropdown.Item href={`/topic/${post.id}`}>
                   Featured Interview
 
-                  {interPosts.map((post, index) => (
+                 
                   <div
                     className="d-flex"
                     style={{
@@ -251,18 +261,21 @@ const MyProvider = (props) => {
                       </div> */}
                     </div>
                   </div>
-                  ))}
+                
 
                  
                   <a href="./" className="text-black ended">
                     See more
                   </a>
                 </NavDropdown.Item>
+  ))}
 
-                <NavDropdown.Item>
+
+{guestPosts.map((post, index) => (
+                <NavDropdown.Item href={`/topic/${post.id}`}>
                   Guest Posts
 
-                  {guestPosts.map((post, index) => (
+                  
                   <div
                     className="d-flex"
                     style={{
@@ -283,7 +296,7 @@ const MyProvider = (props) => {
                       </div>
                     </div>
                   </div>
-                  ))}
+                
 
                 
                   <a href="./" className="text-black ended">
@@ -291,20 +304,20 @@ const MyProvider = (props) => {
                   </a>
                
                 </NavDropdown.Item>
-
+    ))}
               </NavDropdown>
-        
+          
          
 
 
 
-            <Nav.Link className="text-white MobileResponsive" >
-              <p className=" text-white">Resources</p>
+            <Nav.Link className="text-white MobileResponsive" href="/ContentCategory">
+              <p className=" text-white"><a href="/ContentCategory">Resources</a></p>
             </Nav.Link>
 
 
 
-            <Nav.Link className="text-white MobileResponsive" >
+            <Nav.Link className="text-white MobileResponsive" href="/Connect">
               <p className=" text-white"><a href="/Connect">Connect</a></p>
             </Nav.Link>
 
@@ -323,8 +336,8 @@ const MyProvider = (props) => {
       ) : (
         
         menuItems.map((menuItem) => (
-          <a key={menuItem.id} className="menu-item" href={`/tag/${menuItem.sc_name}`}>
-      {menuItem.sc_name}
+          <a key={menuItem.id} className="menu-item" href={`/tag/${menuItem.subcat_name}`}>
+      {menuItem.subcat_name}
       
     </a>
     
@@ -335,7 +348,44 @@ const MyProvider = (props) => {
           
 
           <Nav.Link className="pl-4 mt-0  MobileResponsive mt-3">
-              <button className="btn-sm">Subscribe</button>
+          <button className="btn-sm" onClick={handleShow}>
+        Subscribe
+      </button>
+
+      <div className="subscribePopUp">
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+        <img style={{width:"20%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/10/Asset-5-300x61.png.webp" alt="" />
+        {/* <Modal.Title style={{textAlign:"center", margin:"auto", fontWeight:"bold"}}>Subscribe to Newsletter</Modal.Title> */}
+
+        </Modal.Header>
+        <Container className="popupBack">
+          <Row>
+           
+            <Col  md={7} >
+           
+              <img className="mt-3" style={{width:"100%", borderRadius:"10px"}} src={laptopImg} alt="" />
+            <Form.Group className="px-3 mb-3 mt-3" controlId="exampleForm.ControlInput1">
+        <Form.Control type="email" placeholder="Email ID" className="py-3" />
+        <div className="mt-3 px-2 fw-bold" style={{fontSize:"14px"}}>*By clicking on the Submit button, you are agreeing with the Privacy Policy with Enterprise Talks.</div>
+      </Form.Group>
+      <Modal.Footer className="start">
+          {/* <Modal.Text>Subscribe To Newsletter</Modal.Text> */}
+          
+          <button className="SubBtn " onClick={handleClose}>
+            Submit
+          </button>
+        </Modal.Footer>
+            </Col>
+          </Row>
+
+         
+        </Container>
+
+        
+        
+      </Modal>
+      </div>
             </Nav.Link>
           
           </div>

@@ -156,7 +156,7 @@ const Latest = () => {
       {posts.map((post, index) => (
         <React.Fragment key={index}>
           <div className=''>
-            <h3 className='fw-bold h5 hoverHead'>{post.post_title}</h3>
+            <a href={`/topic/${post.id}`}><h3 className='fw-bold h5 hoverHead'>{post.post_title}</h3></a>
             <p style={{ fontSize: '13px' }} className='mt-1'>
               By <span className='fw-bold'>{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
             </p>
@@ -179,7 +179,7 @@ const Latest = () => {
           </div>
 
           <div className='paddings'>
-            <h1 className='fw-bold mt-1 h2 hoverHead'>{post.post_title}</h1>
+            <a href={`/topic/${post.id}`}><h1 className='fw-bold mt-1 h2 hoverHead'>{post.post_title}</h1></a>
             <p style={{ fontSize: '14px' }}>
               By <span className='fw-bold'>{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
             </p>
@@ -214,7 +214,7 @@ const Latest = () => {
             </div>
 
             <div className='' style={{ width: '74%' }}>
-              <h5 className='fw-bold hoverHead quickText'>{post.post_title}</h5>
+              <a href={`/topic/${post.id}`}><h5 className='fw-bold hoverHead quickText'>{post.post_title}</h5></a>
               <p style={{ fontSize: '13px' }}>
                 By <span className="fw-bold">{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
               </p>
@@ -251,7 +251,7 @@ const Latest = () => {
   {posts.slice(0, 1).map((post, index) => (
     <div className="col-md-7">
       <div className='podText'>
-      <h1 className='fw-bold hoverHead guestFont2'>{post.post_title}
+      <a href={`/topic/${post.id}`}><h1 className='fw-bold hoverHead guestFont2'>{post.post_title}
       <p style={{ fontSize: "18px" }} className='fw-bold mt-2'>In conversation with</p>
       <p className='guestPtag'>
                           By <span className="fw-bold">{post.post_author}</span> | {post.post_date}
@@ -259,7 +259,7 @@ const Latest = () => {
                         <button className='btn-pod'>Hear The Podcasts</button>
 
                         <div id="hotseat"></div>
-      </h1>
+      </h1> </a>
       
                         </div>
     </div>
@@ -296,7 +296,7 @@ const Latest = () => {
             </div>
 
             <div className='mt-2' style={{ width: '60%' }}>
-              <h4 className='fw-bold hoverHead h5'>{post.post_title}</h4>
+             <a href={`/topic/${post.id}`}> <h4 className='fw-bold hoverHead h5'>{post.post_title}</h4></a>
               <p style={{ fontSize: '13px' }}>
                 By <span className="fw-bold">{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
               </p>
@@ -319,7 +319,7 @@ const Latest = () => {
             </div>
 
             <div className='mt-2' style={{ width: '60%' }}>
-              <h4 className='fw-bold hoverHead h5'>{post.post_title}</h4>
+             <a href={`/topic/${post.id}`}> <h4 className='fw-bold hoverHead h5'>{post.post_title}</h4></a>
               <p style={{ fontSize: '13px' }}>
                 By <span className="fw-bold">{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
               </p>

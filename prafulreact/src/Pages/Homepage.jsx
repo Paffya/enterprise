@@ -186,7 +186,7 @@ const navigationNextRef = useRef();
         <TabContent className='marTop'>
         <div>
       {loading ? (
-        <p>Loading...</p>
+        <p></p>
       ) : (
         <div>
           {data.popular.map((post, index) => (
@@ -282,7 +282,7 @@ const navigationNextRef = useRef();
         
         <div>
       {loading ? (
-        <p>Loading...</p>
+        <p></p>
       ) : (
         <Swiper spaceBetween={50} slidesPerView={3}>
           {/* Latest News from API */}
@@ -409,7 +409,7 @@ const navigationNextRef = useRef();
     <h5  className='fw-bold borderB py-1 h4'>Quick Bytes</h5>
     <div className='col-md-4 '>
       {loading ? (
-        <p>Loading...</p>
+        <p></p>
       ) : (
         <>
           {/* Quick Bytes from API */}
@@ -429,7 +429,7 @@ const navigationNextRef = useRef();
     </div>
 
     {loading ? (
-        <p>Loading...</p>
+        <p></p>
         
       ) : (
         <div className='col-md-4 mt-3 borderR borderL'>
@@ -449,7 +449,7 @@ const navigationNextRef = useRef();
          )}
 
 {loading ? (
-        <p>Loading...</p>
+        <p></p>
         
       ) : (
         <div className='col-md-4 mt-3'>
@@ -500,7 +500,7 @@ const navigationNextRef = useRef();
 
     
       {loading ? (
-        <p>Loading...</p>
+        <p></p>
       ) : (
         <div className='col-md-4 mt-3'>
           <div className='zoom-in'>
@@ -527,7 +527,7 @@ const navigationNextRef = useRef();
 
 
  {loading ? (
-        <p>Loading...</p>
+        <p></p>
       ) : (
         <div className='col-md-4 mt-3 borderR borderL' >
         <div  className='zoom-in' >
@@ -550,7 +550,7 @@ const navigationNextRef = useRef();
       
       
       {loading ? (
-        <p>Loading...</p>
+        <p></p>
       ) : (
         <>
           {/* Quick Bytes from API */}
@@ -597,7 +597,7 @@ const navigationNextRef = useRef();
   <h5  className='fw-bold borderB py-1 h4'>Podcasts</h5>
 
   {loading ? (
-          <p>Loading...</p>
+          <p></p>
         ) : (
     <div className="col-md-7">
       <div className='podText'>
@@ -616,7 +616,7 @@ const navigationNextRef = useRef();
   )}
 
 {loading ? (
-          <p>Loading...</p>
+          <p></p>
         ) : (
     <div className="col-md-5 ">
       <img className='ImgBoxGuets2'  src={data.podcast[0].banner_img} alt="podcast_img" />

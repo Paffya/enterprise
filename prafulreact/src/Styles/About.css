@@ -62,6 +62,23 @@
 }
 
 
+.goBack{
+    border: 1px solid grey;
+    padding: 10px;
+    font-weight: 500;
+    border-radius: 5px;
+}
+
+.goBack:hover{
+    background-color: #f46363;
+    color: white !important;
+    border: transparent;
+}
+
+.notfound{
+    margin-top: 100px !important;
+    margin-bottom: 100px !important;
+}
 
 
 

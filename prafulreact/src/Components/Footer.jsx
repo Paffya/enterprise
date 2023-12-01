@@ -3,7 +3,7 @@ import "../Styles/Footer.css"
 import groupImg from "../Images/groupImg.webp"
 import { Container,  Form, Row, Col } from "react-bootstrap";
 import Modal from 'react-bootstrap/Modal';
-
+import laptopImg from "../Images/enterpriselaptop.png"
 const Footer = () => {
 
   const [show, setShow] = useState(false);
@@ -66,8 +66,9 @@ const Footer = () => {
         </Modal.Header>
         <Container className="popupBack">
           <Row>
-            <Col  md={5} className="mb-3">
-              <img className="DesktopResponsive mt-3" style={{width:"100%", height:"-webkit-fill-available" ,objectFit:"cover", borderRadius:"10px"}} src="https://www.alexhyett.com/static/674af38197248298565547353d5a5069/5f237/newsletter-iphone.png" alt="" />
+            <Col  md={5} className="mb-3 laptopmImgback">
+              {/* <img className="DesktopResponsive mt-3" style={{width:"100%", height:"-webkit-fill-available" ,objectFit:"cover", borderRadius:"10px"}} src="https://www.alexhyett.com/static/674af38197248298565547353d5a5069/5f237/newsletter-iphone.png" alt="" /> */}
+              <img className="DesktopResponsive mt-3" style={{width:"100%" ,objectFit:"cover", borderRadius:"10px"}} src={laptopImg} alt="" />
 
             </Col>
             <Col  md={7} >

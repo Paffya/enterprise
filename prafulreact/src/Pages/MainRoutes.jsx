@@ -14,6 +14,9 @@ import DoNotSell from './DoNotSell'
 // import PostList from "../Components/PostList"
 // import Search from './Search'
 import Topic from './Topic'
+import NotFound from '../Components/NotFound'
+import Searchlist from './Searchlist'
+
 
 
 
@@ -37,7 +40,12 @@ const MainRoutes = () => {
     <Route exact path="/tag/:subcat" element={<Tag />} />
     {/* <Route exact path="/search/:searchval" element={<Search />} /> */}
     <Route exact path="/topic/:searchval" element={<Topic />} />
-    <Route exact path="/ContentCategory/:result" element={<ContentCategory />} />
+    <Route exact path="/ContentCategory/:cat" element={<ContentCategory />} />
+    <Route exact path='/Searchlist/:cat' element={<Searchlist />} />
+    
+    
+    <Route path='/NotFound' element={<NotFound />}></Route>
+    <Route element={NotFound} />
     {/* <Redirect exact from="/Tag" to="/ArticleDesc" /> */}
     {/* <Route path="/PostList" element={<PostList />}></Route> */}
     {/* <Route path="/Latest" element={ <Navigate replace to="/" /> } ></Route> */}
