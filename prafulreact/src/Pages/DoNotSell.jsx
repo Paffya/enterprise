@@ -1,12 +1,80 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Form, Button } from "react-bootstrap";
 
 const DoNotSell = () => {
+  const initialFormData = {
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    message: '',
+    opt_in: false,
+  };
+
+  const [formData, setFormData] = useState({ ...initialFormData });
+  const [validated, setValidated] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState();
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === 'checkbox' ? checked : value,
+    }));
+  };
+
+  const resetForm = () => {
+    setFormData({ ...initialFormData });
+    setValidated(false);
+    setLoading(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+
+    try {
+      if (form.checkValidity() === false) {
+        e.stopPropagation();
+        setValidated(true); // Trigger custom validation UI
+      } else {
+        setLoading(true);
+
+        const response = await fetch('http://192.168.17.8:3000/api/contact/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          console.log('Data successfully submitted to the API.');
+          setSuccessMessage('Thank you for your message. It has been sent.');
+          setTimeout(() => {
+            setSuccessMessage('');
+          }, 2000); 
+          resetForm();
+        } else {
+          console.error('Failed to submit data to the API.');
+        }
+      }
+    } catch (error) {
+      console.error('Error while submitting data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  
+
+
   return (
     <div>
 
 
-        <div className='container container-max'>
+        <div className='container container-max mb-5'>
             <div className="row">
                 <div className="col-md-12">
                     <h5 className='fw-bold borderB'>Opt-Out Form</h5>
@@ -14,41 +82,88 @@ const DoNotSell = () => {
                 <div className=" mt-4 mb-4">
             <h3 className="fw-bold pinkColor text-center">Do Not Sell My Information</h3>
           </div>
-          <Form className="border p-2 mb-5">
-      <Form.Group className="" controlId="First Name">
-       
-        <Form.Control type="name" placeholder="First Name" className="mt-3" />
-      </Form.Group>
-      <Form.Group className="" controlId="Last name">
-      
-        <Form.Control type="name" placeholder="Last Name" className="mt-3" />
-      </Form.Group>
-      <Form.Group className="" controlId="exampleForm.ControlInput1">
-        
-        <Form.Control type="email" placeholder="name@example.com" className="mt-3" />
-      </Form.Group>
-      <Form.Group className="" controlId="Phone Number">
-        
-        <Form.Control type="tel" placeholder="Phone Number" className="mt-3" />
-      </Form.Group>
-      <Form.Group className="" controlId="exampleForm.ControlTextarea1">
-        
-        <Form.Control as="textarea" rows={10}  placeholder="Message" className="mt-3" />
+          <Form noValidate validated={validated} className="border p-2" onSubmit={handleSubmit}>
+      <Form.Group controlId="first_name">
+        <Form.Control
+          type="text"
+          placeholder="First Name *"
+          className="mt-3"
+          name="first_name"
+          value={formData.first_name}
+          onChange={handleInputChange}
+          required
+        />
       </Form.Group>
 
-      {/* <Form>
-      {['checkbox'].map((type) => (
-        <div key={`default-${type}`} className="mb-3 mt-3">
-          <Form.Check 
-            type={type}
-            id={`default-${type}`}
-            label={`By checking this box, I agree that EnterpriseTalk can contact me by email or phone and provide more information about the services.`}
-          />
-        </div>
-      ))}
-    </Form> */}
+      <Form.Group controlId="last_name">
+        <Form.Control
+          type="text"
+          placeholder="Last Name"
+          className="mt-3"
+          name="last_name"
+          value={formData.last_name}
+          onChange={handleInputChange}
+          required
+        />
+      </Form.Group>
 
-      <Button className="SubBtn mt-2">Submit</Button>
+      <Form.Group controlId="Email">
+        <Form.Control
+          type="email"
+          placeholder="name@example.com *"
+          className="mt-3"
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+          required
+        />
+        <Form.Control.Feedback type="invalid">Please provide a valid email.</Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group controlId="phone">
+        <Form.Control
+          type="number"
+          placeholder="Phone Number *"
+          className="mt-3"
+          name="phone"
+          value={formData.phone}
+          onChange={handleInputChange}
+          required
+        />
+        
+      </Form.Group>
+
+      <Form.Group controlId="Message">
+        <Form.Control
+          as="textarea"
+          rows={5}
+          placeholder="Message"
+          className="mt-3"
+          name="message"
+          value={formData.message}
+          onChange={handleInputChange}
+          required
+        />
+      </Form.Group>
+
+      <Form.Group controlId="opt_in">
+        <Form.Check
+        className="mt-3 mb-1"
+          type="checkbox"
+          id="agreementCheckbox"
+          label="By checking this box, I agree that EnterpriseTalk can contact me by email or phone and provide more information about the services."
+          name="opt_in"
+          checked={formData.opt_in}
+          onChange={handleInputChange}
+          required
+        />
+      </Form.Group>
+
+      <Button type="submit" className="SubBtn mt-2 mb-3" disabled={loading}>
+  {loading ? 'Submitting...' : 'Submit'}
+</Button>
+<p className="successmsg">{successMessage}</p>
     </Form>
        
        

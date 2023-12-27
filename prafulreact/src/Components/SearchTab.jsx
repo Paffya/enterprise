@@ -2,12 +2,13 @@ import React, {useEffect, useState} from 'react';
 import { Tab, Nav, Col, Row, NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { useParams } from 'react-router-dom';
+import { useParams  } from 'react-router-dom';
 
 
 const Searchtab = () => {
 
-  const { cat } = useParams();
+  const { cat, subcat, searchVal } = useParams();
+ 
   const options = {
     
     year: 'numeric',
@@ -16,6 +17,7 @@ const Searchtab = () => {
   };
   
   const [postData, setPostData] = useState([]);
+  const [activeCat, setActiveCat] = useState([]);
   const [pagination, setPagination] = useState({
     page: 1,
     limit: 10,
@@ -23,38 +25,35 @@ const Searchtab = () => {
     totalPages: 0,
   });
 
-  
+
+ 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://192.168.17.8:3000/api/post/topic/${cat}?page=${pagination.page}&limit=${pagination.limit}`);
+        let apiUrl = `http://192.168.17.8:3000/api/post/search/${cat}/${searchVal}`;
+
+        if (subcat) {
+          apiUrl += `/${subcat}`;
+        }
+
+        apiUrl += `?page=${pagination.page}&limit=${pagination.limit}`;
+
+        const response = await fetch(apiUrl);
         const jsonData = await response.json();
-  
-        // console.log('jsonData:', jsonData);
-  
-        // Check if jsonData is an object and has the expected structure
-        if (typeof jsonData === 'object' && jsonData !== null && 'posts' in jsonData) {
-          const { posts } = jsonData;
-  
-          // Ensure posts is an object with postData and pagination properties
-          if (typeof posts === 'object' && posts !== null && 'postData' in posts && 'pagination' in posts) {
-            const { postData, pagination } = posts;
-  
-            // Ensure pagination is an object with totalItems and totalPages properties
-            if (typeof pagination === 'object' && pagination !== null && 'totalItems' in pagination && 'totalPages' in pagination) {
-              setPostData(postData);
-              setPagination((prevPagination) => ({
-                ...prevPagination,
-                totalItems: pagination.totalItems,
-                totalPages: pagination.totalPages,
-              }));
-            } else {
-              console.error('Invalid pagination structure:', pagination);
-            }
-          } else {
-            console.error('Invalid posts structure:', posts);
-          }
+
+        console.log(jsonData)
+        setActiveCat(jsonData.result.category);
+
+        if (jsonData.result.postData) {
+          const { postData, pagination: { totalItems, totalPages } } = jsonData.result;
+
+          setPostData(jsonData.result.postData);
+          setPagination((prevPagination) => ({
+            ...prevPagination,
+            totalItems,
+            totalPages,
+          }));
         } else {
           console.error('Invalid JSON data structure:', jsonData);
         }
@@ -62,9 +61,9 @@ const Searchtab = () => {
         console.error('Error fetching data:', error);
       }
     };
-  
+
     fetchData();
-  }, [pagination.page, pagination.limit, cat]);
+  }, [pagination.page, pagination.limit, cat, subcat, searchVal]);
 
   const handlePageChange = (newPage) => {
     setPagination((prevPagination) => ({
@@ -74,8 +73,42 @@ const Searchtab = () => {
   };
 
 
+  const [categories, setCategories] = useState(['all']);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://192.168.17.8:3000/api/category/all');
+        const data = await response.json();
+        setCategories(data.category);// Assuming the API response is an array of categories
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array ensures that the effect runs only once when the component mounts
+
+ 
 
 
+  const calculatePageRange = () => {
+    const totalPageCount = pagination.totalPages;
+    const currentPage = pagination.page;
+
+    const pageRange = 5; // Change this value to set the number of pages to display
+
+    let startPage = Math.max(1, currentPage - Math.floor(pageRange / 2));
+    let endPage = startPage + pageRange - 1;
+
+    if (endPage > totalPageCount) {
+      endPage = totalPageCount;
+      startPage = Math.max(1, endPage - pageRange + 1);
+    }
+
+    return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+  };
+ 
 
  
 
@@ -84,62 +117,30 @@ const Searchtab = () => {
     <Tab.Container id="tabs-with-dropdown" defaultActiveKey="first">
       <Row className="clearfix">
         <Col sm={12}>
-          <Nav variant="tabs"> 
+        <Nav variant="tabs">
+      <Nav.Item>
+        <Nav.Link eventKey="Filter" className='tabButton' disabled>Filter :</Nav.Link>
+      </Nav.Item>
+      {/* <Nav.Item >
+          <Nav.Link  className='tabButton text-black backgRed' href={`/search/all/${searchVal}`}>All</Nav.Link>
+        </Nav.Item> */}
+        
+      {/* Dynamically generate tabs based on fetched data */}
+      {categories.slice(0,9).map((category, index) => (
+        <Nav.Item key={index}>
+          <Nav.Link eventKey={index} className={`tabButton text-black backgRed ${category.cat_slug === cat ? 'isActive' : ''}`} href={`/search/${category.cat_slug}/${searchVal}`}>{category.cat_name}</Nav.Link>
+        </Nav.Item>
+      ))}
 
-
-
-          <Nav.Item >
-
-            
-              <Nav.Link eventKey="Filter" className='tabButton' disabled>Filter :</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link  eventKey="first" className='tabButton' >Analytics</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="second" className='tabButton'>Artificial Intelligence</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="third" className='tabButton'>Automation</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="fourth" className='tabButton'>Big Data</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="fifth" className='tabButton'>Cloud Computing</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="sixth" className='tabButton'>Generative AI</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="seven" className='tabButton'>Innovation</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="eight" className='tabButton'>IOT</Nav.Link>
-            </Nav.Item>
-            
-            <Nav.Item>
-
-
-
-
-
-
-
-              <NavDropdown title="More"  id="nav-dropdown-within-tab">
-                <NavDropdown.Item eventKey="3.1">Netwroking</NavDropdown.Item>
-                <NavDropdown.Item eventKey="3.2">Fintech</NavDropdown.Item>
-                <NavDropdown.Item eventKey="3.3">Mobility</NavDropdown.Item>
-              </NavDropdown>
-
-
-
-            </Nav.Item>
-
-
-
-
-          </Nav>
+      <Nav.Item>
+        <NavDropdown title="More" id="nav-dropdown-within-tab" className='droptabs text-black colorblack'>
+        {categories.slice(10).map((category, index) => (
+          <NavDropdown.Item Key="index" className={`colorblack backgRed ${category.cat_slug === cat ? 'isActive' : ''}`} href={`/search/${category.cat_slug}/${searchVal}`}>{category.cat_name}</NavDropdown.Item>
+         
+          ))}
+        </NavDropdown>  
+      </Nav.Item>
+    </Nav>
         </Col>
 
 
@@ -151,13 +152,13 @@ const Searchtab = () => {
    
                 <div className='flexAddver mt-4' style={{gap:"11px"}}>
 
-                {postData.slice(0, 3).map((post) => (     
+                {postData.slice(0, 3).map((post, result) => (     
 <div  className='addvert zoom-in' >
 <div>
-  <img  style={{width:"100%", borderRadius:"20px", height:"250px", objectFit:"cover"}} src={post.banner_img} alt="" />
+<a href={`/${post.cat_slug}/${post.post_name}`}><img  style={{width:"100%", borderRadius:"20px", height:"250px", objectFit:"cover"}} src={post.banner_img} alt="" /></a>
 </div>
-<div className='padLR'>
-<h4 className='fw-bold h5 mt-3 hoverHead'>{post.post_title}</h4>
+<div className='padLR' id='datas'>
+<a href={`/${post.cat_slug}/${post.post_name}`}><h4 className='fw-bold h5 mt-3 hoverHead line-clamp'>{post.post_title}</h4></a>
 <p style={{ fontSize: "13px" }}>
               By <span className="fw-bold">{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
             </p>
@@ -166,7 +167,7 @@ const Searchtab = () => {
 </div>
                 ))}
 
-<div className='borderR'></div>
+{/* <div className='borderR'></div> */}
 {/* <div  className='addvert zoom-in'>
 <div>
   <img style={{width:"100%" , borderRadius:"20px", height:"250px", objectFit:"cover"}} src="https://workdesign.com/wp-content/uploads/2018/05/Marvin_Windows_HeadQuarters_031.jpg" alt="" />
@@ -204,7 +205,7 @@ const Searchtab = () => {
 
 
 
-                <div className='container container-max ' >
+                <div className=' ' >
   <div className="row mt-5">
 
 
@@ -236,8 +237,8 @@ const Searchtab = () => {
 
 
 <div>
-      {postData.map((post) => (
-       <a href={`/topic/${post.id}`} > <div key={post.id} className='d-flex mt-3 mb-3 ' style={{ alignItems: 'center' }}>
+      {postData.slice(3,100).map((post) => (
+       <a href={`/${post.cat_slug}/${post.post_name}`} > <div key={post.id} className='d-flex mt-3 mb-3 ' style={{ alignItems: 'center' }}>
           <div className='quickImgBox'>
             <img
               style={{ width: '90%', borderRadius: '14px' }}
@@ -256,7 +257,8 @@ const Searchtab = () => {
         </a>
       ))}
 
-<div className='paginationBox'>
+<div className='paginationBox mt-5'>
+<a href="#datas" className='mt-1 mb-1'>
   <button
     className='PaginatinNextBtn'
     disabled={pagination.page === 1}
@@ -264,7 +266,22 @@ const Searchtab = () => {
   >
     <FontAwesomeIcon icon={faAngleLeft} />
   </button>
-  <span >{pagination.page}</span>
+  </a>
+  {calculatePageRange().map((page) => (
+        <span
+          key={page}
+          className={`${pagination.page === page ? 'isActives' : ''} fw-bold`}
+          onClick={() => handlePageChange(page)}
+          style={{cursor:"pointer"}}
+        >
+          {page}
+        </span>
+      ))}
+  {/* <span>{pagination.page + 1}</span>
+  <span>{pagination.page + 2}</span>
+  <span>{pagination.page + 3}</span>
+  <span>{pagination.page + 4}</span> */}
+  <a href="#datas" className='mt-1 mb-1'>
   <button
     className='PaginatinNextBtn'
     disabled={pagination.page === pagination.totalPages}
@@ -272,6 +289,7 @@ const Searchtab = () => {
   >
     <FontAwesomeIcon icon={faAngleRight} />
   </button>
+  </a>
 </div>
     </div>
 
@@ -290,8 +308,8 @@ const Searchtab = () => {
 
 
     <div className="col-md-4">
-    <div style={{height:"800px", backgroundColor:"#ebebeb"}}>
-
+    <div >
+    <img style={{ width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-2.jpg" alt="" />
 </div>
     </div>
   </div>

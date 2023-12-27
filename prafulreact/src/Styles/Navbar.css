@@ -66,7 +66,7 @@ div {
   align-items: center;
   color: black;
   font-size: 32px;
-  color: #807a7a;
+  color: #c1b6b6;
   background-color: white;
 }
 
@@ -186,10 +186,10 @@ div {
   margin-top: 10px;
 }
 
-.dropdown-menu[data-bs-popper] {
-  /* left: -180px !important;
-    top: 60px; */
-}
+/* .dropdown-menu[data-bs-popper] {
+  left: -180px !important;
+    top: 60px;
+} */
 
 .dropdown-item {
   white-space: unset !important;
@@ -243,8 +243,23 @@ div {
   font-weight: 500;
 }
 
+/* 
+.fixedNav{
+  overflow: hidden;
+  position: fixed; 
+  top: 0; 
+  width: 100%; 
+  
+} */
 
 
+.ScroolTopBtn{
+  /* background-color: #f46363;*/
+  font-size: 15px; 
+  border: transparent;
+  /* position: fixed;
+  margin-top: 400px; */
+}
 
 
 
@@ -430,9 +445,13 @@ a:hover{
 
 
 .modal{
-  top: 130px;
+  /* top: 130px; */
   /* width: 900px; */
   --bs-modal-width:1000px;
+}
+
+.modal-dialog{
+  margin-top: 130px;
 }
 
 
@@ -450,9 +469,7 @@ a:hover{
 }
 
 
-.subscribePopUp{
-  
-}
+
 
 
 .paraMob{
@@ -681,7 +698,7 @@ a:hover{
     width: 100%;
     padding: 0px 10px 0px 10px;
     font-size: 13px;
-    font-weight: bold;
+    font-weight: 500;
   }
 
   .searcMainBox{
@@ -697,15 +714,21 @@ a:hover{
 
   .allResult{
     text-align: center;
-    color: black;
+    color: white;
     /* align-items: center; */
     margin: auto;
     display: block;
     padding: 5px;
-    background-color: #ebebeb;
+    background-color: #f46363;
     font-weight: 500;
     border-top: 1px solid #d9d9d9;
   }
+
+  .allResult, a:hover{
+    color: white;
+  }
+
+  
 
 
   .laptopmImgback{
@@ -715,8 +738,9 @@ a:hover{
 
 
 
+  
 
-
+  
 
 
 
@@ -748,6 +772,23 @@ a:hover{
   display: none;
 }
 
+
+
+
+
+
+
+
+
+@media (min-width: 375px) and (max-width: 425px) { 
+  .searchBox{
+    width: 90% !important;
+  }
+ 
+ }
+
+
+
 @media (max-width: 576px) {
   .DesktopResponsive {
     display: none;
@@ -755,6 +796,10 @@ a:hover{
 }
 
 @media (max-width: 767px) {
+
+
+
+  
   .DesktopResponsive {
     display: none;
   }
@@ -913,6 +958,11 @@ a:hover{
     width: 100% !important;
   }
 
+  .searchBox{
+    width: 67%;
+  }
+
+
   
 
   
@@ -923,10 +973,16 @@ a:hover{
     margin-left: -400px;
     width: 900px;
   }
+
+  .searchBox{
+    width: 45%;
+  }
 }
 
 @media (max-width: 1400px) {
-
+  .searchBox{
+    width: 38%;
+  }
 }
 
 

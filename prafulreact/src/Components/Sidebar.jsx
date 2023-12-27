@@ -112,6 +112,66 @@ const MyProvider = (props) => {
   }, []);
 
 
+
+
+  
+  const [email, setEmail] = useState('');
+  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [policyText, setPolicyText] = useState(
+    '*By clicking on the Submit button, you are agreeing with the Privacy Policy with Enterprise Talks.'
+  );
+
+  const validateEmail = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValid = emailRegex.test(email);
+    setIsValidEmail(isValid);
+    return isValid;
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const resetForm = () => {
+    setEmail('');
+    setIsValidEmail(true);
+    setPolicyText(
+      '*By clicking on the Submit button, you are agreeing with the Privacy Policy with Enterprise Talks.'
+    );
+  };
+
+  const handleSubmit = async () => {
+    if (validateEmail()) {
+      try {
+        const response = await fetch('http://192.168.17.8:3000/api/subscribe/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        if (response.ok) {
+          // The request was successful, you can handle the response here
+          console.log('Subscription successful');
+          resetForm(); // Reset the form after successful submission
+          setPolicyText('Thank you for subscribing!');
+
+          // Reset the complete form after 5 seconds
+          setTimeout(() => {
+            resetForm();
+          }, 5000);
+        } else {
+          // The request failed, handle the error
+          console.error('Subscription failed');
+        }
+      } catch (error) {
+        console.error('Error sending subscription request:', error);
+      }
+    } else {
+      console.log('Invalid email');
+    }
+  };
   
 
     return (
@@ -127,13 +187,13 @@ const MyProvider = (props) => {
             
 
             <Nav.Link className="text-white MobileResponsive" href="/Latest">
-              <p className="text-white"><a href="/Latest">Latest</a></p>
+              <p className="text-white"><a href="/Latest" >Latest</a></p>
             </Nav.Link>
 
               
               <NavDropdown  title="Leadership" className=" text-white MobileResponsive">
-              {newsPosts.map((post, index) => (
-                <NavDropdown.Item href={`/topic/${post.id}`}>
+              {newsPosts.slice(0,1).map((post, index) => (
+                <NavDropdown.Item href={`/${post.cat_slug}/${post.post_name}`} key={index}>
                   News
                   
                   <div
@@ -146,7 +206,7 @@ const MyProvider = (props) => {
                   >
                     <div style={{ width: "61%", borderBottom: "1px solid #bdbdbd", }} className="paraMob">
                       <h5 className="fw-bold" style={{ fontSize: "15px" }}>
-                      <a className="text-black hoverHead line-clamp" href={`/topic/${post.id}`}> {post.post_title}</a>
+                      <a className="text-black hoverHead line-clamp" href={`/${post.cat_slug}/${post.post_name}`}> {post.post_title}</a>
                       </h5>
                       {/* <div className="DesktopResponsive ">
                         <p style={{ fontSize: "14px" }}>
@@ -157,15 +217,16 @@ const MyProvider = (props) => {
                     </div>
                   </div>
                  
-                  
-                  <a href="./" className="text-black ended">
+                  <NavDropdown.Item href="/ContentCategory/news">
+                  <a href="/ContentCategory/news" className="text-black ended">
                     See more
                   </a>
+                  </NavDropdown.Item>
                 </NavDropdown.Item>
                 ))}
 
-{ArticlePosts.map((post, index) => (
-                <NavDropdown.Item href={`/topic/${post.id}`}>
+{ArticlePosts.slice(0,1).map((post, index) => (
+                <NavDropdown.Item href={`/${post.cat_slug}/${post.post_name}`} key={index}>
                   Articles
                  
                   <div
@@ -178,7 +239,7 @@ const MyProvider = (props) => {
                   >
                     <div style={{ width: "61%", borderBottom: "1px solid #bdbdbd", }} className="paraMob">
                       <h5 className="fw-bold" style={{ fontSize: "15px" }}>
-                      <a className="text-black hoverHead line-clamp" href={`/topic/${post.id}`}> {post.post_title}</a>
+                      <a className="text-black hoverHead line-clamp" href={`/${post.cat_slug}/${post.post_name}`}> {post.post_title}</a>
                       </h5>
                       {/* <div className="DesktopResponsive ">
                         <p style={{ fontSize: "14px" }}>
@@ -189,10 +250,11 @@ const MyProvider = (props) => {
                     </div>
                   </div>
                  
-                  
-                  <a href="./" className="text-black ended">
+                  <NavDropdown.Item href="/ContentCategory/featured">
+                  <a href="/ContentCategory/featured" className="text-black ended">
                     See more
                   </a>
+                  </NavDropdown.Item>
                 </NavDropdown.Item>
 ))}
               </NavDropdown>
@@ -203,8 +265,8 @@ const MyProvider = (props) => {
             
               <NavDropdown title="Featured" className="MobileResponsive">
                 
-              {newsPod.map((post, index) => (
-                <NavDropdown.Item  href={`/topic/${post.id}`}>
+              {newsPod.slice(0,1).map((post, index) => (
+                <NavDropdown.Item  href={`/${post.cat_slug}/${post.post_name}`} key={index}>
                   Podcasts
                   
                   <div
@@ -217,7 +279,7 @@ const MyProvider = (props) => {
                   >
                     <div style={{ width: "61%" }} className="paraMob">
                       <h5 className="fw-bold" style={{ fontSize: "15px" }}>
-                      <a className="text-black hoverHead line-clamp" href={`/topic/${post.id}`}> {post.post_title}</a>
+                      <a className="text-black hoverHead line-clamp" href={`/${post.cat_slug}/${post.post_name}`}> {post.post_title}</a>
                       </h5>
                       {/* <div className="DesktopResponsive ">
                         <p style={{ fontSize: "14px" }}>
@@ -229,15 +291,16 @@ const MyProvider = (props) => {
                   </div>
                  
 
-                
-                  <a href="./" className="text-black ended">
+                  <NavDropdown.Item href="/ContentCategory/podcasts">
+                  <a href="/ContentCategory/podcasts" className="text-black ended">
                     See more
                   </a>
+                  </NavDropdown.Item>
                 </NavDropdown.Item>
                 ))}
 
-{interPosts.map((post, index) => (
-                <NavDropdown.Item href={`/topic/${post.id}`}>
+{interPosts.slice(0,1).map((post, index) => (
+                <NavDropdown.Item href={`/${post.cat_slug}/${post.post_name}`} key={index}>
                   Featured Interview
 
                  
@@ -251,7 +314,7 @@ const MyProvider = (props) => {
                   >
                     <div style={{ width: "61%" }} className="paraMob">
                       <h5 className="fw-bold" style={{ fontSize: "15px" }}>
-                      <a className="text-black hoverHead line-clamp" href={`/topic/${post.id}`}> {post.post_title}</a>
+                      <a className="text-black hoverHead line-clamp" href={`/${post.cat_slug}/${post.post_name}`}> {post.post_title}</a>
                       </h5>
                       {/* <div className="DesktopResponsive ">
                         <p style={{ fontSize: "14px" }}>
@@ -263,16 +326,17 @@ const MyProvider = (props) => {
                   </div>
                 
 
-                 
-                  <a href="./" className="text-black ended">
+                  <NavDropdown.Item href="/ContentCategory/interview">
+                  <a href="/ContentCategory/interview" className="text-black ended">
                     See more
                   </a>
+                  </NavDropdown.Item>
                 </NavDropdown.Item>
   ))}
 
 
-{guestPosts.map((post, index) => (
-                <NavDropdown.Item href={`/topic/${post.id}`}>
+{guestPosts.slice(0,1).map((post, index) => (
+                <NavDropdown.Item href={`/${post.cat_slug}/${post.post_name}`} key={index}>
                   Guest Posts
 
                   
@@ -286,7 +350,7 @@ const MyProvider = (props) => {
                   >
                     <div style={{ width: "61%" }} className="paraMob">
                       <h5 className="fw-bold" style={{ fontSize: "15px" }}>
-                      <a className="text-black hoverHead line-clamp" href={`/topic/${post.id}`}> {post.post_title}</a>
+                      <a className="text-black hoverHead line-clamp" href={`/${post.cat_slug}/${post.post_name}`}> {post.post_title}</a>
                       </h5>
                       <div className="DesktopResponsive ">
                         <p style={{ fontSize: "14px" }}>
@@ -298,10 +362,11 @@ const MyProvider = (props) => {
                   </div>
                 
 
-                
-                  <a href="./" className="text-black ended">
+                  <NavDropdown.Item href="/ContentCategory/guest-author">
+                  <a href="/ContentCategory/guest-author" className="text-black ended">
                     See more
                   </a>
+                  </NavDropdown.Item>
                
                 </NavDropdown.Item>
     ))}
@@ -311,8 +376,8 @@ const MyProvider = (props) => {
 
 
 
-            <Nav.Link className="text-white MobileResponsive" href="/ContentCategory">
-              <p className=" text-white"><a href="/ContentCategory">Resources</a></p>
+            <Nav.Link className="text-white MobileResponsive" href="https://resources.enterprisetalk.com">
+              <p className=" text-white"><a href="https://resources.enterprisetalk.com">Resources</a></p>
             </Nav.Link>
 
 
@@ -336,7 +401,7 @@ const MyProvider = (props) => {
       ) : (
         
         menuItems.map((menuItem) => (
-          <a key={menuItem.id} className="menu-item" href={`/tag/${menuItem.subcat_name}`}>
+          <a key={menuItem.id}  className="menu-item hoverHead" href={`/tag/${menuItem.subcat_slug}`}>
       {menuItem.subcat_name}
       
     </a>
@@ -365,17 +430,25 @@ const MyProvider = (props) => {
             <Col  md={7} >
            
               <img className="mt-3" style={{width:"100%", borderRadius:"10px"}} src={laptopImg} alt="" />
-            <Form.Group className="px-3 mb-3 mt-3" controlId="exampleForm.ControlInput1">
-        <Form.Control type="email" placeholder="Email ID" className="py-3" />
-        <div className="mt-3 px-2 fw-bold" style={{fontSize:"14px"}}>*By clicking on the Submit button, you are agreeing with the Privacy Policy with Enterprise Talks.</div>
+              <Form.Group className="px-3 mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Control
+          type="email"
+          placeholder="Email ID"
+          className={`mt-3 py-3 ${isValidEmail ? '' : 'is-invalid'}`}
+          value={email}
+          onChange={handleEmailChange}
+        />
+        <div className="mt-3 px-2 fw-bold" style={{ fontSize: '14px' }}>
+        {policyText}
+        </div> 
+        
+        {!isValidEmail && <div className="invalid-feedback">Please enter a valid email address.</div>}
       </Form.Group>
       <Modal.Footer className="start">
-          {/* <Modal.Text>Subscribe To Newsletter</Modal.Text> */}
-          
-          <button className="SubBtn " onClick={handleClose}>
-            Submit
-          </button>
-        </Modal.Footer>
+        <button className="SubBtn" onClick={handleSubmit}>
+          Submit
+        </button>
+      </Modal.Footer>
             </Col>
           </Row>
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+
 
 const Privacy = () => {
   return (
@@ -10,9 +10,9 @@ const Privacy = () => {
         <div className="col-md-12">
         
         <div>
-        <h5 className='fw-bold'>Privacy Policy for EnterpriseTalk.com</h5>
-        <p>The privacy of our visitors to <Link to={'/'} className='redColor'>www.EnterpriseTalk.com</Link> is important to us.</p> <br />
-        <p>At www.EnterpriseTalk.com, we recognize that privacy of your personal information is important. Here is information on what types of personal information we receive and collect when you use and visit www.EnterpriseTalk.com, and how we safeguard your information. We never sell your personal information to third parties.</p>
+        <h5 className='fw-bold'>Privacy Policy for enterprisetalk.com</h5>
+        <p>The privacy of our visitors to <a href={'/'} className='redColor hoverHead'>www.enterprisetalk.com</a> is important to us.</p> <br />
+        <p>At www.enterprisetalk.com, we recognize that privacy of your personal information is important. Here is information on what types of personal information we receive and collect when you use and visit www.enterprisetalk.com, and how we safeguard your information. We never sell your personal information to third parties.</p>
         </div>
 
 
@@ -26,7 +26,7 @@ const Privacy = () => {
         <div>
             <h5 className='fw-bold'>Cookies and Web Beacons</h5>
             <p>We do use cookies to store information, such as your personal preferences when you visit our site. This could include only showing you a popup once in your visit, or the ability to login to some of our features, such as forums.</p> <br />
-            <p>We also use third party advertisements on www.EnterpriseTalk.com to support our site. Some of these advertisers may use technology such as cookies and web beacons when they advertise on our site, which will also send these advertisers (such as Google through the Google AdSense program) information including your IP address, your ISP , the browser you used to visit our site, and in some cases, whether you have Flash installed. This is generally used for geotargeting purposes (showing New York real estate ads to someone in New York, for example) or showing certain ads based on specific sites visited (such as showing cooking ads to someone who frequents cooking sites).</p>
+            <p>We also use third party advertisements on www.enterprisetalk.com to support our site. Some of these advertisers may use technology such as cookies and web beacons when they advertise on our site, which will also send these advertisers (such as Google through the Google AdSense program) information including your IP address, your ISP , the browser you used to visit our site, and in some cases, whether you have Flash installed. This is generally used for geotargeting purposes (showing New York real estate ads to someone in New York, for example) or showing certain ads based on specific sites visited (such as showing cooking ads to someone who frequents cooking sites).</p>
         </div>
 
 
@@ -98,7 +98,7 @@ You can choose to disable or selectively turn off our cookies or third-party coo
 
         <div>
             <h5 className='fw-bold'>Third-party disclosure</h5>
-            <p>We do not sell, trade, or otherwise transfer to outside parties your personally identifiable information. Please fill out the form <Link to={'/'} className='redColor'>Do Not Sell My Information</Link> and get your confirmation. </p>
+            <p>We do not sell, trade, or otherwise transfer to outside parties your personally identifiable information. Please fill out the form <a href="/opt-out-form" className='redColor hoverHead'>Do Not Sell My Information</a> and get your confirmation. </p>
         </div>
 
 
@@ -161,7 +161,7 @@ You can choose to disable or selectively turn off our cookies or third-party coo
 
                 <p>Users are able to opt-out from the website:</p> <br />
                 <ul>
-                    <li><Link to={'/'} className='redColor fw-bold'>Do Not Sell My Information</Link></li>
+                    <li><a href="/opt-out-form" className='redColor hoverHead fw-bold'>Do Not Sell My Information</a></li>
                 </ul>
 
                 <p>Users can contact us via CCPA helpline:</p> <br />

@@ -7,16 +7,15 @@ import About from './About'
 import ContentCategory from './ContentCategory'
 import ArticleDesc from "./ArticleDesc"
 import Connect from './Connect'
+import Connect1 from './Connect1'
 import Tag from '../Components/Tag'
 import Privacy from './Privacy'
 import DoNotSell from './DoNotSell'
-// import Sidebar from '../Components/Sidebar'
-// import PostList from "../Components/PostList"
-// import Search from './Search'
 import Topic from './Topic'
 import NotFound from '../Components/NotFound'
 import Searchlist from './Searchlist'
-
+import Lazy from '../Components/Lazy'
+import Scrolltop from '../Components/Scrolltop'
 
 
 
@@ -34,24 +33,22 @@ const MainRoutes = () => {
     <Route path="/ContentCategory" element={<ContentCategory />}></Route>
     <Route path="/ArticleDesc" element={<ArticleDesc />}></Route>
     <Route path="/Connect" element={<Connect />}></Route>
+    <Route path="/Connect1" element={<Connect1 />}></Route>
     <Route path='/Tag' element={<Tag />} ></Route>
     <Route path='/Privacy' element={<Privacy />} ></Route>
-    <Route path='/DoNotSell' element={<DoNotSell />} ></Route>
-    <Route exact path="/tag/:subcat" element={<Tag />} />
-    {/* <Route exact path="/search/:searchval" element={<Search />} /> */}
-    <Route exact path="/topic/:searchval" element={<Topic />} />
-    <Route exact path="/ContentCategory/:cat" element={<ContentCategory />} />
-    <Route exact path='/Searchlist/:cat' element={<Searchlist />} />
-    
-    
+    <Route path='/opt-out-form' element={<DoNotSell />} ></Route>
     <Route path='/NotFound' element={<NotFound />}></Route>
-    <Route element={NotFound} />
-    {/* <Redirect exact from="/Tag" to="/ArticleDesc" /> */}
-    {/* <Route path="/PostList" element={<PostList />}></Route> */}
-    {/* <Route path="/Latest" element={ <Navigate replace to="/" /> } ></Route> */}
-      {/* <Route path="/Latest" element={<Navigate to="/" replace />} /> */}
+    <Route path='/Lazy' element={<Lazy />}></Route>
+    <Route path='/Scrolltop' element={<Scrolltop />}></Route>
+    <Route exact path="/tag/:subcat" element={<Tag />} />
+    <Route exact path="/:cat_slug/:post_name" element={<Topic />} />
+    {/* <Route exact path="/:post_name" element={<Topic />} /> */}
+    <Route exact path="/topic/:cat" element={<ContentCategory />} />
+    <Route exact path="/topic/:cat/:subcat" element={<ContentCategory />} />
+    <Route exact path='/search/:cat/:searchVal' element={<Searchlist />} />
+    <Route exact path='/search/:cat/:searchVal/:subcat' element={<Searchlist />} />
     
-    
+    <Route path="*" element={<NotFound />}   />
    </Routes>
   
    
@@ -59,4 +56,4 @@ const MainRoutes = () => {
   )
 }
 
-export default MainRoutes
+export default MainRoutes;

@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "../Styles/Article.css";
-// import AudioPlayer from '../Components/AudioPlayer'
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-// const AUDIO_FILE = "https://www.learningcontainer.com/wp-content/uploads/2020/02/Sample-FLAC-File.flac";
 
 const Searchart = () => {
   
   const options = {
-    
     year: 'numeric',
     month: 'short',
     day: 'numeric',
   };
 
-  const { searchval } = useParams();
+  const { cat_slug , post_name} = useParams();
   const [postloading, setPostLoading] = useState(true);
   const [htmlContent, setHtmlContent] = useState("");
   const [postData, setPostData] = useState([]);
@@ -24,11 +21,12 @@ const Searchart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://192.168.17.8:3000/api/post/viewpost/${searchval}`);
+        // const response = await fetch(`http://192.168.17.8:3000/api/post/viewpost/${searchval}`);
+        const response = await fetch(`http://192.168.17.8:3000/api/post/postdetails/${cat_slug}/${post_name}`);
         const data = await response.json();
 
-        setHtmlContent(data.postData[0].post_content);
-        setPostData(data.postData);
+        setHtmlContent(data.result[0].post_content);
+        setPostData(data.result);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -37,7 +35,7 @@ const Searchart = () => {
     };
 
     fetchData();
-  }, [searchval]);
+  }, [cat_slug , post_name]);
 
   useEffect(() => {
     // Fetch data from the API using Axios
@@ -51,19 +49,38 @@ const Searchart = () => {
       });
   }, []);// Empty dependency array to run the effect once on mount
 
-  // useEffect(() => {
-  //   // Fetch HTML content from your API
-  //   fetch(`http://192.168.17.8:3000/api/post/viewpost/${searchval}`)
-  //     .then(response => response.json())
+ 
 
-  //     .then(data => setHtmlContent(data.postData[0].post_content))
-  //     .catch(error => console.error('Error fetching HTML content:', error));
 
-  // }, []); // Empty dependency array to run the effect once on mount
 
+  const [data, setData] = useState([]);
+  // const [loading, setLoading] = useState(true);
+ 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://192.168.17.8:3000/api/post/asidetopic/${cat_slug}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const result = await response.json();
+        setData(result.result);
+        console.log(result)
+        
+      } catch (error) {
+       
+        
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div>
+      
       <div className="container container-max ">
         <div className="row ">
           <div className="hr"></div>
@@ -92,7 +109,7 @@ const Searchart = () => {
                 </div>
                 <div className="mt-3">
                   <img
-                    className="homeImg"
+                    className="topicImg"
                     src={postData[0].banner_img}
                     alt=""
                   />
@@ -104,7 +121,7 @@ const Searchart = () => {
                   <p className="paddings">
                   
                     <div
-                      className="content"
+                      className="content mt-2"
                       dangerouslySetInnerHTML={{ __html: htmlContent }}
                     />
                   </p>
@@ -135,6 +152,34 @@ const Searchart = () => {
                 </div>
               </div>
             )}
+
+
+<h5 className="fw-bold borderB py-1 h5">More from Enterprise Talk</h5>
+ {latestPosts.slice(0,4).map((post, index) => (
+           <a href={`/${post.cat_slug}/${post.post_name}`}> <div className="d-flex mt-3 mb-3" style={{ alignItems: "center" }}>
+              <div className="quickImgBox">
+                <img
+                  style={{ width: "90%", borderRadius: "14px" }}
+                  src={post.banner_img}
+                  alt=""
+                />
+              </div>
+
+              <div className="" style={{ width: "74%" }}>
+                <h5 className="fw-bold hoverHead quickText">
+                 {post.post_title}
+                </h5>
+                <p style={{ fontSize: "13px" }}>
+                  By <span className="fw-bold">{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
+                </p>
+              </div>
+              
+            </div> </a>
+            
+            
+             ))}
+
+
           </div>
 
           <div className="col-md-4">
@@ -142,11 +187,11 @@ const Searchart = () => {
               <h5 className="fw-bold">Related Articles</h5>
             </div>
             <div>
-              {latestPosts.map((post, index) => (
+              {data.slice(0,4).map((post, index) => (
                 
                 <div key={index} className="paddings">
-                  {/* <p>{console.log(post)}</p> */}
-                  <a href={`/Topic/${post.id}`}><h4 className="fw-bold h5 hoverHead">{post.post_title}</h4></a>
+                
+                  <a href={`/${post.cat_slug}/${post.post_name}`}><h4 className="fw-bold h5 hoverHead line-clamp">{post.post_title}</h4></a>
                   <p style={{ fontSize: "13px" }}>
                     By <span className="fw-bold">{post.post_author}</span> |{" "}
                     {new Date(post.post_date).toLocaleDateString(
@@ -166,161 +211,59 @@ const Searchart = () => {
             </div>
 
             <div
-              className="marTop "
-              style={{ backgroundColor: "#e0e0e0", height: "1500px" }}
+              className="marTop sticky-top"
+              style={{  height: "" }}
             >
               {/* Content for the 30% column */}
-              <p className="bllack">340*1500</p>
-              {/* <img style={{width:"100%", height:"100%"}} src="https://img.freepik.com/free-vector/template-social-media-post_125964-643.jpg" alt="" /> */}
+              {/* <p className="bllack">340*1500</p> */}
+              <img style={{height:"", width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-2.jpg" alt="" />
+           
             </div>
           </div>
+
+          
           
         </div>
       </div>
 
-      <div className="container container-max mt-3">
+      <div className="container container-max ">
         <div className="row">
-          <h5 className="fw-bold borderB py-1 h5">More from Enterprise Talk</h5>
+          {/* <h5 className="fw-bold borderB py-1 h5">More from Enterprise Talk</h5> */}
 
-          <div className="col-md-8 borderR">
-            <div className="d-flex mt-3 mb-3" style={{ alignItems: "center" }}>
-              <div className="quickImgBox">
-                <img
-                  style={{ width: "90%", borderRadius: "14px" }}
-                  src="https://img.freepik.com/premium-photo/business-people-talking-meeting-office-near-window_396254-124.jpg"
-                  alt=""
-                />
-              </div>
+          {/* <div className="col-md-8 borderR">
 
-              <div className="" style={{ width: "74%" }}>
-                <h5 className="fw-bold hoverHead quickText">
-                  Quasar Partner with PTC to Empower IoT Customer with
-                  High-Performance Data Solution
-                </h5>
-                <p style={{ fontSize: "13px" }}>
-                  By <span className="fw-bold">John Smith</span> | 12 sept 2023
-                </p>
-              </div>
-            </div>
+         
+
+           
+
+           
 
             <div className="borderB"></div>
+          </div> */}
 
-            <div className="d-flex mt-3 mb-3" style={{ alignItems: "center" }}>
-              <div className="quickImgBox">
-                <img
-                  style={{ width: "90%", borderRadius: "14px" }}
-                  src="https://img1.wsimg.com/isteam/stock/8538/:/cr=t:0%25,l:7.59%25,w:84.82%25,h:100%25/rs=w:600,h:451.12781954887214,cg:true"
-                  alt=""
-                />
-              </div>
-
-              <div className="" style={{ width: "74%" }}>
-                <h5 className="fw-bold hoverHead quickText">
-                  Quasar Partner with PTC to Empower IoT Customer with
-                  High-Performance Data Solution
-                </h5>
-                <p style={{ fontSize: "13px" }}>
-                  By <span className="fw-bold">John Smith</span> | 12 sept 2023
-                </p>
-              </div>
+          {/* <div className="col-md-4">
+            <div style={{ height: "550px" }}>
+              
+              <img style={{height:"550px", width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-1.jpg" alt="" />
             </div>
+          </div> */}
 
-            <div className="borderB"></div>
 
-            <div className="d-flex mt-3 mb-3" style={{ alignItems: "center" }}>
-              <div className="quickImgBox">
-                <img
-                  style={{ width: "90%", borderRadius: "14px" }}
-                  src="https://www.purdueglobal.edu/blog/careers/workplace-diversity.jpg"
-                  alt=""
-                />
-              </div>
-
-              <div className="" style={{ width: "74%" }}>
-                <h5 className="fw-bold hoverHead quickText">
-                  Quasar Partner with PTC to Empower IoT Customer with
-                  High-Performance Data Solution
-                </h5>
-                <p style={{ fontSize: "13px" }}>
-                  By <span className="fw-bold">John Smith</span> | 12 sept 2023
-                </p>
-              </div>
-            </div>
-
-            <div className="borderB"></div>
-
-            <div className="d-flex mt-3 mb-3" style={{ alignItems: "center" }}>
-              <div className="quickImgBox">
-                <img
-                  style={{ width: "90%", borderRadius: "14px" }}
-                  src="https://njbmagazine.com/wp-content/uploads/2020/04/Diverse-business-775x500.jpg"
-                  alt=""
-                />
-              </div>
-
-              <div className="" style={{ width: "74%" }}>
-                <h5 className="fw-bold hoverHead quickText">
-                  Quasar Partner with PTC to Empower IoT Customer with
-                  High-Performance Data Solution
-                </h5>
-                <p style={{ fontSize: "13px" }}>
-                  By <span className="fw-bold">John Smith</span> | 12 sept 2023
-                </p>
-              </div>
-            </div>
-
-            <div className="borderB"></div>
-
-            <div className="d-flex mt-3 mb-3" style={{ alignItems: "center" }}>
-              <div className="quickImgBox">
-                <img
-                  style={{ width: "90%", borderRadius: "14px" }}
-                  src="https://www.vmcdn.ca/f/files/localprofile/import/2019_03_2017-10-02-diversity-ThinkstockPhotos-639467826.jpg"
-                  alt=""
-                />
-              </div>
-
-              <div className="" style={{ width: "74%" }}>
-                <h5 className="fw-bold hoverHead quickText">
-                  Quasar Partner with PTC to Empower IoT Customer with
-                  High-Performance Data Solution
-                </h5>
-                <p style={{ fontSize: "13px" }}>
-                  By <span className="fw-bold">John Smith</span> | 12 sept 2023
-                </p>
-              </div>
-            </div>
-
-            <div id="podcast"></div>
-
-            <div className="borderB"></div>
-          </div>
-
-          <div className="col-md-4">
-            <div style={{ height: "700px", backgroundColor: "#ebebeb" }}>
-              <p className="bllack">340*700</p>
-            </div>
-          </div>
         </div>
       </div>
 
       <div className="container container-max ">
         <div className="row mt-5  ">
           <div className="col-md-12 mb-5">
-            <div style={{ height: "150px", backgroundColor: "#ebebeb" }}>
-              <p className="bllack">1090*200</p>
+            <div style={{ height: "150px" }}>
+              {/* <p className="bllack">1090*200</p> */}
+              <img style={{width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png" alt="" />
             </div>
           </div>
         </div>
       </div>
 
-      {/* <div className='container container-max'>
-  <div className="row">
-    <div className="colmd-12">
-    <AudioPlayer audioSrc={AUDIO_FILE} />
-    </div>
-  </div>
-</div> */}
+     
     </div>
   );
 };

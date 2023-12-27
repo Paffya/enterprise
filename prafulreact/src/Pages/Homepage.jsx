@@ -79,11 +79,12 @@ const navigationNextRef = useRef();
         <p></p>
         
       ) : ( 
+        <a href={`/${data.latestNews[0].cat_slug}/${data.latestNews[0].post_name}`}>
         <div>
           <img className='homeImg' src={data.latestNews[0].banner_img} alt="home_img" />
 
           <div className='paddings'>
-           <a href={`/topic/${data.latestNews[0].id}`}> <h1 className='fw-bold  h2 hoverHead'>{data.latestNews[0].post_title}</h1></a>
+            <h1 className='fw-bold  h2 hoverHead mt-2'>{data.latestNews[0].post_title}</h1>
             <p style={{ fontSize: '14px' }}>
               By <span className='fw-bold'>{data.latestNews[0].post_author}</span> | {new Date(data.latestNews[0].post_date).toLocaleDateString(undefined, options)}
             </p>
@@ -95,6 +96,7 @@ const navigationNextRef = useRef();
 
           <p className='hr' />
         </div>
+        </a>
       )}
     </div>
 
@@ -107,10 +109,10 @@ const navigationNextRef = useRef();
       ) : (
             <div  className='addvert zoom-in' >
             <div>
-              <img className='' style={{width:"100%", borderRadius:"20px", height:"250px", objectFit:"cover"}} src={data.latestNews[1].banner_img} alt="home_img" />
+            <a href={`/${data.latestNews[1].cat_slug}/${data.latestNews[1].post_name}`}> <img className='' style={{width:"100%", borderRadius:"20px", height:"250px", objectFit:"cover"}} src={data.latestNews[1].banner_img} alt="home_img" /></a>
             </div>
             <div className='padLR'>
-           <a href={`/topic/${data.latestNews[1].id}`}> <h4 className='fw-bold h5 mt-3 hoverHead'>{data.latestNews[1].post_title}</h4></a>
+            <a href={`/${data.latestNews[1].cat_slug}/${data.latestNews[1].post_name}`}> <h4 className='fw-bold h5 mt-3 hoverHead'>{data.latestNews[1].post_title}</h4></a>
             <p style={{ fontSize: "13px" }}>
             By <span className='fw-bold'>{data.latestNews[1].post_author}</span> | {new Date(data.latestNews[1].post_date).toLocaleDateString(undefined, options)}
                         </p>
@@ -127,10 +129,10 @@ const navigationNextRef = useRef();
       ) : (
             <div  className='addvert zoom-in'>
             <div>
-              <img  style={{width:"100%" , borderRadius:"20px", height:"250px", objectFit:"cover"}} src={data.latestNews[2].banner_img} alt="home_img" />
+            <a href={`/${data.latestNews[2].cat_slug}/${data.latestNews[2].post_name}`}> <img  style={{width:"100%" , borderRadius:"20px", height:"250px", objectFit:"cover"}} src={data.latestNews[2].banner_img} alt="home_img" /></a>
             </div>
             <div className='padLR'>
-            <a href={`/topic/${data.latestNews[2].id}`}><h4 className='fw-bold h5 mt-3 hoverHead'>{data.latestNews[2].post_title}</h4></a>
+            <a href={`/${data.latestNews[2].cat_slug}/${data.latestNews[2].post_name}`}><h4 className='fw-bold h5 mt-3 hoverHead'>{data.latestNews[2].post_title}</h4></a>
             <p style={{ fontSize: "13px" }}>
             By <span className='fw-bold'>{data.latestNews[2].post_author}</span> | {new Date(data.latestNews[2].post_date).toLocaleDateString(undefined, options)}
                         </p>
@@ -165,7 +167,7 @@ const navigationNextRef = useRef();
           {data.latest.map((post, index) => (
             <div key={index}>
               <div className='paddings'>
-                <Link to={`/topic/${post.id}`}><h4 className='fw-bold h5 hoverHead'>{post.post_title}</h4></Link>
+                <Link to={`/${post.cat_slug}/${post.post_name}`}><h4 className='fw-bold h5 hoverHead'>{post.post_title}</h4></Link>
                 <p style={{ fontSize: '13px' }}>
                   By <span className='fw-bold'>{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
                 </p>
@@ -192,7 +194,7 @@ const navigationNextRef = useRef();
           {data.popular.map((post, index) => (
             <div key={index}>
               <div className='paddings'>
-                <Link to={`/topic/${post.id}`}><h4 className='fw-bold h5 hoverHead'>{post.post_title}</h4></Link>
+                <Link to={`/${post.cat_slug}/${post.post_name}`}><h4 className='fw-bold h5 hoverHead'>{post.post_title}</h4></Link>
                 <p style={{ fontSize: '13px' }}>
                   By <span className='fw-bold'>{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
                 </p>
@@ -214,9 +216,11 @@ const navigationNextRef = useRef();
       
     </div>
 
-    <div className='marTop ' style={{ backgroundColor: '#e0e0e0', height: '400px' }}>
+    <div className='marTop ' style={{  textAlign:"center", height:"400px"}}>
             {/* Content for the 30% column */}
-            <p className=' bllack'>340*400</p>
+            {/* <p className=' bllack'>340*400</p> */}
+            <img className='mt-5' style={{height:"400px", width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-1.jpg" alt="" />
+             
 
           </div>
             
@@ -288,15 +292,16 @@ const navigationNextRef = useRef();
           {/* Latest News from API */}
           {data.interview.map((interview, index) => (
             <SwiperSlide key={index} style={{}}>
-              <Card style={{}}>
+             <a href={`/${interview.cat_slug}/${interview.post_name}`} > <Card style={{}}>
                 <Card.Img style={{ objectFit: 'cover' }} src={interview.banner_img} alt={interview.imageAlt} />
-                <Card className='p-md-3'>
-                <a href={`/Topic/${interview.id}`} className='text-black hoverHead'> <Card.Title className='fw-bold line-clamp'>{interview.post_title}</Card.Title> </a>
+                <Card className='p-md-3 px-2 mb-2'>
+                <Card.Title className='fw-bold line-clamp hoverHead'>{interview.post_title}</Card.Title> 
                   <Card.Title>{interview.post_author}</Card.Title>
-                  <Card.Text className='fw-bold line-clamp1'>{interview.post_name}</Card.Text>
-                  <Card.Text className='mt-2 just-text line-clamp'>{interview.post_content}</Card.Text>
+                  {/* <Card.Text className='fw-bold line-clamp1'>{interview.post_name}</Card.Text> */}
+                  <Card.Text className='mt-1 just-text line-clamp'>{interview.post_content}</Card.Text>
                 </Card>
               </Card>
+              </a>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -416,7 +421,7 @@ const navigationNextRef = useRef();
           {data.quickbyte.slice(0, limit).map((quickbyte, index) => (
             <div key={index} className='mt-3'>
               <div className=''>
-                <a href={`/Topic/${quickbyte.id}`}><h3 className='fw-bold h5 hoverHead line-clamp'>{quickbyte.post_title}</h3></a>
+                <a href={`/${quickbyte.cat_slug}/${quickbyte.post_name}`}><h3 className='fw-bold h5 hoverHead line-clamp'>{quickbyte.post_title}</h3></a>
                 <p style={{ fontSize: '13px' }} className='mt-1'>
                   By <span className='fw-bold'>{quickbyte.post_author}</span> | {new Date(quickbyte.post_date).toLocaleDateString(undefined, options)}
                 </p>
@@ -433,18 +438,21 @@ const navigationNextRef = useRef();
         
       ) : (
         <div className='col-md-4 mt-3 borderR borderL'>
-        <div  className='zoom-in' >
+        <a  href={`/${data.quickbyte[0].cat_slug}/${data.quickbyte[0].post_name}`}> <div  className='zoom-in' >
             <div>
               <img  style={{width:"100%", borderRadius:"20px", height:"250px", objectFit:"cover"}} src={data.quickbyte[0].banner_img} alt="QuickBytes_img" />
             </div>
             <div className='padLR'>
-            <a  href={`/Topic/${data.quickbyte[0].id}`}><h4 className='fw-bold h5 mt-3 hoverHead line-clamp'>{data.quickbyte[0].post_title}</h4></a>
+           <h4 className='fw-bold h5 mt-3 hoverHead line-clamp'>{data.quickbyte[0].post_title}</h4>
             <p style={{ fontSize: "13px" }}>
             By <span className='fw-bold'>{data.quickbyte[0].post_author}</span> |  {new Date(data.latestNews[0].post_date).toLocaleDateString(undefined, options)}
                         </p>
                         <p className='just-text line-clamp mt-1' style={{ fontSize: "15px" }}>{data.quickbyte[0].post_content}</p>
           </div>
-            </div>
+          
+            </div> 
+            </a>
+           
         </div>
          )}
 
@@ -453,18 +461,19 @@ const navigationNextRef = useRef();
         
       ) : (
         <div className='col-md-4 mt-3'>
-        <div  className='zoom-in' >
+         <a href={`/${data.quickbyte[1].cat_slug}/${data.quickbyte[1].post_name}`}><div  className='zoom-in' >
             <div>
               <img  style={{width:"100%", borderRadius:"20px", height:"250px", objectFit:"cover"}} src={data.quickbyte[1].banner_img} alt="QuickBytes_img" />
             </div>
             <div className='padLR'>
-            <a href={`/Topic/${data.quickbyte[1].id}`}><h4 className='fw-bold h5 mt-3 hoverHead line-clamp'>{data.quickbyte[1].post_title}</h4></a>
+           <h4 className='fw-bold h5 mt-3 hoverHead line-clamp'>{data.quickbyte[1].post_title}</h4>
             <p style={{ fontSize: "13px" }}>
             By <span className='fw-bold'>{data.quickbyte[1].post_author}</span> | {new Date(data.latestNews[1].post_date).toLocaleDateString(undefined, options)}
                         </p>
                         <p className='just-text line-clamp mt-1' style={{ fontSize: "15px" }}>{data.quickbyte[1].post_content}</p>
           </div>
             </div>
+            </a>
         </div>
          )}
 
@@ -503,7 +512,7 @@ const navigationNextRef = useRef();
         <p></p>
       ) : (
         <div className='col-md-4 mt-3'>
-          <div className='zoom-in'>
+          <a href={`/${data.article[0].cat_slug}/${data.article[0].post_name}`}> <div className='zoom-in'>
             <div>
               <img
                 style={{ width: '100%', borderRadius: '20px', height: '250px', objectFit: 'cover' }}
@@ -512,7 +521,7 @@ const navigationNextRef = useRef();
               />
             </div>
             <div className='padLR'>
-             <a href={`/Topic/${data.article[0].id}`}> <h4 className='fw-bold h5 mt-3 hoverHead'>{data.article[0].post_title}</h4></a>
+             <h4 className='fw-bold h5 mt-3 hoverHead'>{data.article[0].post_title}</h4>
               <p style={{ fontSize: '13px' }}>
                 By <span className='fw-bold'>{data.article[0].post_author}</span> |  {new Date(data.article[0].post_date).toLocaleDateString(undefined, options)}
               </p>
@@ -521,6 +530,7 @@ const navigationNextRef = useRef();
               </p>
             </div>
           </div>
+          </a>
         </div>
       )}
  
@@ -530,18 +540,19 @@ const navigationNextRef = useRef();
         <p></p>
       ) : (
         <div className='col-md-4 mt-3 borderR borderL' >
-        <div  className='zoom-in' >
+        <a href={`/${data.article[1].cat_slug}/${data.article[1].post_name}`}> <div  className='zoom-in' >
             <div>
               <img  style={{width:"100%", borderRadius:"20px", height:"250px", objectFit:"cover"}} src={data.article[1].banner_img} alt="article_img" />
             </div>
             <div className='padLR'>
-            <a href={`/Topic/${data.article[1].id}`}><h4 className='fw-bold h5 mt-3 hoverHead'>{data.article[1].post_title}</h4></a>
+           <h4 className='fw-bold h5 mt-3 hoverHead'>{data.article[1].post_title}</h4>
             <p style={{ fontSize: "13px" }}>
             By <span className='fw-bold'>{data.article[1].post_author}</span> | {new Date(data.article[1].post_date).toLocaleDateString(undefined, options)}
                         </p>
                         <p className='just-text line-clamp mt-1' style={{ fontSize: "15px" }}> {data.article[1].post_content}</p>
           </div>
             </div>
+            </a>
         </div>
 )}
 
@@ -557,7 +568,7 @@ const navigationNextRef = useRef();
           {data.article.slice(0, limit).map((article, index) => (
             <div key={index} className='mt-3'>
               <div className=''>
-               <a href={`/Topic/${article.id}`}> <h3 className='fw-bold h5 hoverHead line-clamp'>{article.post_title}</h3></a>
+               <a href={`/${article.cat_slug}/${article.post_name}`}> <h3 className='fw-bold h5 hoverHead line-clamp'>{article.post_title}</h3></a>
                 <p style={{ fontSize: '13px' }} className='mt-1'>
                   By <span className='fw-bold'>{article.post_author}</span> | {new Date(article.post_date).toLocaleDateString(undefined, options)}
                 </p>
@@ -601,7 +612,7 @@ const navigationNextRef = useRef();
         ) : (
     <div className="col-md-7">
       <div className='podText'>
-      <a href={`/Topic/${data.podcast[0].id}`}><h1 className='fw-bold hoverHead guestFont2'>{data.podcast[0].post_title}
+      <a href={`/${data.podcast[0].cat_slug}/${data.podcast[0].post_name}`}><h1 className='fw-bold hoverHead guestFont2'>{data.podcast[0].post_title}
       <p style={{ fontSize: "18px" }} className='fw-bold mt-2'>In conversation with</p>
       <p className='guestPtag'>
       By <span className='fw-bold'>{data.podcast[0].post_author}</span> | {new Date(data.podcast[0].post_date).toLocaleDateString(undefined, options)}
@@ -619,7 +630,7 @@ const navigationNextRef = useRef();
           <p></p>
         ) : (
     <div className="col-md-5 ">
-      <img className='ImgBoxGuets2'  src={data.podcast[0].banner_img} alt="podcast_img" />
+     <a href={`/${data.podcast[0].cat_slug}/${data.podcast[0].post_name}`}> <img className='ImgBoxGuets2'  src={data.podcast[0].banner_img} alt="podcast_img" /></a>
       
     </div>
 )}
@@ -633,8 +644,9 @@ const navigationNextRef = useRef();
 <div className='container container-max'>
   <div className='row mt-5'>
     <div className="col-md-12 mb-5 borderB" >
-   <div style={{height:"150px", backgroundColor:"#ebebeb"}}>
-   <p className='bllack'>1090*200</p>
+   <div style={{height:"150px"}}>
+   {/* <p className='bllack'>1090*200</p> */}
+   <img style={{width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png" alt="" />
    </div>
     </div>
   </div>

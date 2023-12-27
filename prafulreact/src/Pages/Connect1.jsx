@@ -16,7 +16,7 @@ const Connect = () => {
   const [validated, setValidated] = useState(false);
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState();
-  const [emailError, setEmailError] = useState("");
+  // const [emailError, setEmailError] = useState("");
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -29,27 +29,27 @@ const Connect = () => {
   };
 
 
-  const isEmailValid = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+  // const isEmailValid = (email) => {
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   return emailRegex.test(email);
+  // };
 
-  const handleEmailChange = (e) => {
-    const { value } = e.target;
+  // const handleEmailChange = (e) => {
+  //   const { value } = e.target;
 
-    if (isEmailValid(value)) {
-      setEmailError("");
-    } else {
-      setEmailError("Please provide a valid email.");
-    }
+  //   if (isEmailValid(value)) {
+  //     setEmailError("");
+  //   } else {
+  //     setEmailError("Please provide a valid email.");
+  //   }
 
 
 
-    handleInputChange(e);
+  //   handleInputChange(e);
 
    
 
-  };
+  // };
 
   const resetForm = () => {
     setFormData({ ...initialFormData });
@@ -65,7 +65,7 @@ const Connect = () => {
     const form = e.currentTarget;
 
     try {
-      if (form.checkValidity() === false || emailError) {
+      if (form.checkValidity() === false) {
         e.stopPropagation();
         setValidated(true); // Trigger custom validation UI
       } else {
@@ -313,7 +313,7 @@ Philippines
       <Form.Group controlId="first_name">
         <Form.Control
           type="text"
-          placeholder="First Name *"
+          placeholder="First Name"
           className="mt-3"
           name="first_name"
           value={formData.first_name}
@@ -337,7 +337,7 @@ Philippines
       <Form.Group controlId="Email">
           <Form.Control
             type="email"
-            placeholder="name@example.com *"
+            placeholder="name@example.com"
             className="mt-3"
             name="email"
             value={formData.email}
@@ -345,13 +345,13 @@ Philippines
             pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
             required
           />
-          <Form.Control.Feedback type="invalid">{emailError}</Form.Control.Feedback>
+         
         </Form.Group>
 
       <Form.Group controlId="phone">
         <Form.Control
           type="number"
-          placeholder="Phone Number *"
+          placeholder="Phone Number"
           className="mt-3"
           name="phone"
           value={formData.phone} 

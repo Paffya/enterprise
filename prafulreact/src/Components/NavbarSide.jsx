@@ -23,24 +23,6 @@ const CustomNavbar = () => {
     day: 'numeric',
   };
 
-  const [open, setOpen] = useState(false);
-const showDropdown = (e)=>{
-  setOpen(!open);
-}
-const hideDropdown = e => {
-  setOpen(false);
-}
-
-const [nav, setNav] = useState(false);
-const showDropdownNav = (e)=>{
-  setNav(!nav);
-}
-const hideDropdownNav = e => {
-  setNav(false);
-}
-
-
-
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -101,7 +83,6 @@ const hideDropdownNav = e => {
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    validateEmail();
   };
 
   const resetForm = () => {
@@ -289,7 +270,7 @@ const hideDropdownNav = e => {
       </div>
       </div>
      
-                    <div style={{ backgroundColor: "#eeeded",marginTop:'82px'}} className="gryBoxRepo fixedNav">
+                    <div style={{ backgroundColor: "#eeeded",marginTop:'82px'}} className="gryBoxRepo">
                   
       <Navbar className="DesktopResponsive container-fluid container-max"  >
       
@@ -299,13 +280,11 @@ const hideDropdownNav = e => {
           
             <Nav className="w-100 text-center d-flex justify-content-center gap-5">
               <Nav.Link className="text-black fw-bold hover-underline-animation ">
-                <Link to="/latest" className="text-black hoverHead">Latest</Link>
+                <Link to="/Latest" className="text-black">Latest</Link>
               </Nav.Link>
 
               <NavDropdown  
-              show={open}
-              onMouseEnter={showDropdown} 
-              onMouseLeave={hideDropdown}
+              
                 title="Leadership"
                 id="basic-nav-dropdown"
                 className="custom-dropdown hover-underline-animation "
@@ -430,9 +409,6 @@ const hideDropdownNav = e => {
               </NavDropdown>
 
               <NavDropdown
-              show={nav}
-              onMouseEnter={showDropdownNav} 
-              onMouseLeave={hideDropdownNav}
                 title="Featured"
                 id="basic-nav-dropdown"
                 className="custom-dropdown hover-underline-animation "
@@ -608,10 +584,10 @@ const hideDropdownNav = e => {
               </NavDropdown>
 
               
-              <Nav.Link href="https://resources.enterprisetalk.com/" className="text-black fw-bold hover-underline-animation hoverHead">
+              <Nav.Link href="https://resources.enterprisetalk.com/" className="text-black fw-bold hover-underline-animation ">
                 Resources
               </Nav.Link>
-              <Nav.Link href="/connect" className="text-black fw-bold hover-underline-animation hoverHead">
+              <Nav.Link href="/Connect" className="text-black fw-bold hover-underline-animation ">
                 Connect
               </Nav.Link>
             </Nav>

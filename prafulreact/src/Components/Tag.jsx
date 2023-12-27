@@ -1,19 +1,23 @@
 import React, {useState, useEffect} from 'react'
 import "../Styles/Latest.css"
-import { Card } from 'react-bootstrap'
+// import { Card } from 'react-bootstrap'
 import axios from 'axios'
 import { useParams } from 'react-router-dom'
-// import { useParams } from 'react-router-dom';
-
-
+import Scrolltop from "./Scrolltop"
+import Sidenav from './Sidenav'
 
 
 
 
 const Tag  = () => {
+  
+  const [activeLink, setActiveLink] = useState('');
+
+  const handleLinkClick = (id) => {
+    setActiveLink(id);
+  };
 
   const options = {
-    
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -22,19 +26,19 @@ const Tag  = () => {
   const { subcat } = useParams();
 
   const [data, setData] = useState(null);
+  const [subcatName, setsubcatName] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  // const limit = 4;
   const limit = 3;
-  const cardLimit = 4;
+  // const cardLimit = 4;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://192.168.17.8:3000/api/post/tag/${subcat}`);
-        // const response = await axios.get(`http://192.168.17.8:3000/api/post/tag/automation`);
-        setData(response.data.posts);
         
+        setData(response.data.posts);
+        setsubcatName(response.data.posts.subCatName)
       } catch (error) {
         setError(error)
         console.error('Error fetching data:', error);
@@ -49,59 +53,57 @@ const Tag  = () => {
   
 
   
-//   const [menuItems, setMenuItems] = useState([]);
-// const [error, setError] = useState(null);
 
-// useEffect(() => {
-//   const fetchMenuItems = async () => {
-//     try {
-//       const response = await axios.get(`http://192.168.17.8:3000/api/post/tag/${subcat}`);
-//       setMenuItems(response.data);
-//     } catch (error) {
-//       console.error('Error fetching menu items:', error);
-//       setError(error.message || 'An error occurred while fetching menu items.');
-//     }
-//   };
 
-//   fetchMenuItems();
-// }, [subcat]);
-
- 
-
-  // const { tag } = useParams();
-  // console.log('Tag:', tag);
-
-  
-  
 
   return (
 
-    <div className=''>
-     
-        
     
+
+    <div className=''>
+  
+     
+  
+  
     <div className='container container-max' id="news">
    
 
         <div className='row'>
           
             <div className='col-md-12'>
-                <h1 className='fw-bold py-1 mt-3'>{subcat}</h1>
+                <h1 className='fw-bold py-1 mt-3'>{subcatName}</h1>
             </div>
 
-            <div className='d-flex mt-3'>
+            <div className='d-flex mt-3 fixedGoTo'>
               <div><p className='fw-bold DesktopResponsive'>Go To : </p></div>
 
              <div className='mx-3 DesktopResponsive'>
-               <a href="#news" className=' btn-sm1'>News</a>
-              <a href="#article" className=' btn-sm1'>Article</a>
-              <a href="#quick" className=' btn-sm1'>Quick Bytes</a>
-              <a href="#podcast" className=' btn-sm1'>Podcasts</a>
-              <a href="#hotseat" className=' btn-sm1'>Hot Seats</a>
-              <a href="#featured" className=' btn-sm1'>Featured Interview</a>
-              <a href="#future" className=' btn-sm1'>Future Ready</a>
-              <a href="#guest" className=' btn-sm1'>Guest Author</a>
-              <a href="#learning" className=' btn-sm1'>Learning Center</a>
+               <a href="#news" className={`btn-sm1 ${activeLink === 'news' ? 'active' : ''}`}
+        onClick={() => handleLinkClick('news')} >News</a>
+
+              <a href="#article" className={`btn-sm1 ${activeLink === 'article' ? 'active' : ''}`}
+        onClick={() => handleLinkClick('article')}>Article</a>
+
+              <a href="#quick" className={`btn-sm1 ${activeLink === 'QuickBytes' ? 'active' : ''}`}
+        onClick={() => handleLinkClick('QuickBytes')}>Quick Bytes</a>
+
+              <a href="#podcast" className={`btn-sm1 ${activeLink === 'podcasts' ? 'active' : ''}`}
+        onClick={() => handleLinkClick('podcasts')}>Podcasts</a>
+
+              <a href="#hotseat" className={`btn-sm1 ${activeLink === 'hot' ? 'active' : ''}`}
+        onClick={() => handleLinkClick('hot')}>Hot Seats</a>
+
+              {/* <a href="#featured" className={`btn-sm1 ${activeLink === 'featured' ? 'active' : ''}`}
+        onClick={() => handleLinkClick('featured')}>Featured Interview</a> */}
+
+              <a href="#future" className={`btn-sm1 ${activeLink === 'future' ? 'active' : ''}`}
+        onClick={() => handleLinkClick('future')}>Future Ready</a>
+
+              <a href="#guest" className={`btn-sm1 ${activeLink === 'guest' ? 'active' : ''}`}
+        onClick={() => handleLinkClick('guest')}>Guest Author</a>
+        
+              <a href="#learning" className={`btn-sm1 ${activeLink === 'learning' ? 'active' : ''}`}
+        onClick={() => handleLinkClick('learning')}>Learning Center</a>
               
               </div>
 
@@ -124,24 +126,29 @@ const Tag  = () => {
 
 
             <div>
-            <h5 className='fw-bold borderB py-1 h4 mt-4'>News</h5>
+            <h5 className='fw-bold borderB py-1 h4 mt-4'> <div>
+            News</div> 
+            <div>
+            <Sidenav />
+            </div>
+            </h5>
 
             <div>
       {loading ? (
-        <p>Loading...</p>
+        <p></p>
       ) : error ? (
         <p>Error: {error}</p>
       ) : data && data.news && data.news.length > 0 ? (
         <div className='flexAddver mt-3' style={{ gap: '11px' }}>
           {data.news.slice(0, limit).map((post, index) => (
             <div key={index} className='addvert zoom-in'>
-              <div>
-                <img style={{ width: '100%', borderRadius: '20px', height: '250px', objectFit: 'cover' }} src={post.p_image} alt='' />
-              </div>
+              <a href={`/${post.cat_slug}/${post.post_name}`}> <div>
+                <img style={{ width: '100%', borderRadius: '20px', height: '250px', objectFit: 'cover' }} src={post.banner_img} alt='' />
+              </div> </a>
               <div className='padLR'>
-                <a href={`/topic/${post.post_id}`}><h4 className='fw-bold h5 mt-3 hoverHead line-clamp'>{post.p_title}</h4></a>
+                <a href={`/${post.cat_slug}/${post.post_name}`}><h4 className='fw-bold h5 mt-3 hoverHead line-clamp'>{post.post_title}</h4></a>
                 <p style={{ fontSize: '13px' }}>
-                  By <span className='fw-bold'>{post.p_author}</span> | {new Date(post.publish_date).toLocaleDateString(undefined, options)}
+                  By <span className='fw-bold'>{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
                 </p>
                 <p className='just-text line-clamp mt-1' style={{ fontSize: '15px' }}>
                   {post.p_content}
@@ -163,48 +170,71 @@ const Tag  = () => {
 
 
 
-  <div className='container container-max d-flex gap-2  mt-5'>
+    {/* <div className='container container-max d-flex gap-2 mt-5'>
   {loading ? (
-        <p>Loading...</p>
-        
-      ) : (
-  <div className='row border-top border-bottom' style={{padding:"10px"}}>
- <div className='col-md-6 borderR paddings mt-3 mb-4'>
-            {data.events && data.events.length > 0 ? (
-              <React.Fragment>
-                <a href={`/topic/${data.events[0].post_id}`}><h3 className='fw-bold hoverHead'>{data.events[0].p_title}</h3></a>
-                <p style={{ fontSize: '13px' }}>
-                  By <span className='fw-bold'>{data.events[0].p_author}</span> | {new Date(data.events[0].publish_date).toLocaleDateString(undefined, options)}
-                </p>
-              </React.Fragment>
-            ) : (
-              <p>No data found</p>
-            )}
-          </div>
+    <p></p>
+  ) : (
+    
+    data.events && data.events.length > 0 ? (
+      <div className='row border-top border-bottom' style={{ padding: '10px' }}>
+        <div className='col-md-6 borderR paddings mt-3 mb-4'>
+          <a href={`/${data.events[0].cat_slug}/${data.events[0].post_name}`}>
+            <h3 className='fw-bold hoverHead'>{data.events[0].post_title}</h3>
+          </a>
+          <p style={{ fontSize: '13px' }}>
+            By <span className='fw-bold'>{data.events[0].post_author}</span> |{' '}
+            {new Date(data.events[0].post_date).toLocaleDateString(undefined, options)}
+          </p>
+        </div>
 
+        {data.events.length > 1 && (
           <div className='col-md-6 paddings mt-3 mb-4'>
-            {data.events && data.events.length > 1 ? (
-              <React.Fragment>
-                <a href={`/topic/${data.events[1].post_id}`}><h3 className='fw-bold hoverHead'>{data.events[1].p_title}</h3></a>
-                <p style={{ fontSize: '13px' }}>
-                  By <span className='fw-bold'>{data.events[1].p_author}</span> | {new Date(data.events[1].publish_date).toLocaleDateString(undefined, options)}
-                </p>
-              </React.Fragment>
-            ) : (
-              <p>No data found</p>
-            )}
+            <a href={`/${data.events[1].cat_slug}/${data.events[1].post_name}`}>
+              <h3 className='fw-bold hoverHead'>{data.events[1].post_title}</h3>
+            </a>
+            <p style={{ fontSize: '13px' }}>
+              By <span className='fw-bold'>{data.events[1].post_author}</span> |{' '}
+              {new Date(data.events[1].post_date).toLocaleDateString(undefined, options)}
+            </p>
           </div>
-  </div>
-    )}
-</div> 
+        )}
+      </div>
+    ) : null 
+  )}
+</div> */}
+
+
+<div className='container container-max d-flex gap-2 mt-5'>
+      {loading ? (
+        <p></p>
+      ) : (
+        data.events && data.events.length > 0 ? (
+          <div className='row border-top border-bottom' style={{ padding: '10px' }}>
+            {data.events.map((event, index) => (
+              <div key={index} className='col-md-6 paddings mt-3 mb-4 borderR'>
+                <a href={`/${event.cat_slug}/${event.post_name}`}>
+                  <h3 className='fw-bold hoverHead'>{event.post_title}</h3>
+                </a>
+                <p style={{ fontSize: '13px' }}>
+                  By <span className='fw-bold'>{event.post_author}</span> |{' '}
+                  {new Date(event.post_date).toLocaleDateString(undefined, options)}
+                </p>
+              </div>
+            ))}
+          </div>
+        ) : null
+      )}
+    </div>
+
 
 
 <div className='container container-max'>
   <div className='row mt-5'>
     <div className="col-md-12 mb-5 borderB" >
-   <div style={{height:"150px", backgroundColor:"#ebebeb"}}>
+   <div style={{height:"150px"}}>
    <div id="article"></div>
-   <p className='bllack'>1090*200</p>
+   {/* <p className='bllack'>1090*200</p> */}
+   <img style={{width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png" alt="" />
    </div>
     </div>
   </div>
@@ -214,183 +244,97 @@ const Tag  = () => {
 
 
 <div className='container container-max' >
+{loading ? (
+    <p></p>
+  ) : (
+    // Check if there is data.events and it has at least one item
+    data.featured && data.featured.length > 0 ? (
   <div className="row">
 
-  <h5  className='fw-bold borderB py-1 h4'>Articles</h5>
+  <h5  className='fw-bold borderB py-1 h4'>Articles <Scrolltop /></h5>
+  
+   
   <div className='col-md-4 mt-3'>
       
+  {data.featured.map((featured, index) => (
+      <div className='borderB mt-3'>
+      <a href={`/${featured.cat_slug}/${featured.post_name}`}>  <h3 className='fw-bold h5 hoverHead '>{featured.post_title}</h3></a>
+        <p style={{ fontSize: "13px" }} className='mt-1'>
+                      By <span className="fw-bold">{featured.post_author}</span> | {new Date(featured.post_date).toLocaleDateString(undefined, options)}
+                    </p>
+      </div>
       
-      <div className=' '>
-        <h3 className='fw-bold h5 hoverHead '>Questel Plans for Growth by Expanding R&D and Manufacture</h3>
-        <p style={{ fontSize: "13px" }} className='mt-1'>
-                      By <span className="fw-bold">John Smith</span> | 12
-                      sept 2023
-                    </p>
-      </div>
-<p className='hr' />
-      <div className=' mt-3'>
-        <h3 className='fw-bold h5 hoverHead '>Questel Plans for Growth by Expanding R&D and Manufacture</h3>
-        <p style={{ fontSize: "13px" }} className='mt-1'>
-                      By <span className="fw-bold">John Smith</span> | 12
-                      sept 2023
-                    </p>
-      </div>
-<p className='hr' />
-      <div className=' mt-3'>
-        <h3 className='fw-bold h5 hoverHead '>Questel Plans for Growth by Expanding R&D and Manufacture</h3>
-        <p style={{ fontSize: "13px" }} className='mt-1'>
-                      By <span className="fw-bold">John Smith</span> | 12
-                      sept 2023
-                    </p>
-      </div>
-      <p className='hr' />
-      
-      <div className=' mt-3'>
-        <h3 className='fw-bold h5 hoverHead '>Questel Plans for Growth by Expanding R&D and Manufacture</h3>
-        <p style={{ fontSize: "13px" }} className='mt-1'>
-                      By <span className="fw-bold">John Smith</span> | 12
-                      sept 2023
-                    </p>
-      </div>
-      <p className='hr' />
+  ))}
 
-      <div className=' mt-3'>
-        <h3 className='fw-bold h5 hoverHead '>Questel Plans for Growth by Expanding R&D and Manufacture</h3>
-        <p style={{ fontSize: "13px" }} className='mt-1'>
-                      By <span className="fw-bold">John Smith</span> | 12
-                      sept 2023
-                    </p>
-      </div>
-      <div id="quick"></div>
-      <p className='hr' />
 
-      
+<div id="quick"></div>
+
+
      
    
     </div>
 
-
+    {data.featured.slice(4,5).map((featured, index) => (
     <div className="col-md-8">
-    <div >
-            {/* Content for the 70% column */}
+    <a href={`/${featured.cat_slug}/${featured.post_name}`}> <div >
+            
            <div >
-           <img className='homeImg' src="https://images.hindustantimes.com/img/2022/10/15/1600x900/BLR_1665817834364_1665817845938_1665817845938.jfif" alt="" />
+           <img className='homeImg' src={featured.banner_img} alt="" />
            </div>
            
            <div className='paddings'>
-            <h1 className='fw-bold mt-1 h2 hoverHead' > Oxylabs Introduces a New Product Line: Datasets</h1>
+            <h1 className='fw-bold mt-1 h2 hoverHead' > {featured.post_title}</h1>
             <p style={{ fontSize: "14px" }}>
-                          By <span className="fw-bold">John Smith</span> | 12
-                          sept 2023
+                          By <span className="fw-bold">{featured.post_author}</span> | {new Date(featured.post_date).toLocaleDateString(undefined, options)}
                         </p>
 
-                        <p className='just-text line-clamp mt-1' style={{ fontSize: "15px" }}>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto molestiae, esse consequuntur soluta reprehenderit suscipit nesciunt, eos facilis non provident inventore minus eveniet voluptate iure laborum nisi similique neque impedit?
-                          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit veritatis commodi dolorem odio pariatur in, eum incidunt libero repellat similique nesciunt! A, vero suscipit ullam temporibus tempora labore dolorum expedita?
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Non vero atque illo neque a dolorem unde, voluptates fugit rerum cupiditate dolor praesentium doloremque est ullam sapiente esse magni iusto vel!
-                        </p>
+                        <p className='just-text line-clamp mt-1' style={{ fontSize: "15px" }}>{featured.p_content}</p>
            </div>
 
            
            
           </div>
+          </a>
     </div>
-  </div>
+    ))}
 
+  </div>
+ ) : null // Render nothing when there is no data or remove complete Div
+ )}
 </div>
+
 
 
 
 <div className='container container-max' >
+{loading ? (
+    <p></p>
+  ) : (
+    // Check if there is data.events and it has at least one item
+    data.quickbytes && data.quickbytes.length > 0 ? (
   <div className="row mt-5">
 
-  <h5  className='fw-bold borderB py-1 h4'>Quick Bytes</h5>
+  <h5  className='fw-bold borderB py-1 h4'>Quick Bytes <Scrolltop /></h5>
 
 
     <div className="col-md-8">
-
-    <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
+    {data.quickbytes.map((post, index) => (
+    <div key={index} className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
       <div  className='quickImgBox'>
-        <img style={{ width:"90%"  , borderRadius:"14px"}} src="https://img.freepik.com/premium-photo/business-people-talking-meeting-office-near-window_396254-124.jpg" alt="" />
+        <img style={{ width:"90%"  , borderRadius:"14px"}} src={post.banner_img} alt="" />
       </div>
 
       <div className='' style={{width:"74%"}}>
-      <h5 className='fw-bold hoverHead quickText'>Quasar Partner with PTC to Empower IoT Customer with High-Performance Data Solution</h5>
+     <a href={`/${post.cat_slug}/${post.post_name}`}> <h5 className='fw-bold hoverHead quickText'>{post.post_title}</h5></a>
       <p style={{ fontSize: "13px" }}>
-                          By <span className="fw-bold">John Smith</span> | 12
-                          sept 2023
+                          By <span className="fw-bold">{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
                         </p>
       </div>
     </div>
+    ))}
 
+   
 
-    <div className='borderB'></div>
-
-    <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
-      <div className='quickImgBox'>
-        <img style={{ width:"90%"  , borderRadius:"14px"}} src="https://img1.wsimg.com/isteam/stock/8538/:/cr=t:0%25,l:7.59%25,w:84.82%25,h:100%25/rs=w:600,h:451.12781954887214,cg:true" alt="" />
-      </div>
-
-      <div className='' style={{width:"74%"}}>
-      <h5 className='fw-bold hoverHead quickText'>Quasar Partner with PTC to Empower IoT Customer with High-Performance Data Solution</h5>
-      <p style={{ fontSize: "13px" }}>
-                          By <span className="fw-bold">John Smith</span> | 12
-                          sept 2023
-                        </p>
-      </div>
-    </div>
-
-
-    <div className='borderB'></div>
-
-<div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
-  <div className='quickImgBox'>
-    <img style={{ width:"90%"  , borderRadius:"14px"}} src="https://www.purdueglobal.edu/blog/careers/workplace-diversity.jpg" alt="" />
-  </div>
-
-  <div className='' style={{width:"74%"}}>
-  <h5 className='fw-bold hoverHead quickText'>Quasar Partner with PTC to Empower IoT Customer with High-Performance Data Solution</h5>
-  <p style={{ fontSize: "13px" }}>
-                      By <span className="fw-bold">John Smith</span> | 12
-                      sept 2023
-                    </p>
-  </div>
-</div>
-
-
-
-<div className='borderB'></div>
-
-<div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
-  <div className='quickImgBox'>
-    <img style={{ width:"90%"  , borderRadius:"14px"}} src="https://njbmagazine.com/wp-content/uploads/2020/04/Diverse-business-775x500.jpg" alt="" />
-  </div>
-
-  <div className='' style={{width:"74%"}}>
-  <h5 className='fw-bold hoverHead quickText'>Quasar Partner with PTC to Empower IoT Customer with High-Performance Data Solution</h5>
-  <p style={{ fontSize: "13px" }}>
-                      By <span className="fw-bold">John Smith</span> | 12
-                      sept 2023
-                    </p>
-  </div>
-</div>
-
-
-
-<div className='borderB'></div>
-
-<div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
-  <div className='quickImgBox'>
-    <img style={{ width:"90%"  , borderRadius:"14px"}} src="https://www.vmcdn.ca/f/files/localprofile/import/2019_03_2017-10-02-diversity-ThinkstockPhotos-639467826.jpg" alt="" />
-  </div>
-
-  <div className='' style={{width:"74%"}}>
-  <h5 className='fw-bold hoverHead quickText'>Quasar Partner with PTC to Empower IoT Customer with High-Performance Data Solution</h5>
-  <p style={{ fontSize: "13px" }}>
-                      By <span className="fw-bold">John Smith</span> | 12
-                      sept 2023
-                    </p>
-  </div>
-</div>
 
 <div id="podcast"></div>
 
@@ -404,27 +348,33 @@ const Tag  = () => {
 
 
     <div className="col-md-4">
-    <div style={{height:"936px", backgroundColor:"#ebebeb"}}>
-    <p className='bllack'>340*900</p>
+    <div style={{height:"936px"}}>
+    {/* <p className='bllack'>340*900</p> */}
+    <img style={{height:"936px", width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-2.jpg" alt="" />
 </div>
     </div>
   </div>
+  ) : null // Render nothing when there is no data or remove complete Div
+  )}
 </div>
 
 
 
 
 <div className='container container-max ' >
-
-  <div className='row mt-5 justify-content-between'>
-  <h5  className='fw-bold borderB py-1 h4'>Podcasts</h5>
+{loading ? (
+    <p></p>
+  ) : (
+    // Check if there is data.podcasts and it has at least one item
+    data.podcasts && data.podcasts.length > 0 ? (
+  <a href={`/${data.podcasts[0].cat_slug}/${data.podcasts[0].post_name}`}><div className='row mt-5 justify-content-between'>
+  <h5  className='fw-bold borderB py-1 h4'>Podcasts <Scrolltop /></h5>
     <div className="col-md-7">
       <div className='podText'>
-      <h1 className='fw-bold hoverHead guestFont2'>Questel Plans for Growth by Expanding R&D and Manufacture
+      <h1 className='fw-bold hoverHead guestFont2' style={{fontSize:"50px"}}>{data.podcasts[0].post_title}
       <p style={{ fontSize: "18px" }} className='fw-bold mt-2'>In conversation with</p>
       <p className='guestPtag'>
-                          By <span className="fw-bold">John Smith</span> | 12
-                          sept 2023
+                          By <span className="fw-bold">{data.podcasts[0].post_author}</span> | {new Date(data.podcasts[0].post_date).toLocaleDateString(undefined, options)}
                         </p>
                         <button className='btn-pod'>Hear The Podcasts</button>
 
@@ -434,14 +384,15 @@ const Tag  = () => {
                         </div>
     </div>
 
-    <div className="col-md-5 ">
-      <img className='ImgBoxGuets'  src="https://kgv.ae/wp-content/uploads/2023/03/Ashwini-Chaloo.jpg" alt="" />
+    <div className="col-md-5 " style={{margin:"auto"}}>
+      <img className='ImgBoxGuets'  src={data.podcasts[0].banner_img} alt="" />
       
     </div>
 
 
-  </div>
-
+  </div> </a>
+ ) : null // Render nothing when there is no data or remove complete Div
+ )}
 </div>
 
 
@@ -449,60 +400,65 @@ const Tag  = () => {
 
 
 <div className='container container-max' >
+{loading ? (
+    <p></p>
+  ) : (
+    // Check if there is data.interview and it has at least one item
+    data.interview && data.interview.length > 0 ? (
   <div className="row mt-5">
+{/* <div id="future"></div> */}
+  <h5  className='fw-bold borderB py-1 h4'>Hot Seats <Scrolltop /></h5>
 
-  <h5  className='fw-bold borderB py-1 h4'>Hot Seats</h5>
-
-
+  {data.interview.slice(0,4).map((post, index) => (
     <div className="col-md-6">
-
+   
     <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
       <div style={{width:"40%", height:"150px"}}>
-        <img style={{ width:"90%", height:"150px", objectFit:"cover"  , borderRadius:"14px"}} src="https://teaklab.com/wp-content/uploads/2019/08/oakwood_office_desk_7.jpg" alt="" />
+        <img style={{ width:"90%", height:"150px", objectFit:"cover"  , borderRadius:"14px"}} src={post.banner_img} alt="" />
       </div>
 
       <div className='mt-2' style={{width:"60%"}}>
-      <h4 className='fw-bold hoverHead h5'>Oxylabs Introduces a New Product Line: Datasets</h4>
+     <a href={`/${post.cat_slug}/${post.post_name}`}> <h4 className='fw-bold hoverHead h5'>{post.post_title}</h4></a>
       <p style={{ fontSize: "13px" }}>
-                          By <span className="fw-bold">John Smith</span> | 12
-                          sept 2023
+                          By <span className="fw-bold">{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
                         </p>
+                       
       </div>
     </div>
+   
 
     <div className='borderB'></div>
 
-    <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
+    {/* <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
       <div style={{width:"40%", height:"150px"}}>
-        <img style={{ width:"90%", height:"150px", objectFit:"cover"  , borderRadius:"14px"}} src="https://files.ekmcdn.com/ronzfurniture/images/bronte-oak-and-grey-large-office-desk-with-drawers-0z4625c-(5)-11994-dv-p.jpg?v=40853AB8-476C-465B-9480-B8AC21B9C3E2" alt="" />
+        <img style={{ width:"90%", height:"150px", objectFit:"cover"  , borderRadius:"14px"}} src={data.interview[1].banner_img} alt="" />
       </div>
 
       <div className='mt-2' style={{width:"60%"}}>
-      <h4 className='fw-bold hoverHead h5'>Quasar Partner with PTC to Empower IoT Customer with High-Performance Data Solution</h4>
+      <a href={`/${data.interview[1].cat_slug}/${data.interview[1].post_name}`}>   <h4 className='fw-bold hoverHead h5'>{data.interview[1].post_title}</h4> </a>
       <p style={{ fontSize: "13px" }}>
-                          By <span className="fw-bold">John Smith</span> | 12
-                          sept 2023
+                          By <span className="fw-bold">{data.interview[1].post_author}</span> | {new Date(data.interview[1].post_date).toLocaleDateString(undefined, options)}
                         </p>
-                        <div id="featured"></div>
+                        
+                        <div id="future"></div>
       </div>
-    </div>
+    </div> */}
 
 
     </div>
-
+ ))}
     <div className="col-md-6">
     
 
-    <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
+    {/* <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
       <div style={{width:"40%", height:"150px"}}>
-        <img style={{ width:"90%", height:"150px", objectFit:"cover"  , borderRadius:"14px"}} src="https://cdn.1stopbedrooms.com/media/catalog/product/o/f/office-by-kathy-ireland-echo-bow-front-desk-and-credenza-with-mobile-file-cabinet-in-modern-gray_qb13408165.jpg" alt="" />
+        <img style={{ width:"90%", height:"150px", objectFit:"cover"  , borderRadius:"14px"}} src={data.interview[2].banner_img} alt="" />
       </div>
 
       <div className='mt-2' style={{width:"60%"}}>
-      <h4 className='fw-bold hoverHead h5'>Quasar Partner with PTC to Empower IoT Customer with High-Performance Data Solution</h4>
+      <a href={`/${data.interview[2].cat_slug}/${data.interview[2].post_name}`}> <h4 className='fw-bold hoverHead h5'>{data.interview[2].post_title}</h4> </a>
       <p style={{ fontSize: "13px" }}>
-                          By <span className="fw-bold">John Smith</span> | 12
-                          sept 2023
+                          By <span className="fw-bold">{data.interview[2].post_author}</span> | {new Date(data.interview[2].post_date).toLocaleDateString(undefined, options)}
                         </p>
       </div>
     </div>
@@ -511,116 +467,129 @@ const Tag  = () => {
 
     <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
       <div style={{width:"40%", height:"150px"}}>
-        <img style={{ width:"90%", height:"150px", objectFit:"cover"  , borderRadius:"14px"}} src="https://www.pennyware.net/cdn/shop/products/denver-office-desk-and-1-drawer-384012.jpg?v=1644950096" alt="" />
+        <img style={{ width:"90%", height:"150px", objectFit:"cover"  , borderRadius:"14px"}} src={data.interview[3].banner_img} alt="" />
       </div>
 
       <div className='mt-2' style={{width:"60%"}}>
-      <h4 className='fw-bold hoverHead h5'>Oxylabs Introduces a New Product Line: Datasets</h4>
+      <a href={`/${data.interview[3].cat_slug}/${data.interview[3].post_name}`}> <h4 className='fw-bold hoverHead h5'>{data.interview[3].post_title}</h4> </a>
       <p style={{ fontSize: "13px" }}>
-                          By <span className="fw-bold">John Smith</span> | 12
-                          sept 2023
+                          By <span className="fw-bold">{data.interview[3].post_author}</span> | {new Date(data.interview[3].post_date).toLocaleDateString(undefined, options)}
                         </p>
       </div>
-    </div>
+    </div> */}
    
     </div>
 
 
 
   </div>
+   ) : null // Render nothing when there is no data or remove complete Div
+   )}
 </div>
 
 
+{/* 
 
-
-
-<div className='container container-max' >
-<h5  className='fw-bold borderB py-1 h4 mt-5'>Featured Interview</h5>
-  <div className="row">
-  <div>
-      {loading ? (
-        <p>Loading...</p>
+{loading ? (
+        <p></p>
       ) : error ? (
         <p>Error: {error}</p>
       ) : data && data.interview && data.interview.length > 0 ? (
+<div className='container container-max' >
+<h5  className='fw-bold borderB py-1 h4 mt-5'>Featured Interview <Scrolltop /></h5>
+  <div className="row">
+  <div>
+      
         <div className="col-md-12 justify-content-center intervieBox">
           {data.interview.slice(0, cardLimit).map((interview, index) => (
-           <a href={`/topic/${interview.post_id}`}> <Card key={index} style={{ width: '21rem', marginRight: '10px' }} className='box-Card'>
-              <Card.Img variant="top" src={interview.p_image} />
+           <a href={`/${interview.cat_slug}/${interview.post_name}`}> <Card key={index} style={{ width: '21rem', marginRight: '10px' }} className='box-Card'>
+              <Card.Img variant="top" src={interview.banner_img} />
               <Card className='p-md-3 cardHover' style={{ fontSize: '14px' }}>
                 <div id="future"></div>
                 <Card.Title className='fw-bold'>
-                  {/* Names <br /> */}
+                  
                   <span>
-                    {/* <p>Title</p> */}
+                   
                   </span>
                 </Card.Title>
-                <Card.Text className='fw-bold line-clamp hoverHead'>{interview.p_title}</Card.Text>
+                <Card.Text className='fw-bold line-clamp hoverHead'>{interview.post_title}</Card.Text>
                 <Card.Text className='mt-1 line-clamp cardText'>{interview.p_content}</Card.Text>
               </Card>
             </Card></a>
           ))}
         </div>
-      ) : null /* Render nothing when there is no data */}
+      
     </div>
   </div>
 
 </div>
+) : null } */}
+
 
 
 
 <div className='container container-max d-flex gap-2  mt-5' >
-
+{loading ? (
+    <p></p>
+  ) : (
+    // Check if there is data.futureready and it has at least one item
+    data.futureready && data.futureready.length > 0 ? (
   <div className='row  border-bottom ' >
-  <h5  className='fw-bold borderB py-1 h4'>Future Ready</h5>
+  <h5  className='fw-bold borderB py-1 h4'>Future Ready <Scrolltop /></h5>
 <div className='col-md-6 borderR paddings mt-3 mb-4' style={{padding:"10px"}}>
-  <h3 className='fw-bold hoverHead'>Questel Plans for Growth by Expanding R&D and Manufacture</h3>
+ <a href={`/${data.futureready[0].cat_slug}/${data.futureready[0].post_name}`}><h3 className='fw-bold hoverHead'>{data.futureready[0].post_title}</h3></a>
   <p style={{ fontSize: "13px" }}>
-                          By <span className="fw-bold">John Smith</span> | 12
-                          sept 2023
+                          By <span className="fw-bold">{data.futureready[0].post_author}</span> | {new Date(data.futureready[0].post_date).toLocaleDateString(undefined, options)}
                         </p>
                         <div id="guest"></div>
 </div>
-
+{data.futureready.length > 1 && (
 <div className='col-md-6  paddings mt-3 mb-4' style={{padding:"10px"}}>
-<h3 className='fw-bold  hoverHead'>Quasar Partner with PTC to Empower IoT Customer with High-Performance Data Solution</h3>
+<a href={`/${data.futureready[1].cat_slug}/${data.futureready[1].post_name}`}><h3 className='fw-bold  hoverHead'>{data.futureready[1].post_title}</h3></a>
   <p style={{ fontSize: "13px" }}>
-                          By <span className="fw-bold">John Smith</span> | 12
-                          sept 2023
+                          By <span className="fw-bold">{data.futureready[1].post_author}</span> | {new Date(data.futureready[1].post_date).toLocaleDateString(undefined, options)}
                         </p>
 </div>
+ )}
   </div>
+  ) : null // Render nothing when there is no data or remove complete Div
+  )}
 </div>
-
+ 
 
 
 
 
 <div className='container container-max mt-5' >
-  
+{loading ? (
+        <p></p>
+      ) : error ? (
+        <p>Error: {error}</p>
+      ) : data && data.guestauthor && data.guestauthor.length > 0 ? (
   <div className="row">
-  <h5  className='fw-bold borderB py-1 h4'>Guest Author</h5>
+  <h5  className='fw-bold borderB py-1 h4'>Guest Author <Scrolltop /></h5>
     <div className="col-md-6 guestImg">
-      <img className='ImgBoxGuets'  src="https://preview.redd.it/on-the-armchair-expert-podcast-v0-y585l9tcw5ma1.jpg?width=640&crop=smart&auto=webp&s=b049546d06800a129fc0fb4db61850f8bf6536a6" alt="" />
+      <img className='ImgBoxGuets'  src={data.guestauthor[0].banner_img} alt="" />
     </div>
 
     <div className="col-md-6  guestText" >
     <div className='align-center'>
-      <h2 className='fw-bold hoverHead guestFont'>Questel Plans for Growth by Expanding R&D and Manufacture
+    <a href={`/${data.guestauthor[0].cat_slug}/${data.guestauthor[0].post_name}`}>  <h2 className='fw-bold hoverHead guestFont'>{data.guestauthor[0].post_title}
       <p style={{ fontSize: "18px" }} className='fw-bold mt-2'>In conversation with</p>
       <p className='guestPtag'>
-                          By <span className="fw-bold">John Smith</span> | 12
-                          sept 2023
+                          By <span className="fw-bold">{data.guestauthor[0].post_author}</span> | {new Date(data.guestauthor[0].post_date).toLocaleDateString(undefined, options)}
                         </p>
                         <button className='btn-pod'>Hear The Podcasts</button>
                         <div id="learning"></div>
-      </h2>
+      </h2> </a>
       
                         </div>
     </div>
 
 
   </div>
+  ) : null /* Render nothing when there is no data */}
+
 </div>
 
 
@@ -628,57 +597,36 @@ const Tag  = () => {
 
 
 <div className='container container-max mt-5  borderB' >
+{loading ? (
+    <p></p>
+  ) : (
+    // Check if there is data.learningcenter and it has at least one item
+    data.learningcenter && data.learningcenter.length > 0 ? (
   <div className="row mb-2">
-  <h5  className='fw-bold borderB py-1 h4'>Learning Center</h5>
+  <h5  className='fw-bold borderB py-1 h4'>Learning Center <Scrolltop /></h5>
     <div className="col-md-12  learningBox" style={{gap:"13px"}}>
 
+    {data.learningcenter.slice(0,3).map((learningcenter, index) => (
+    <a href={`/${learningcenter.cat_slug}/${learningcenter.post_name}`}>  
     <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
       <div style={{width:"38%", height:"140px"}}>
-        <img style={{ width:"93%", height:"140px", objectFit:"cover"  , borderRadius:"14px"}} src="https://files.ekmcdn.com/ronzfurniture/images/bronte-oak-and-grey-large-office-desk-with-drawers-0z4625c-(5)-11994-dv-p.jpg?v=40853AB8-476C-465B-9480-B8AC21B9C3E2" alt="" />
+        <img style={{ width:"93%", height:"140px", objectFit:"cover"  , borderRadius:"14px"}} src={learningcenter.banner_img} alt="" />
       </div>
 
       <div className='mt-2' style={{width:"60%"}}>
-      <h4 className='fw-bold hoverHead h5'>Questel Plans for Growth by Expanding R&D and Manufacture</h4>
+      <h4 className='fw-bold hoverHead h5'>{learningcenter.post_title}</h4>
       <p style={{ fontSize: "13px" }}>
-                          By <span className="fw-bold">John Smith</span> | 12
-                          sept 2023
+                          By <span className="fw-bold">{learningcenter.post_author}</span> | {new Date(learningcenter.post_date).toLocaleDateString(undefined, options)}
                         </p>
       </div>
-    </div>
-
-   
-    <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
-      <div style={{width:"38%", height:"140px"}}>
-        <img style={{ width:"93%", height:"140px", objectFit:"cover"  , borderRadius:"14px"}} src="https://files.ekmcdn.com/ronzfurniture/images/bronte-oak-and-grey-large-office-desk-with-drawers-0z4625c-(5)-11994-dv-p.jpg?v=40853AB8-476C-465B-9480-B8AC21B9C3E2" alt="" />
-      </div>
-
-      <div className='mt-2' style={{width:"60%"}}>
-      <h4 className='fw-bold hoverHead h5'>Questel Plans for Growth by Expanding R&D and Manufacture</h4>
-      <p style={{ fontSize: "13px" }}>
-                          By <span className="fw-bold">John Smith</span> | 12
-                          sept 2023
-                        </p>
-      </div>
-    </div>
-   
-
-    <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
-      <div style={{width:"38%", height:"140px"}}>
-        <img style={{ width:"93%", height:"140px", objectFit:"cover"  , borderRadius:"14px"}} src="https://files.ekmcdn.com/ronzfurniture/images/bronte-oak-and-grey-large-office-desk-with-drawers-0z4625c-(5)-11994-dv-p.jpg?v=40853AB8-476C-465B-9480-B8AC21B9C3E2" alt="" />
-      </div>
-
-      <div className='mt-2' style={{width:"60%"}}>
-      <h4 className='fw-bold hoverHead h5'>Questel Plans for Growth by Expanding R&D and Manufacture</h4>
-      <p style={{ fontSize: "13px" }}>
-                          By <span className="fw-bold">John Smith</span> | 12
-                          sept 2023
-                        </p>
-      </div>
-    </div>
+    </div> 
+    </a>
+    ))}
 
     </div>
   </div>
-
+ ) : null // Render nothing when there is no data or remove complete Div
+ )}
 </div>
 
 
@@ -689,8 +637,9 @@ const Tag  = () => {
 <div className='container container-max '>
   <div className='row mt-5 '>
     <div className="col-md-12 mb-5 borderB" >
-   <div style={{height:"150px", backgroundColor:"#ebebeb"}}>
-   <p className='bllack'>1090*200</p>
+   <div style={{height:"150px"}}>
+   {/* <p className='bllack'>1090*200</p> */}
+   <img style={{width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png" alt="" />
    </div>
     </div>
   </div>

@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import "../Styles/Article.css"
-// import AudioPlayer from '../Components/AudioPlayer'
+
 import axios from 'axios';
 
 
 
-// const AUDIO_FILE = "https://www.learningcontainer.com/wp-content/uploads/2020/02/Sample-FLAC-File.flac";
+
 
 const ArticleDesc = () => {
 
@@ -180,19 +180,21 @@ const ArticleDesc = () => {
 
 <div className="col-md-8 borderR">
 
+{postData.map((post, index) => (
 <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
   <div  className='quickImgBox'>
-    <img style={{ width:"90%"  , borderRadius:"14px"}} src="https://img.freepik.com/premium-photo/business-people-talking-meeting-office-near-window_396254-124.jpg" alt="" />
+    <img style={{ width:"90%"  , borderRadius:"14px"}} src={post.banner_img} alt="" />
   </div>
 
   <div className='' style={{width:"74%"}}>
-  <h5 className='fw-bold hoverHead quickText'>Quasar Partner with PTC to Empower IoT Customer with High-Performance Data Solution</h5>
+  <h5 className='fw-bold hoverHead quickText'>{post.post_title}</h5>
   <p style={{ fontSize: "13px" }}>
                       By <span className="fw-bold">John Smith</span> | 12
                       sept 2023
                     </p>
   </div>
 </div>
+    ))}
 
 
 <div className='borderB'></div>
@@ -300,13 +302,6 @@ const ArticleDesc = () => {
 </div>
 
 
-{/* <div className='container container-max'>
-  <div className="row">
-    <div className="colmd-12">
-    <AudioPlayer audioSrc={AUDIO_FILE} />
-    </div>
-  </div>
-</div> */}
 
 
 

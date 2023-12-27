@@ -6,10 +6,11 @@ import { useParams } from 'react-router-dom';
 
 
 const SelectTab = () => {
+  
 
-  const { cat } = useParams();
+  const { cat, subcat } = useParams();
+
   const options = {
-    
     year: 'numeric',
     month: 'short',
     day: 'numeric',
@@ -23,14 +24,20 @@ const SelectTab = () => {
     totalPages: 0,
   });
 
-  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://192.168.17.8:3000/api/post/topic/${cat}?page=${pagination.page}&limit=${pagination.limit}`);
-        const jsonData = await response.json();
+        let apiUrl = `http://192.168.17.8:3000/api/post/topic/${cat}`;
+        
+        if (subcat) {
+          apiUrl += `/${subcat}`;
+        }
   
+        apiUrl += `?page=${pagination.page}&limit=${pagination.limit}`;
+  
+        const response = await fetch(apiUrl);
+        const jsonData = await response.json();
         // console.log('jsonData:', jsonData);
   
         // Check if jsonData is an object and has the expected structure
@@ -64,7 +71,7 @@ const SelectTab = () => {
     };
   
     fetchData();
-  }, [pagination.page, pagination.limit, cat]);
+  }, [pagination.page, pagination.limit, cat, subcat]);
 
   const handlePageChange = (newPage) => {
     setPagination((prevPagination) => ({
@@ -74,78 +81,78 @@ const SelectTab = () => {
   };
 
 
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://192.168.17.8:3000/api/category/subcatlist');
+        const data = await response.json();
+        setCategories(data);// Assuming the API response is an array of categories
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array ensures that the effect runs only once when the component mounts
 
 
+  const calculatePageRange = () => {
+    const totalPageCount = pagination.totalPages;
+    const currentPage = pagination.page;
 
+    const pageRange = 5; // Change this value to set the number of pages to display
+
+    let startPage = Math.max(1, currentPage - Math.floor(pageRange / 2));
+    let endPage = startPage + pageRange - 1;
+
+    if (endPage > totalPageCount) {
+      endPage = totalPageCount;
+      startPage = Math.max(1, endPage - pageRange + 1);
+    }
+
+    return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+  };
  
 
 
   return (
-    <Tab.Container id="tabs-with-dropdown" defaultActiveKey="first">
-      <Row className="clearfix">
+    <Tab.Container id="tabs-with-dropdown" defaultActiveKey="first" >
+      <Row className="clearfix" >
         <Col sm={12}>
-          <Nav variant="tabs"> 
 
 
+        <Nav variant="tabs">
+      <Nav.Item>
+        <Nav.Link eventKey="Filter" className='tabButton' disabled>Filter :</Nav.Link>
+      </Nav.Item>
 
-          <Nav.Item >
+      {/* Dynamically generate tabs based on fetched data */}
+      {categories.slice(0,7).map((category, index) => (
+        <Nav.Item key={index}>
+          <Nav.Link eventKey={index} className={`tabButton text-black backgRed ${category.subcat_slug === subcat ? 'isActive' : ''}`} href={`/topic/${cat}/${category.subcat_slug}`}>{category.subcat_name}</Nav.Link>
+        </Nav.Item>
+      ))}
 
-            
-              <Nav.Link eventKey="Filter" className='tabButton' disabled>Filter :</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link  eventKey="first" className='tabButton' >Analytics</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="second" className='tabButton'>Artificial Intelligence</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="third" className='tabButton'>Automation</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="fourth" className='tabButton'>Big Data</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="fifth" className='tabButton'>Cloud Computing</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="sixth" className='tabButton'>Generative AI</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="seven" className='tabButton'>Innovation</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="eight" className='tabButton'>IOT</Nav.Link>
-            </Nav.Item>
-            
-            <Nav.Item>
+      <Nav.Item>
+        <NavDropdown title="More" id="nav-dropdown-within-tab" className='droptabs text-black colorblack'>
+        {categories.slice(7).map((category, index) => (
+          <NavDropdown.Item Key="index" className={`colorblack backgRed ${category.subcat_slug === subcat ? 'isActive' : ''}`} href={`/topic/${cat}/${category.subcat_slug}`}>{category.subcat_name}</NavDropdown.Item>
+         
+          ))}
+        </NavDropdown>  
+      </Nav.Item>
+    </Nav>
 
 
-
-
-
-
-
-              <NavDropdown title="More"  id="nav-dropdown-within-tab">
-                <NavDropdown.Item eventKey="3.1">Netwroking</NavDropdown.Item>
-                <NavDropdown.Item eventKey="3.2">Fintech</NavDropdown.Item>
-                <NavDropdown.Item eventKey="3.3">Mobility</NavDropdown.Item>
-              </NavDropdown>
-
-
-
-            </Nav.Item>
-
-
-
-
-          </Nav>
+         
         </Col>
 
 
         
-        <Col sm={12}>
-          <Tab.Content>
+        <Col sm={12} >
+          <Tab.Content  >
             
             <Tab.Pane eventKey="first">
    
@@ -153,11 +160,11 @@ const SelectTab = () => {
 
                 {postData.slice(0, 3).map((post) => (     
 <div  className='addvert zoom-in' >
-<div>
+<a href={`/${post.cat_slug}/${post.post_name}`}><div>
   <img  style={{width:"100%", borderRadius:"20px", height:"250px", objectFit:"cover"}} src={post.banner_img} alt="" />
-</div>
-<div className='padLR'>
-<h4 className='fw-bold h5 mt-3 hoverHead'>{post.post_title}</h4>
+</div>  </a>
+<div className='padLR' id='datas'>
+<a href={`/${post.cat_slug}/${post.post_name}`}><h4 className='fw-bold h5 mt-3 hoverHead line-clamp'>{post.post_title}</h4></a>
 <p style={{ fontSize: "13px" }}>
               By <span className="fw-bold">{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
             </p>
@@ -166,78 +173,30 @@ const SelectTab = () => {
 </div>
                 ))}
 
-<div className='borderR'></div>
-{/* <div  className='addvert zoom-in'>
-<div>
-  <img style={{width:"100%" , borderRadius:"20px", height:"250px", objectFit:"cover"}} src="https://workdesign.com/wp-content/uploads/2018/05/Marvin_Windows_HeadQuarters_031.jpg" alt="" />
-</div>
-<div className='padLR'>
-<h4 className='fw-bold h5 mt-3 hoverHead'>Questel Plans for Growth by Expanding R&D and Manufacture</h4>
-<p style={{ fontSize: "13px" }}>
-              By <span className="fw-bold">John Smith</span> | 12
-              sept 2023
-            </p>
-            <p className='just-text line-clamp mt-1' style={{ fontSize: "15px" }}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo rerum hic aliquid iusto incidunt perferendis laudantium nostrum culpa ratione laboriosam ipsam explicabo fugiat natus, cumque</p>
-</div>
-</div>
 
-
-<div className='borderR'></div>
-<div  className='addvert zoom-in'>
-<div>
-  <img style={{width:"100%" , borderRadius:"20px", height:"250px", objectFit:"cover"}} src="https://officesnapshots.com/wp-content/uploads/2018/06/marvin-windows-doors-headquarters-eagan-13-1200x800.jpg" alt="" />
-</div>
-<div className='padLR'>
-<h4 className='fw-bold h5 mt-3 hoverHead'>Questel Plans for Growth by Expanding R&D and Manufacture</h4>
-<p style={{ fontSize: "13px" }}>
-              By <span className="fw-bold">John Smith</span> | 12
-              sept 2023
-            </p>
-            <p className='just-text line-clamp mt-1' style={{ fontSize: "15px" }}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo rerum hic aliquid iusto incidunt perferendis laudantium nostrum culpa ratione laboriosam ipsam explicabo fugiat natus, cumque</p>
-</div>
-</div> */}
 
 
                 </div>
 
-<div className='hr'></div>
+<div className='hr' ></div>
 
 
 
-                <div className='container container-max ' >
-  <div className="row mt-5">
+                <div className=' ' >
+  <div className="row mt-2">
 
 
 
 
-    <div className="col-md-8">
+    <div className="col-md-8" >
 
-    {/* {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div>
-          {data.latest.map((post, index) => (
-            <div key={index}>
-              <div className='paddings'>
-                <Link to={"/Latest"}><h4 className='fw-bold h5 hoverHead'>{post.post_title}</h4></Link>
-                <p style={{ fontSize: '13px' }}>
-                  By <span className='fw-bold'>{post.post_author}</span> | {post.post_date}
-                </p>
-                <p className='just-text line-clamp mt-1' style={{ fontSize: '15px' }}>
-                  {post.post_content}
-                </p>
-              </div>
-              <p className='hr' />
-            </div>
-          ))}
-        </div>
-      )} */}
+    
 
 
 
-<div>
-      {postData.map((post) => (
-       <a href={`/topic/${post.id}`} > <div key={post.id} className='d-flex mt-3 mb-3 ' style={{ alignItems: 'center' }}>
+<div >
+      {postData.slice(3,100).map((post) => (
+       <a href={`/${post.cat_slug}/${post.post_name}`} > <div key={post.id} className='d-flex mt-3 mb-3 ' style={{ alignItems: 'center' }} >
           <div className='quickImgBox'>
             <img
               style={{ width: '90%', borderRadius: '14px' }}
@@ -256,7 +215,8 @@ const SelectTab = () => {
         </a>
       ))}
 
-<div className='paginationBox'>
+<div className='paginationBox mt-5'>
+<a href="#datas" className='mt-1 mb-1'>
   <button
     className='PaginatinNextBtn'
     disabled={pagination.page === 1}
@@ -264,7 +224,22 @@ const SelectTab = () => {
   >
     <FontAwesomeIcon icon={faAngleLeft} />
   </button>
-  <span >{pagination.page}</span>
+  </a>
+  {calculatePageRange().map((page) => (
+        <span
+          key={page}
+          className={`${pagination.page === page ? 'isActives' : ''} fw-bold`}
+          onClick={() => handlePageChange(page)}
+          style={{cursor:"pointer"}}
+        >
+          {page}
+        </span>
+      ))}
+  {/* <span>{pagination.page + 1}</span>
+  <span>{pagination.page + 2}</span>
+  <span>{pagination.page + 3}</span>
+  <span>{pagination.page + 4}</span> */}
+  <a href="#datas" className='mt-1 mb-1'>
   <button
     className='PaginatinNextBtn'
     disabled={pagination.page === pagination.totalPages}
@@ -272,6 +247,7 @@ const SelectTab = () => {
   >
     <FontAwesomeIcon icon={faAngleRight} />
   </button>
+  </a>
 </div>
     </div>
 
@@ -290,8 +266,8 @@ const SelectTab = () => {
 
 
     <div className="col-md-4">
-    <div style={{height:"800px", backgroundColor:"#ebebeb"}}>
-
+    <div  >
+    <img style={{ width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-2.jpg" alt="" />
 </div>
     </div>
   </div>

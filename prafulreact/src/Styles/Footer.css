@@ -25,6 +25,31 @@
 }
 
 
+.otherPublic{
+    width: 50%;
+    text-align: center;
+    margin: auto;
+}
+
+.imgPublica{
+    width: 100%;
+   
+}
+
+.imgPublicaCMO{
+    width: 100%;
+    margin-top: 10px;
+   
+}
+
+
+.facebookImg{
+    background-color: black;
+    margin: auto;
+    text-align: center;
+    padding: 6px;
+    border-radius: 7px;
+}
 
 
 
@@ -81,6 +106,25 @@
     width: 60%;
     margin-top: 30px;
 }
+
+.otherPublic{
+    width: 100%;
+    
+    text-align: center;
+    margin: auto;
+}
+
+.imgPublica{
+    width: 100%;
+    
+}
+
+
+.imgPublicaCMO{
+    width: 100%;
+    margin-top: 5px; 
+}
+
 
   
 }
