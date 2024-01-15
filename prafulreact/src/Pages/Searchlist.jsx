@@ -20,14 +20,18 @@ const Searchlist = () => {
           <SearchTab />
 
           <div className="container container-max ">
-            <div className="row mt-5 ">
-              <div className="col-md-12 mb-5 borderB">
-                <div style={{ height: "150px", backgroundColor: "#ebebeb" }} > 
-                <img style={{width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png" alt="" />
-                </div>
-              </div>
+        <div className="row mt-5 spaceincontentbottm">
+          <div className="col-md-12 mb-2 borderB">
+            <div >
+             <a href="/"> <img
+                style={{ width: "100%" }}
+                src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png"
+                alt="banner"
+              /> </a>
             </div>
           </div>
+        </div>
+      </div>
 
 
         </div>

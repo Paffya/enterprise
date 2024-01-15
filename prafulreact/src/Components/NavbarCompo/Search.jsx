@@ -83,28 +83,30 @@ const Search = () => {
   // };
 
   const handleKeyPress = (e) => {
-    // Check if the pressed key is Enter (key code 13)
+    const isMobile = window.innerWidth <= 425; // Adjust the threshold as needed for your definition of mobile
+  
     if (e.key === 'Enter') {
-     
       e.preventDefault();
-  
-      // Check if search is true before navigating
-      if (search) {
-       
-        // console.log('Performing search with query:', searchQuery);
-  
-        // Replace 'yourHref' with the actual href you want to navigate to
+      if (searchQuery.trim() === '') {
+        // If search input is empty, redirect to the latest data
+        window.location.href = '/search/all/latest';
+      } else {
+        // If search input is not empty, redirect to the entered searchQuery
         window.location.href = `/search/all/${searchQuery}`;
       }
-    }
+    } else if (isMobile && e.key === ' ') {
+      // Add a space to the search query when the space bar is pressed on mobile
+      setSearchQuery((prevQuery) => prevQuery + ' ');
+    } 
   };
-
-
   
+
 
   
 
   return (
+
+    
     <Nav className="my-auto" ref={ref}>
       <Form
         className={
@@ -127,16 +129,40 @@ const Search = () => {
             }
             type="text"
             name=""
-            placeholder="Search..."
+            placeholder="Search Here"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={handleKeyPress}
+            
           />
           
         )}
+
+        
         
 
         {search && searchQuery.trim() !== "" && (
+  <div className="searcMainBox">
+    {loading && <p></p>}
+    {!loading && (
+      <ul className="searchBox">
+        {searchResults.length > 0 ? (
+          searchResults.map((result) => (
+            <a className="text-black" href={`/${result.cat_slug}/${result.post_name}`} key={result.id}>
+              <li className="searchField borderB hoverHead">{result.post_title}</li>
+            </a>
+          ))
+        ) : (
+          <li className="searchField borderB hoverHead notFound">No Result</li>
+        )}
+        {searchResults.length > 0 && (
+          <a href={`/search/all/${searchQuery}`} className="allResult">View All Results</a>
+        )}
+      </ul>
+    )}
+  </div>
+)}
+        {/* {search && searchQuery.trim() !== "" && (
           <div className="searcMainBox">
 
             {loading && <p></p>}
@@ -154,13 +180,13 @@ const Search = () => {
                 </ul>
               </>
             )}
-            <div>
+            <div className="notfoundsearch">
               {!loading && searchResults.length === 0 && searchQuery.trim() !== "" && (
-                <p></p>
+                <p>Not Found</p>
               )}
             </div>
           </div>
-        )}
+        )} */}
         <div
           className={
             search === true

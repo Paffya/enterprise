@@ -30,12 +30,27 @@ const Homepage = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const limit = 4;
+  
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://192.168.17.8:3000/api/post/homepost');
-        setData(response.data);
+        const removeHtmlTags = (html) => html.replace(/<[^>]*>/g, '');
+
+        // Remove HTML tags from specific fields in the response data
+        const cleanedData = {
+          ...response.data,
+          latestNews: response.data.latestNews.map(post => ({ ...post, post_content: removeHtmlTags(post.post_content) })),
+          latest: response.data.latest.map(post => ({ ...post, post_content: removeHtmlTags(post.post_content) })),
+          popular: response.data.popular.map(post => ({ ...post, post_content: removeHtmlTags(post.post_content) })),
+          quickbyte: response.data.quickbyte.map(post => ({ ...post, post_content: removeHtmlTags(post.post_content) })),
+          article: response.data.article.map(post => ({ ...post, post_content: removeHtmlTags(post.post_content) })),
+          interview: response.data.interview.map(post => ({ ...post, post_content: removeHtmlTags(post.post_content) })),
+          podcast: response.data.podcast.map(post => ({ ...post, post_content: removeHtmlTags(post.post_content) })),
+        };
+
+        setData(cleanedData);
         
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -65,11 +80,11 @@ const navigationNextRef = useRef();
   
     <div style={{overflow:"hidden"}}>  
     
-    <div className='mt-3'>
+    <div className='mt-3 spaceincontent'>
       
 
     <div className="container container-max" style={{}}>
-      <div className="row">
+      <div className="row ">
       <h5 className='fw-bold borderB py-1 '>Latest</h5>
         <div className="col-md-8 borderR"> {/* 70% width on medium screens and larger */}
         <div>
@@ -81,7 +96,7 @@ const navigationNextRef = useRef();
       ) : ( 
         <a href={`/${data.latestNews[0].cat_slug}/${data.latestNews[0].post_name}`}>
         <div>
-          <img className='homeImg' src={data.latestNews[0].banner_img} alt="home_img" />
+          <img className='homeImg' src={data.latestNews[0].banner_img} alt={data.latestNews[0].banner_alt}/>
 
           <div className='paddings'>
             <h1 className='fw-bold  h2 hoverHead mt-2'>{data.latestNews[0].post_title}</h1>
@@ -107,9 +122,13 @@ const navigationNextRef = useRef();
         <p></p>
         
       ) : (
-            <div  className='addvert zoom-in' >
+            <div  className='addvert hover01' >
             <div>
-            <a href={`/${data.latestNews[1].cat_slug}/${data.latestNews[1].post_name}`}> <img className='' style={{width:"100%", borderRadius:"20px", height:"250px", objectFit:"cover"}} src={data.latestNews[1].banner_img} alt="home_img" /></a>
+            <a href={`/${data.latestNews[1].cat_slug}/${data.latestNews[1].post_name}`}> 
+            <figure className="">
+            <img className='zoom-in' style={{width:"100%", borderRadius:"20px", height:"auto", objectFit:"cover"}} src={data.latestNews[1].banner_img} alt={data.latestNews[1].banner_alt} />
+            </figure>
+            </a>
             </div>
             <div className='padLR'>
             <a href={`/${data.latestNews[1].cat_slug}/${data.latestNews[1].post_name}`}> <h4 className='fw-bold h5 mt-3 hoverHead'>{data.latestNews[1].post_title}</h4></a>
@@ -127,9 +146,12 @@ const navigationNextRef = useRef();
         <p></p>
         
       ) : (
-            <div  className='addvert zoom-in'>
+            <div  className='addvert hover01'>
             <div>
-            <a href={`/${data.latestNews[2].cat_slug}/${data.latestNews[2].post_name}`}> <img  style={{width:"100%" , borderRadius:"20px", height:"250px", objectFit:"cover"}} src={data.latestNews[2].banner_img} alt="home_img" /></a>
+            <a href={`/${data.latestNews[2].cat_slug}/${data.latestNews[2].post_name}`}> <figure className=""> 
+            <img className='zoom-in'  style={{width:"100%" , borderRadius:"20px", height:"auto", objectFit:"cover"}} src={data.latestNews[2].banner_img} alt={data.latestNews[2].banner_alt} />
+            </figure>
+            </a>
             </div>
             <div className='padLR'>
             <a href={`/${data.latestNews[2].cat_slug}/${data.latestNews[2].post_name}`}><h4 className='fw-bold h5 mt-3 hoverHead'>{data.latestNews[2].post_title}</h4></a>
@@ -219,7 +241,7 @@ const navigationNextRef = useRef();
     <div className='marTop ' style={{  textAlign:"center", height:"400px"}}>
             {/* Content for the 30% column */}
             {/* <p className=' bllack'>340*400</p> */}
-            <img className='mt-5' style={{height:"400px", width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-1.jpg" alt="" />
+           <a href="/"> <img className='mt-5' style={{height:"400px", width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-1.jpg" alt="banner" /></a>
              
 
           </div>
@@ -293,7 +315,7 @@ const navigationNextRef = useRef();
           {data.interview.map((interview, index) => (
             <SwiperSlide key={index} style={{}}>
              <a href={`/${interview.cat_slug}/${interview.post_name}`} > <Card style={{}}>
-                <Card.Img style={{ objectFit: 'cover' }} src={interview.banner_img} alt={interview.imageAlt} />
+                <Card.Img style={{ objectFit: 'cover' }} src={interview.banner_img} alt={interview.banner_alt} />
                 <Card className='p-md-3 px-2 mb-2'>
                 <Card.Title className='fw-bold line-clamp hoverHead'>{interview.post_title}</Card.Title> 
                   <Card.Title>{interview.post_author}</Card.Title>
@@ -408,7 +430,7 @@ const navigationNextRef = useRef();
 
 
   <div className='container container-max'>
-    <div className='row mt-5'>
+    <div className='row mt-5 spaceincontent'>
 
 
     <h5  className='fw-bold borderB py-1 h4'>Quick Bytes</h5>
@@ -437,10 +459,12 @@ const navigationNextRef = useRef();
         <p></p>
         
       ) : (
-        <div className='col-md-4 mt-3 borderR borderL'>
-        <a  href={`/${data.quickbyte[0].cat_slug}/${data.quickbyte[0].post_name}`}> <div  className='zoom-in' >
+        <div className='col-md-4 mt-3 borderR borderL '>
+        <a  href={`/${data.quickbyte[0].cat_slug}/${data.quickbyte[0].post_name}`}> <div  className='hover01' >
             <div>
-              <img  style={{width:"100%", borderRadius:"20px", height:"250px", objectFit:"cover"}} src={data.quickbyte[0].banner_img} alt="QuickBytes_img" />
+            <figure>
+              <img className='' style={{width:"100%", borderRadius:"20px", height:"auto", objectFit:"cover"}} src={data.quickbyte[0].banner_img} alt={data.quickbyte[0].banner_alt} />
+              </figure>
             </div>
             <div className='padLR'>
            <h4 className='fw-bold h5 mt-3 hoverHead line-clamp'>{data.quickbyte[0].post_title}</h4>
@@ -461,9 +485,11 @@ const navigationNextRef = useRef();
         
       ) : (
         <div className='col-md-4 mt-3'>
-         <a href={`/${data.quickbyte[1].cat_slug}/${data.quickbyte[1].post_name}`}><div  className='zoom-in' >
+         <a href={`/${data.quickbyte[1].cat_slug}/${data.quickbyte[1].post_name}`}><div  className='hover01' >
             <div>
-              <img  style={{width:"100%", borderRadius:"20px", height:"250px", objectFit:"cover"}} src={data.quickbyte[1].banner_img} alt="QuickBytes_img" />
+            <figure>
+              <img  style={{width:"100%", borderRadius:"20px", height:"auto", objectFit:"cover"}} src={data.quickbyte[1].banner_img} alt={data.quickbyte[1].banner_alt} />
+              </figure>
             </div>
             <div className='padLR'>
            <h4 className='fw-bold h5 mt-3 hoverHead line-clamp'>{data.quickbyte[1].post_title}</h4>
@@ -500,7 +526,7 @@ const navigationNextRef = useRef();
 
 
   <div className='container container-max'>
-    <div className='row mt-5'>
+    <div className='row mt-5 spaceincontent'>
 
 
     <h5  className='fw-bold borderB py-1 h4'>Articles</h5>
@@ -512,13 +538,14 @@ const navigationNextRef = useRef();
         <p></p>
       ) : (
         <div className='col-md-4 mt-3'>
-          <a href={`/${data.article[0].cat_slug}/${data.article[0].post_name}`}> <div className='zoom-in'>
+          <a href={`/${data.article[0].cat_slug}/${data.article[0].post_name}`}> <div className='hover01'>
             <div>
+              <figure>
               <img
-                style={{ width: '100%', borderRadius: '20px', height: '250px', objectFit: 'cover' }}
+                style={{ width: '100%', borderRadius: '20px', height: 'auto', objectFit: 'cover' }}
                 src={data.article[0].banner_img} // Assuming your API response has an 'imageSrc' property
-                alt="article_img"
-              />
+                alt={data.article[0].banner_alt}
+              /> </figure>
             </div>
             <div className='padLR'>
              <h4 className='fw-bold h5 mt-3 hoverHead'>{data.article[0].post_title}</h4>
@@ -540,9 +567,11 @@ const navigationNextRef = useRef();
         <p></p>
       ) : (
         <div className='col-md-4 mt-3 borderR borderL' >
-        <a href={`/${data.article[1].cat_slug}/${data.article[1].post_name}`}> <div  className='zoom-in' >
+        <a href={`/${data.article[1].cat_slug}/${data.article[1].post_name}`}> <div  className='hover01' >
             <div>
-              <img  style={{width:"100%", borderRadius:"20px", height:"250px", objectFit:"cover"}} src={data.article[1].banner_img} alt="article_img" />
+              <figure>
+              <img  style={{width:"100%", borderRadius:"20px", height:"auto", objectFit:"cover"}} src={data.article[1].banner_img} alt={data.article[1].banner_alt} />
+              </figure>
             </div>
             <div className='padLR'>
            <h4 className='fw-bold h5 mt-3 hoverHead'>{data.article[1].post_title}</h4>
@@ -604,7 +633,7 @@ const navigationNextRef = useRef();
 
   <div className='container container-max'>
 
-  <div className='row mt-5 justify-content-between'>
+  <div className='row mt-5 spaceincontent justify-content-between'>
   <h5  className='fw-bold borderB py-1 h4'>Podcasts</h5>
 
   {loading ? (
@@ -612,7 +641,7 @@ const navigationNextRef = useRef();
         ) : (
     <div className="col-md-7">
       <div className='podText'>
-      <a href={`/${data.podcast[0].cat_slug}/${data.podcast[0].post_name}`}><h1 className='fw-bold hoverHead guestFont2'>{data.podcast[0].post_title}
+      <a href={`/${data.podcast[0].cat_slug}/${data.podcast[0].post_name}`}><h1 className='fw-bold hoverHead guestFont2' style={{fontSize:"50px"}}>{data.podcast[0].post_title}
       <p style={{ fontSize: "18px" }} className='fw-bold mt-2'>In conversation with</p>
       <p className='guestPtag'>
       By <span className='fw-bold'>{data.podcast[0].post_author}</span> | {new Date(data.podcast[0].post_date).toLocaleDateString(undefined, options)}
@@ -630,7 +659,7 @@ const navigationNextRef = useRef();
           <p></p>
         ) : (
     <div className="col-md-5 ">
-     <a href={`/${data.podcast[0].cat_slug}/${data.podcast[0].post_name}`}> <img className='ImgBoxGuets2'  src={data.podcast[0].banner_img} alt="podcast_img" /></a>
+     <a href={`/${data.podcast[0].cat_slug}/${data.podcast[0].post_name}`}> <img className='ImgBoxGuets2'  src={data.podcast[0].banner_img} alt={data.podcast[0].banner_alt} /></a>
       
     </div>
 )}
@@ -641,17 +670,19 @@ const navigationNextRef = useRef();
 
 
 
-<div className='container container-max'>
-  <div className='row mt-5'>
-    <div className="col-md-12 mb-5 borderB" >
-   <div style={{height:"150px"}}>
-   {/* <p className='bllack'>1090*200</p> */}
-   <img style={{width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png" alt="" />
-   </div>
-    </div>
-  </div>
-
-</div>
+<div className="container container-max ">
+        <div className="row mt-5 spaceincontentbottm">
+          <div className="col-md-12 mb-2 borderB">
+            <div >
+             <a href="/"> <img
+                style={{ width: "100%" }}
+                src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png"
+                alt="banner"
+              /> </a>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   

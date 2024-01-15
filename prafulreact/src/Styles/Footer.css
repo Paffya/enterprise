@@ -81,7 +81,13 @@
 
 @media (max-width: 576px) {
 
-   
+   .spaceincontent{
+    margin-top: 10px !important;
+   }
+
+   .spaceincontentbottm{
+    margin-bottom: 10px !important;
+   }
    
 }
 

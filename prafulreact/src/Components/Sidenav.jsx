@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import "../Styles/Content.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 const Sidenav = () => {
   const [sidenavWidth, setSidenavWidth] = useState(0);
   const [activeLink, setActiveLink] = useState('');
 
-  const openNav = () => {
-    setSidenavWidth(485);
-  };
+  // const openNav = () => {
+  //   setSidenavWidth(125 );
+  // };
 
   const closeNav = () => {
     setSidenavWidth(0);
@@ -23,7 +23,7 @@ const Sidenav = () => {
   const [show, setShow] = useState(false);
 
   const handleToggleSidenav = () => {
-    const newWidth = show ? 0 : 485;
+    const newWidth = show ? 0 : 125 ;
     setSidenavWidth(newWidth);
     setShow(!show);
   };
@@ -38,11 +38,14 @@ const Sidenav = () => {
       }
     };
 
+    
+
     document.addEventListener('click', handleOutsideClick);
 
     return () => {
       document.removeEventListener('click', handleOutsideClick);
     };
+    
   }, []);
 
 
@@ -51,14 +54,15 @@ const Sidenav = () => {
   return (
     <>
       {/* Your content here */}
-      <div  className='DesktopResponsive' style={{ textAlign:"end", marginTop:"-30px"}}>
+      <div id='main' className='DesktopResponsive ' style={{ textAlign:"end", marginTop:"-30px", position:"fixed", left:"98%", top:"300px"}}>
         {/* Use any element to open the sidenav */}
-        <span onClick={handleToggleSidenav} style={{cursor:"pointer"}} ><FontAwesomeIcon icon={faBars}  size="1xl" /></span>
+        {/* <span onClick={handleToggleSidenav} style={{cursor:"pointer"}} className=''><FontAwesomeIcon icon={faBars}  size="2xl" /></span> */}
+        <span onClick={handleToggleSidenav} style={{cursor:"pointer",writingMode: 'vertical-rl',transform:"rotateZ(180deg)"}} className='verticalCat' >Category</span>
       </div>
 
       {/* Side navigation */}
-      <div id="mySidenav" className="sidenav"  style={{ height: `${sidenavWidth}px` }}>
-        <a href="javascript:void(0)" className="closebtn" onClick={closeNav}>&times;</a>
+      <div id="mySidenav" className="sidenav DesktopResponsive"  style={{ height: `${sidenavWidth}px` }}>
+        {/* <a href="javascript:void(0)" className="closebtn" onClick={closeNav}>&times;</a> */}
         <a href="#news" className={` ${activeLink === 'news' ? 'active' : ''}`}
         onClick={() => handleLinkClick('news')} >News</a>
 
@@ -73,7 +77,6 @@ const Sidenav = () => {
 
               <a href="#hotseat" className={` ${activeLink === 'hot' ? 'active' : ''}`}
         onClick={() => handleLinkClick('hot')}>Hot Seats</a>
-
               
               <a href="#future" className={` ${activeLink === 'future' ? 'active' : ''}`}
         onClick={() => handleLinkClick('future')}>Future Ready</a>

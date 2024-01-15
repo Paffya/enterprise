@@ -64,7 +64,7 @@ const Footer = () => {
           // The request was successful, you can handle the response here
           console.log('Subscription successful');
           resetForm(); // Reset the form after successful submission
-          setPolicyText('Thank you for subscribing!');
+          setPolicyText('Thank you for subscribing ✅');
 
           // Reset the complete form after 5 seconds
           setTimeout(() => {
@@ -72,7 +72,16 @@ const Footer = () => {
           }, 5000);
         } else {
           // The request failed, handle the error
-          console.error('Subscription failed');
+          console.error("Subscription failed");
+  
+          // Check if the user already exists (assuming a specific response status code)
+          setTimeout(() => {
+            resetForm();
+          }, 5000);
+          if (response.status === 404) {
+            // User already exists, show a message
+            setPolicyText("This email is already subscribed ❌");
+          }
         }
       } catch (error) {
         console.error('Error sending subscription request:', error);
@@ -123,14 +132,14 @@ const Footer = () => {
           </div>
           <div className="border-bottom mt-3">
             <p className='hoverHead'>
-            <p className='text-black hoverHead' style={{cursor:"pointer"}} onClick={handleShow}>
+            <p className='text-black hoverHead DesktopResponsive' style={{cursor:"pointer"}} onClick={handleShow}>
         Subscribe
       </p>
 
       <div className="subscribePopUp">
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-        <img style={{width:"20%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/10/Asset-5-300x61.png.webp" alt="" />
+        <img className="subslogo" style={{width:"20%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/10/Asset-5-300x61.png.webp" alt="Footer Logo" />
         {/* <Modal.Title style={{textAlign:"center", margin:"auto", fontWeight:"bold"}}>Subscribe to Newsletter</Modal.Title> */}
 
         </Modal.Header>

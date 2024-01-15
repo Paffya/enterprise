@@ -5,7 +5,7 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { useParams } from 'react-router-dom';
 
 
-const SelectTab = () => {
+const Author = () => {
   
 
   const { cat, subcat } = useParams();
@@ -118,10 +118,34 @@ const SelectTab = () => {
 
 
   return (
+    
+<div className='container container-max'>
+
     <Tab.Container id="tabs-with-dropdown" defaultActiveKey="first" >
       <Row className="clearfix" >
         <Col sm={12}>
+        {/* style={{backgroundColor:"#ededed"}} */}
+            <div className="container container-max mt-3 mb-3" >
+                <div className="row">
+                
 
+<div className='col-md-8'>
+<h1 className="fw-bold py-1 mt-3">ET BUREAU</h1>
+<p>The platform covers e entire enterprise technology space- including emerging technologies like RPA, AI, cloud, automation, and the entire gamut of digital transformation tools, strategies and management decisions</p>
+ <p className='py-4'><a href="/" className='hoverHead redColor'>https://enterprisetalk.com/</a></p>
+</div>
+
+<div className='authorImg col-md-4 py-3'>
+    <img className='imgofauthor' src="https://th.bing.com/th/id/R.c9c9904d93d37519ff2dc20a5d49822d?rik=%2b8eGxeUiX6ieLw&riu=http%3a%2f%2fstatic6.businessinsider.com%2fimage%2f56055b87dd0895cb7b8b4645-2400%2felon-musk-387.jpg&ehk=yx7rWOWwuAqxzomXOnkBGh%2bBSK18QWQB8ZwlnXvYDrw%3d&risl=&pid=ImgRaw&r=0" alt="" />
+</div>
+
+
+                </div>
+            </div>
+
+       
+
+<div className='borderB'></div>
 
         <Nav variant="tabs">
       <Nav.Item>
@@ -341,7 +365,8 @@ const SelectTab = () => {
         </Col>
       </Row>
     </Tab.Container>
+    </div>
   );
 };
 
-export default SelectTab;
+export default Author;

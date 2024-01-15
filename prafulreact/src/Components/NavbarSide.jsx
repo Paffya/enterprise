@@ -163,7 +163,7 @@ const CustomNavbar = () => {
             className="MainLogo"
             style={{ width: "70%" }}
             src="https://enterprisetalk.com/wp-content/uploads/2022/10/Asset-5-300x61.png.webp"
-            alt=""
+            alt="Logo"
           />
             </a>
           </Navbar.Brand>
@@ -317,7 +317,7 @@ const CustomNavbar = () => {
                                 objectFit: "cover",
                               }}
                               src={post.banner_img}
-                              alt=""
+                              alt={post.banner_alt}
                             />
                           </div>
 
@@ -375,7 +375,7 @@ const CustomNavbar = () => {
                                 objectFit: "cover",
                               }}
                               src={post.banner_img}
-                              alt=""
+                              alt={post.banner_alt}
                             />
                           </div>
 
@@ -439,7 +439,7 @@ const CustomNavbar = () => {
                                 objectFit: "cover",
                               }}
                               src={post.banner_img}
-                              alt=""
+                              alt={post.banner_alt}
                             />
                           </div>
 
@@ -496,7 +496,7 @@ const CustomNavbar = () => {
                                 objectFit: "cover",
                               }}
                               src={post.banner_img}
-                              alt=""
+                              alt={post.banner_alt}
                             />
                           </div>
 
@@ -551,7 +551,7 @@ const CustomNavbar = () => {
                                 objectFit: "cover",
                               }}
                               src={post.banner_img}
-                              alt=""
+                              alt={post.banner_alt}
                             />
                           </div>
 

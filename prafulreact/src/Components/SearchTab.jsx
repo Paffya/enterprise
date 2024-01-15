@@ -34,7 +34,7 @@ const Searchtab = () => {
         let apiUrl = `http://192.168.17.8:3000/api/post/search/${cat}/${searchVal}`;
 
         if (subcat) {
-          apiUrl += `/${subcat}`;
+          apiUrl = `/${subcat}`;
         }
 
         apiUrl += `?page=${pagination.page}&limit=${pagination.limit}`;
@@ -153,9 +153,13 @@ const Searchtab = () => {
                 <div className='flexAddver mt-4' style={{gap:"11px"}}>
 
                 {postData.slice(0, 3).map((post, result) => (     
-<div  className='addvert zoom-in' >
+<div  className='addvert hover01' >
 <div>
-<a href={`/${post.cat_slug}/${post.post_name}`}><img  style={{width:"100%", borderRadius:"20px", height:"250px", objectFit:"cover"}} src={post.banner_img} alt="" /></a>
+<a href={`/${post.cat_slug}/${post.post_name}`}> 
+<figure>
+<img  style={{width:"100%", borderRadius:"20px",  height: "auto", objectFit:"cover"}} src={post.banner_img} alt={post.banner_alt} />
+</figure>
+</a>
 </div>
 <div className='padLR' id='datas'>
 <a href={`/${post.cat_slug}/${post.post_name}`}><h4 className='fw-bold h5 mt-3 hoverHead line-clamp'>{post.post_title}</h4></a>
@@ -170,7 +174,7 @@ const Searchtab = () => {
 {/* <div className='borderR'></div> */}
 {/* <div  className='addvert zoom-in'>
 <div>
-  <img style={{width:"100%" , borderRadius:"20px", height:"250px", objectFit:"cover"}} src="https://workdesign.com/wp-content/uploads/2018/05/Marvin_Windows_HeadQuarters_031.jpg" alt="" />
+  <img style={{width:"100%" , borderRadius:"20px",  height: "auto", objectFit:"cover"}} src="https://workdesign.com/wp-content/uploads/2018/05/Marvin_Windows_HeadQuarters_031.jpg" alt="" />
 </div>
 <div className='padLR'>
 <h4 className='fw-bold h5 mt-3 hoverHead'>Questel Plans for Growth by Expanding R&D and Manufacture</h4>
@@ -186,7 +190,7 @@ const Searchtab = () => {
 <div className='borderR'></div>
 <div  className='addvert zoom-in'>
 <div>
-  <img style={{width:"100%" , borderRadius:"20px", height:"250px", objectFit:"cover"}} src="https://officesnapshots.com/wp-content/uploads/2018/06/marvin-windows-doors-headquarters-eagan-13-1200x800.jpg" alt="" />
+  <img style={{width:"100%" , borderRadius:"20px",  height: "auto", objectFit:"cover"}} src="https://officesnapshots.com/wp-content/uploads/2018/06/marvin-windows-doors-headquarters-eagan-13-1200x800.jpg" alt="" />
 </div>
 <div className='padLR'>
 <h4 className='fw-bold h5 mt-3 hoverHead'>Questel Plans for Growth by Expanding R&D and Manufacture</h4>
@@ -206,7 +210,7 @@ const Searchtab = () => {
 
 
                 <div className=' ' >
-  <div className="row mt-5">
+  <div className="row mt-2">
 
 
 
@@ -243,12 +247,12 @@ const Searchtab = () => {
             <img
               style={{ width: '90%', borderRadius: '14px' }}
               src={post.banner_img}
-              alt="banner_img"
+              alt={post.banner_alt}
             />
           </div>
 
           <div className='' style={{ width: '74%' }}>
-           <h5 className='fw-bold hoverHead quickText'>{post.post_title}</h5>
+           <h5 className='fw-bold hoverHead quickText h5'>{post.post_title}</h5>
             <p style={{ fontSize: '13px' }}>
               By <span className='fw-bold'>{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
             </p>
@@ -268,14 +272,14 @@ const Searchtab = () => {
   </button>
   </a>
   {calculatePageRange().map((page) => (
-        <span
-          key={page}
-          className={`${pagination.page === page ? 'isActives' : ''} fw-bold`}
-          onClick={() => handlePageChange(page)}
-          style={{cursor:"pointer"}}
-        >
-          {page}
-        </span>
+         <span
+         
+         >
+           <button key={page}
+           className={`${pagination.page === page ? 'isActives' : ''} fw-bold btn-pagination`}
+           onClick={() => handlePageChange(page)}
+           style={{cursor:"pointer"}}>{page}</button>
+         </span>
       ))}
   {/* <span>{pagination.page + 1}</span>
   <span>{pagination.page + 2}</span>
@@ -309,7 +313,7 @@ const Searchtab = () => {
 
     <div className="col-md-4">
     <div >
-    <img style={{ width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-2.jpg" alt="" />
+   <a href="/"> <img style={{ width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-2.jpg" alt="banner" /></a>
 </div>
     </div>
   </div>
@@ -320,65 +324,6 @@ const Searchtab = () => {
 
 
 
-
-
-
-
-
-
-            <Tab.Pane eventKey="second">
-
-            
-
-            </Tab.Pane>
-
-
-
-            <Tab.Pane eventKey="third">Tab 3 content</Tab.Pane>
-
-
-
-            <Tab.Pane eventKey="fourth">Tab 4 content</Tab.Pane>
-
-
-
-            <Tab.Pane eventKey="fifth">Tab 5 content</Tab.Pane>
-
-
-
-            <Tab.Pane eventKey="sixth">Tab 6 content</Tab.Pane>
-
-
-            <Tab.Pane eventKey="seven">Tab 7 content</Tab.Pane>
-
-
-            <Tab.Pane eventKey="eight">Tab 8 content</Tab.Pane>
-
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-            <Tab.Pane eventKey="3.1">
-           
-            </Tab.Pane>
-
-
-            <Tab.Pane eventKey="3.2">Tab 3.2 content</Tab.Pane>
-            <Tab.Pane eventKey="3.3">Tab 3.3 content</Tab.Pane>
-            <Tab.Pane eventKey="3.4">Tab 3.4 content</Tab.Pane>
           </Tab.Content>
         </Col>
       </Row>

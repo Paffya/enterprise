@@ -119,7 +119,7 @@
   /* Styles for images with hover effect */
   figure {
     /* width: 300px; */
-    height: 250px; /* Adjusted height for your specific case */
+    height: auto; /* Adjusted height for your specific case */
     margin: 0;
     padding: 0;
     background: #fff;

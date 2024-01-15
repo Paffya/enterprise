@@ -106,7 +106,7 @@ const ArticleDesc = () => {
                        
            </div>
            <div className='mt-3'>
-           <img className='homeImg' src={data.postData[0].banner_img} alt="" />
+           <img className='homeImg' src={data.postData[0].banner_img} alt={data.postData[0].banner_alt} />
            </div>
 
            <div style={{fontSize:"14px"}}>
@@ -183,7 +183,7 @@ const ArticleDesc = () => {
 {postData.map((post, index) => (
 <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
   <div  className='quickImgBox'>
-    <img style={{ width:"90%"  , borderRadius:"14px"}} src={post.banner_img} alt="" />
+    <img style={{ width:"90%"  , borderRadius:"14px"}} src={post.banner_img} alt={post.banner_alt} />
   </div>
 
   <div className='' style={{width:"74%"}}>
@@ -199,7 +199,7 @@ const ArticleDesc = () => {
 
 <div className='borderB'></div>
 
-<div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
+{/* <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
   <div className='quickImgBox'>
     <img style={{ width:"90%"  , borderRadius:"14px"}} src="https://img1.wsimg.com/isteam/stock/8538/:/cr=t:0%25,l:7.59%25,w:84.82%25,h:100%25/rs=w:600,h:451.12781954887214,cg:true" alt="" />
   </div>
@@ -211,12 +211,12 @@ const ArticleDesc = () => {
                       sept 2023
                     </p>
   </div>
-</div>
+</div> */}
 
 
 <div className='borderB'></div>
 
-<div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
+{/* <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
 <div className='quickImgBox'>
 <img style={{ width:"90%"  , borderRadius:"14px"}} src="https://www.purdueglobal.edu/blog/careers/workplace-diversity.jpg" alt="" />
 </div>
@@ -228,13 +228,13 @@ const ArticleDesc = () => {
                   sept 2023
                 </p>
 </div>
-</div>
+</div> */}
 
 
 
 <div className='borderB'></div>
 
-<div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
+{/* <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
 <div className='quickImgBox'>
 <img style={{ width:"90%"  , borderRadius:"14px"}} src="https://njbmagazine.com/wp-content/uploads/2020/04/Diverse-business-775x500.jpg" alt="" />
 </div>
@@ -246,13 +246,13 @@ const ArticleDesc = () => {
                   sept 2023
                 </p>
 </div>
-</div>
+</div> */}
 
 
 
 <div className='borderB'></div>
 
-<div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
+{/* <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
 <div className='quickImgBox'>
 <img style={{ width:"90%"  , borderRadius:"14px"}} src="https://www.vmcdn.ca/f/files/localprofile/import/2019_03_2017-10-02-diversity-ThinkstockPhotos-639467826.jpg" alt="" />
 </div>
@@ -264,7 +264,7 @@ const ArticleDesc = () => {
                   sept 2023
                 </p>
 </div>
-</div>
+</div> */}
 
 <div id="podcast"></div>
 

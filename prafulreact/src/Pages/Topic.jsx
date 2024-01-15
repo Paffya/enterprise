@@ -27,6 +27,7 @@ const Searchart = () => {
 
         setHtmlContent(data.result[0].post_content);
         setPostData(data.result);
+        
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -64,10 +65,10 @@ const Searchart = () => {
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
-
+        const removeHtmlTags = (html) => html.replace(/<[^>]*>/g, '');
         const result = await response.json();
-        setData(result.result);
-        console.log(result)
+        setData(result.result.map(post => ({ ...post, post_content: removeHtmlTags(post.post_content) })));
+        // console.log(result)
         
       } catch (error) {
        
@@ -111,7 +112,7 @@ const Searchart = () => {
                   <img
                     className="topicImg"
                     src={postData[0].banner_img}
-                    alt=""
+                    alt={postData[0].banner_alt}
                   />
                 </div>
 
@@ -161,12 +162,12 @@ const Searchart = () => {
                 <img
                   style={{ width: "90%", borderRadius: "14px" }}
                   src={post.banner_img}
-                  alt=""
+                  alt={post.banner_alt}
                 />
               </div>
 
               <div className="" style={{ width: "74%" }}>
-                <h5 className="fw-bold hoverHead quickText">
+                <h5 className="fw-bold hoverHead quickText h5">
                  {post.post_title}
                 </h5>
                 <p style={{ fontSize: "13px" }}>
@@ -216,7 +217,7 @@ const Searchart = () => {
             >
               {/* Content for the 30% column */}
               {/* <p className="bllack">340*1500</p> */}
-              <img style={{height:"", width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-2.jpg" alt="" />
+             <a href="/"> <img style={{height:"", width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-2.jpg" alt="banner" /> </a>
            
             </div>
           </div>
@@ -253,11 +254,14 @@ const Searchart = () => {
       </div>
 
       <div className="container container-max ">
-        <div className="row mt-5  ">
-          <div className="col-md-12 mb-5">
-            <div style={{ height: "150px" }}>
-              {/* <p className="bllack">1090*200</p> */}
-              <img style={{width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png" alt="" />
+        <div className="row mt-5 spaceincontentbottm">
+          <div className="col-md-12 mb-2 borderB">
+            <div >
+            <a href="/">  <img
+                style={{ width: "100%" }}
+                src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png"
+                alt="banner"
+              /> </a>
             </div>
           </div>
         </div>

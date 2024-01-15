@@ -39,14 +39,14 @@
 
 
 .homeImg{
-    height: 500px;
+    height: auto;
     width:100%;
     border-radius:15px;
     object-fit:cover;
 }
 
 .topicImg{
-    height: 500px;
+    height: auto;
     width:100%;
     border-radius:15px;
     
@@ -180,7 +180,6 @@
 
 
 
-
 .container-max{
     width: 100%;
     /* margin-left: 20px; */
@@ -251,7 +250,7 @@
     }
 
     .homeImg{
-        height: 300px;
+        height: auto;
     width:100%;
     border-radius:15px;
     object-fit:cover;

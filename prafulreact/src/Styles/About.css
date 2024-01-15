@@ -82,6 +82,9 @@
 
 
 
+.invalid-feedback{
+    margin-left: 13px;
+}
 
 
 
@@ -108,8 +111,14 @@
 
 
 
+@media (max-width: 320px) {
 
-
+    .box-Card2{
+        width: 17rem !important;
+        margin: auto !important;
+    }
+   
+}
 
 
 
