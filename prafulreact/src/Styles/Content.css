@@ -160,9 +160,36 @@ clear: both;
 }
 
 
+.tdi_305, .tdi_305>p, .tdi_305 .tdb-block-inner>p {
+  font-family: var(--global-font-2)!important;
+  font-size: 17px!important;
+  line-height: 1.6!important;
+  font-weight: 400!important;
+}
+
+.btn-share{
+  border: transparent;
+  width: 30px;
+  border-radius: 3px;
+}
 
 
 
+.btn-share img:hover{
+  background-color: #e04040 !important;
+}
+
+.btn-share:hover{
+  background-color: #e04040 !important;
+  color: white;
+}
+
+.numb{
+  /* font-family: Roboto Slab; */
+  font-size: 50px;
+  line-height: 0;
+  color: #cfcdcd;
+}
 
 
 /* Sidenavcss  start*/

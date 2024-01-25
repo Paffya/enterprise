@@ -75,9 +75,9 @@ const Footer = () => {
           console.error("Subscription failed");
   
           // Check if the user already exists (assuming a specific response status code)
-          setTimeout(() => {
-            resetForm();
-          }, 5000);
+          // setTimeout(() => {
+          //   resetForm();
+          // }, 5000);
           if (response.status === 404) {
             // User already exists, show a message
             setPolicyText("This email is already subscribed ❌");

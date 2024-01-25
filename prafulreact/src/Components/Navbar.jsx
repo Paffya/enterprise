@@ -145,9 +145,7 @@ const CustomNavbar = () => {
           console.error("Subscription failed");
   
           // Check if the user already exists (assuming a specific response status code)
-          setTimeout(() => {
-            resetForm();
-          }, 5000);
+         
           if (response.status === 404) {
             // User already exists, show a message
             setPolicyText("This email is already subscribed ❌");
@@ -208,7 +206,7 @@ const CustomNavbar = () => {
 
             {/* <Navbar.Toggle aria-controls="responsive-navbar-na" /> */}
 
-            <div className="d-flex  gap-5">
+            <div className="d-flex  gap-3">
               <div className="DesktopResponsive">
                 <Search />
               </div>

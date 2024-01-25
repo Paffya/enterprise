@@ -52,6 +52,23 @@ const Tag  = () => {
 
   
 
+  const [advertisementData, setAdvertisementData] = useState([]);
+
+useEffect(() => {
+  const fetchAdvertisementData = async () => {
+    try {
+      const response = await axios.get('http://192.168.17.8:3000/api/advertisement/get_active');
+      setAdvertisementData(response.data);
+      // console.log(response.data)
+    } catch (error) {
+      console.error('Error fetching advertisement data:', error);
+    }
+  };
+
+  fetchAdvertisementData();
+}, []); // The empty dependency array ensures that this effect runs once when the component mounts
+
+
   
 
 
@@ -232,11 +249,13 @@ const Tag  = () => {
             <div >
               <div id="article"></div>
 
-            <a href="/">  <img
+              {advertisementData && advertisementData.length > 0 && (
+            <a href={`/${advertisementData[1].dest_url}`}>  <img
                 style={{ width: "100%" }}
-                src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png"
-                alt="banner"
+                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[1].banner_img}`}
+                alt={advertisementData[1].banner_name}
               /> </a>
+              )}
             </div>
           </div>
         </div>
@@ -338,7 +357,7 @@ const Tag  = () => {
    
 
 
-<div  id="podcast"></div>
+{/* <div  id="podcast"></div> */}
 
 
     
@@ -350,7 +369,9 @@ const Tag  = () => {
     <div className="col-md-4"  >
     <div style={{height:"648px", textAlign:"center", margin:"auto", alignItems:"center"}}>
     {/* <p className='bllack'>340*900</p> */}
-   <a href="/"> <img style={{height:"648px", width:"auto"}}  src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-2.jpg" alt="banner" /> </a>
+    {advertisementData && advertisementData.length > 0 && (
+   <a href={`/${advertisementData[0].dest_url}`}> <img style={{height:"648px", width:"auto"}}  src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[0].banner_img}`} alt={advertisementData[0].banner_name} /> </a>
+    )}
 </div>
     </div>
   </div>
@@ -363,12 +384,15 @@ const Tag  = () => {
 <div className="container container-max ">
         <div className="row mt-5 spaceincontentbottm">
           <div className="col-md-12 mb-2 ">
+          <div id="podcast"></div>
             <div   style={{ textAlign:"center", alignItems:"center", margin:"auto"}}>
-             <a href="/"> <img
+            {advertisementData && advertisementData.length > 0 && (
+             <a href={`/${advertisementData[1].dest_url}`}> <img
                 style={{width:"100%"}}
-                src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png"
-                alt="banner"
+                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[1].banner_img}`}
+                alt={advertisementData[1].banner_name}
               /> </a>
+            )}
             </div>
           </div>
         </div>
@@ -394,7 +418,7 @@ const Tag  = () => {
                         </p>
                         <button className='btn-pod'>Hear The Podcasts</button>
 
-                        <div id="hotseat"></div>
+                        {/* <div id="hotseat"></div> */}
       </h1>
       
                         </div>
@@ -406,7 +430,9 @@ const Tag  = () => {
     </div>
 
 
-  </div> </a>
+  </div> 
+  <div id="hotseat" style={{height:"80px"}} className=" DesktopResponsive"></div>
+  </a>
  ) : null // Render nothing when there is no data or remove complete Div
  )}
 </div>
@@ -440,11 +466,12 @@ const Tag  = () => {
                         </p>
                        
       </div>
-      <div id='future'></div>
+      {/* <div id='future'></div> */}
     </div>
    
 
     <div className='borderB'></div>
+    <div id="future"></div>
 
     {/* <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
       <div style={{width:"40%", height:"150px"}}>
@@ -562,10 +589,13 @@ const Tag  = () => {
 </div>
 {data.futureready.length > 1 && (
 <div className='col-md-6  paddings mt-3 mb-4' style={{padding:"10px"}} >
-<a href={`/${data.futureready[1].cat_slug}/${data.futureready[1].post_name}`}><h3 id="guest" className='fw-bold  hoverHead'>{data.futureready[1].post_title}</h3></a>
+<a href={`/${data.futureready[1].cat_slug}/${data.futureready[1].post_name}`}><h3  className='fw-bold  hoverHead'>{data.futureready[1].post_title}</h3></a>
   <p style={{ fontSize: "13px" }}>
                           By <span className="fw-bold">{data.futureready[1].post_author}</span> | {new Date(data.futureready[1].post_date).toLocaleDateString(undefined, options)}
                         </p>
+                        <div  id="guest" ></div>
+              <div  className="text-white">.</div>
+              <div  className="text-white">.</div>
 </div>
  )}
   </div>
@@ -597,7 +627,12 @@ const Tag  = () => {
                           By <span className="fw-bold">{data.guestauthor[0].post_author}</span> | {new Date(data.guestauthor[0].post_date).toLocaleDateString(undefined, options)}
                         </p>
                         <button className='btn-pod'>Hear The Podcasts</button>
-                        <div id="learning"></div>
+                        <p className="p text-white">.</p>
+                   <p className="p text-white">.</p>
+                   <p className="p text-white">.</p>
+                   
+                    <div id="learning"></div>
+                        
       </h2> </a>
       
                         </div>
@@ -655,11 +690,13 @@ const Tag  = () => {
         <div className="row mt-5 spaceincontentbottm">
           <div className="col-md-12 mb-2 borderB">
             <div >
-             <a href="/"> <img
+            {advertisementData && advertisementData.length > 0 && (
+             <a href={`/${advertisementData[1].dest_url}`}> <img
                 style={{ width: "100%" }}
-                src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png"
-                alt="banner"
+                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[1].banner_img}`}
+                alt={advertisementData[1].banner_name}
               /> </a>
+            )}
             </div>
           </div>
         </div>

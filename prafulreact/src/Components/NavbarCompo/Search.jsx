@@ -46,7 +46,7 @@ const Search = () => {
 
         
 
-      if (data.searchQuery === searchQuery) {
+      if (data.searchQuery.trim() === searchQuery.trim()) {
         setSearchResults(data.postData);
       } else {
         // If the received data doesn't match the current search query, clear the results
@@ -65,7 +65,7 @@ const Search = () => {
       if (searchQuery.trim() !== "") {
         fetchData();
       }
-    }, 300);
+    });
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchQuery, fetchData]);

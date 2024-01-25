@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Container, Form, Row, Col } from "react-bootstrap";
-import Search from "./NavbarCompo/Search";
+// import Search from "./NavbarCompo/Search";
 import axios from "axios";
 // import laptopImg from "../Images/enterpriselaptop.png";
 import Modal from "react-bootstrap/Modal";
@@ -173,9 +173,7 @@ const Navigation = () => {
           console.error("Subscription failed");
   
           // Check if the user already exists (assuming a specific response status code)
-          setTimeout(() => {
-            resetForm();
-          }, 5000);
+          
           if (response.status === 404) {
             // User already exists, show a message
             setPolicyText("This email is already subscribed ❌");
@@ -243,7 +241,7 @@ const Navigation = () => {
 
         
 
-      if (data.searchQuery === searchQuery) {
+      if (data.searchQuery.trim() === searchQuery.trim()) {
         setSearchResults(data.postData);
       } else {
         // If the received data doesn't match the current search query, clear the results
@@ -309,6 +307,123 @@ const Navigation = () => {
     >
       <Navbar.Collapse id="responsive-navbar-nav ">
         <Nav className="ml-auto borderB">
+
+          
+        <Nav className="my-auto MobileResponsive searchDisplay" ref={ref}>
+      <Form
+        className={ 
+          search === false
+            ? " mt-4" //fadeOutWidth
+            : search === true
+            ? "searchbar  mt-4 mb-2"
+            : "searchbar"
+        }
+      >
+        {search === true && (
+          <input
+            ref={ref}
+            className={
+              search === true
+                ? "search-input fadeIn"
+                : search === false
+                ? "search-input fadeOut"
+                : "search-input"
+            }
+            type="text"
+            name=""
+            placeholder="Search Here"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleKeyPress}
+            
+          />
+          
+        )}
+
+        
+        
+
+        {search && searchQuery.trim() !== "" && (
+  <div className="searcMainBox">
+    {loading && <p></p>}
+    {!loading && (
+      <ul className="searchBox">
+        {searchResults.length > 0 ? (
+          searchResults.map((result) => (
+            <a className="text-black" href={`/${result.cat_slug}/${result.post_name}`} key={result.id}>
+              <li className="searchField borderB hoverHead">{result.post_title}</li>
+            </a>
+          ))
+        ) : (
+          <li className="searchField borderB hoverHead notFound">No Result</li>
+        )}
+        {searchResults.length > 0 && (
+          <a href={`/search/all/${searchQuery}`} className="allResult">View All Results</a>
+        )}
+      </ul>
+    )}
+  </div>
+)}
+        {/* {search && searchQuery.trim() !== "" && (
+          <div className="searcMainBox">
+
+            {loading && <p></p>}
+            {!loading && searchResults.length > 0 && (
+              <>
+                <ul className="searchBox">
+                  {searchResults.map((result) => (
+                    <a className="text-black" href={`/${result.cat_slug}/${result.post_name}`} key={result.id}>
+                   <li  className="searchField borderB hoverHead">{result.post_title}</li>
+                    </a>
+                  ))}
+                   
+                  <a href={`/search/all/${searchQuery}`} className="allResult" 
+                  >View All Results</a>
+                </ul>
+              </>
+            )}
+            <div className="notfoundsearch">
+              {!loading && searchResults.length === 0 && searchQuery.trim() !== "" && (
+                <p>Not Found</p>
+              )}
+            </div>
+          </div>
+        )} */}
+        <div
+          className={
+            search === true
+              ? "icon-bg fadeOut"
+              : search === false
+              ? "icon-bg "
+              : "icon-bg"
+          }
+        >
+          {search !== true ? (
+            // Opening button (O)
+            <FontAwesomeIcon
+              onClick={toggle}
+              className={
+                search === true
+                  ? "search-icon fadeOut"
+                  : search === false
+                  ? "search-icon " //fadeIn
+                  : "search-icon"
+              }
+              icon={faSearch}
+            />
+          ) : (
+            // Close button (X)
+            <FontAwesomeIcon
+              onClick={closeSearch}
+              className="croossIcon"
+              icon={faTimes}
+            />
+          )}
+        </div>
+      </Form>
+    </Nav>
+
+
           <Nav.Link className="text-white MobileResponsive" href="/Latest">
             <p className="text-white">
               <a href="/Latest">Latest</a>
@@ -559,119 +674,7 @@ const Navigation = () => {
             <Search />
           </Nav.Link> */}
           
-          <Nav className="my-auto MobileResponsive searchDisplay" ref={ref}>
-      <Form
-        className={ 
-          search === false
-            ? "hr " //fadeOutWidth
-            : search === true
-            ? "searchbar  mt-2 mb-2"
-            : "searchbar"
-        }
-      >
-        {search === true && (
-          <input
-            ref={ref}
-            className={
-              search === true
-                ? "search-input fadeIn"
-                : search === false
-                ? "search-input fadeOut"
-                : "search-input"
-            }
-            type="text"
-            name=""
-            placeholder="Search Here"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={handleKeyPress}
-            
-          />
           
-        )}
-
-        
-        
-
-        {search && searchQuery.trim() !== "" && (
-  <div className="searcMainBox">
-    {loading && <p></p>}
-    {!loading && (
-      <ul className="searchBox">
-        {searchResults.length > 0 ? (
-          searchResults.map((result) => (
-            <a className="text-black" href={`/${result.cat_slug}/${result.post_name}`} key={result.id}>
-              <li className="searchField borderB hoverHead">{result.post_title}</li>
-            </a>
-          ))
-        ) : (
-          <li className="searchField borderB hoverHead notFound">No Result</li>
-        )}
-        {searchResults.length > 0 && (
-          <a href={`/search/all/${searchQuery}`} className="allResult">View All Results</a>
-        )}
-      </ul>
-    )}
-  </div>
-)}
-        {/* {search && searchQuery.trim() !== "" && (
-          <div className="searcMainBox">
-
-            {loading && <p></p>}
-            {!loading && searchResults.length > 0 && (
-              <>
-                <ul className="searchBox">
-                  {searchResults.map((result) => (
-                    <a className="text-black" href={`/${result.cat_slug}/${result.post_name}`} key={result.id}>
-                   <li  className="searchField borderB hoverHead">{result.post_title}</li>
-                    </a>
-                  ))}
-                   
-                  <a href={`/search/all/${searchQuery}`} className="allResult" 
-                  >View All Results</a>
-                </ul>
-              </>
-            )}
-            <div className="notfoundsearch">
-              {!loading && searchResults.length === 0 && searchQuery.trim() !== "" && (
-                <p>Not Found</p>
-              )}
-            </div>
-          </div>
-        )} */}
-        <div
-          className={
-            search === true
-              ? "icon-bg fadeOut"
-              : search === false
-              ? "icon-bg "
-              : "icon-bg"
-          }
-        >
-          {search !== true ? (
-            // Opening button (O)
-            <FontAwesomeIcon
-              onClick={toggle}
-              className={
-                search === true
-                  ? "search-icon fadeOut"
-                  : search === false
-                  ? "search-icon " //fadeIn
-                  : "search-icon"
-              }
-              icon={faSearch}
-            />
-          ) : (
-            // Close button (X)
-            <FontAwesomeIcon
-              onClick={closeSearch}
-              className="croossIcon"
-              icon={faTimes}
-            />
-          )}
-        </div>
-      </Form>
-    </Nav>
 
 
         </Nav>

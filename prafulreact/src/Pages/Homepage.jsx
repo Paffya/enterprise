@@ -75,6 +75,26 @@ const Homepage = () => {
 
   const navigationPrevRef = useRef();
 const navigationNextRef = useRef();
+
+
+const [advertisementData, setAdvertisementData] = useState([]);
+
+useEffect(() => {
+  const fetchAdvertisementData = async () => {
+    try {
+      const response = await axios.get('http://192.168.17.8:3000/api/advertisement/get_active');
+      setAdvertisementData(response.data);
+      // console.log(response.data)
+    } catch (error) {
+      console.error('Error fetching advertisement data:', error);
+    }
+  };
+
+  fetchAdvertisementData();
+}, []); // The empty dependency array ensures that this effect runs once when the component mounts
+
+
+
   return (
 
   
@@ -241,8 +261,12 @@ const navigationNextRef = useRef();
     <div className='marTop ' style={{  textAlign:"center", height:"400px"}}>
             {/* Content for the 30% column */}
             {/* <p className=' bllack'>340*400</p> */}
-           <a href="/"> <img className='mt-5' style={{height:"400px", width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-1.jpg" alt="banner" /></a>
-             
+            {advertisementData && advertisementData.length > 0 && (
+  <a href={`/${advertisementData[2].dest_url}`}>
+    <img className='mt-5' style={{ height: "400px", width: "100%" }} src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[2].banner_img}`} alt={advertisementData[2].banner_name} />
+  </a>
+)}
+
 
           </div>
             
@@ -674,11 +698,13 @@ const navigationNextRef = useRef();
         <div className="row mt-5 spaceincontentbottm">
           <div className="col-md-12 mb-2 borderB">
             <div >
-             <a href="/"> <img
+            {advertisementData && advertisementData.length > 0 && (
+             <a href={`/${advertisementData[1].dest_url}`}> <img
                 style={{ width: "100%" }}
-                src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png"
-                alt="banner"
+                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[1].banner_img}`}
+                alt={advertisementData[1].banner_name}
               /> </a>
+            )}
             </div>
           </div>
         </div>

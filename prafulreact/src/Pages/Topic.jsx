@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../Styles/Article.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import ShareButton from "../Components/ShareButton" 
+
 
 
 const Searchart = () => {
@@ -79,8 +81,33 @@ const Searchart = () => {
     fetchData();
   }, []);
 
+
+  const [advertisementData, setAdvertisementData] = useState([]);
+
+  useEffect(() => {
+    const fetchAdvertisementData = async () => {
+      try {
+        const response = await axios.get('http://192.168.17.8:3000/api/advertisement/get_active');
+        setAdvertisementData(response.data);
+        // console.log(response.data)
+      } catch (error) {
+        console.error('Error fetching advertisement data:', error);
+      }
+    };
+  
+    fetchAdvertisementData();
+  }, []); // The empty dependency array ensures that this effect runs once when the component mounts
+  
+  
+    
+  
+
   return (
+
+    
     <div>
+
+
       
       <div className="container container-max ">
         <div className="row ">
@@ -96,6 +123,9 @@ const Searchart = () => {
                 <div className="paddings">
                   {/* <p> {console.log('postdata '+ postData[0].post_title)}</p> */}
                   <h1 className="fw-bold mt-1 h2 ">{postData[0].post_title}</h1>
+
+                 <div className="d-flex justify-content-between" >
+                 <div style={{lineHeight:"2", width:"40%"}}>
                   <p style={{ fontSize: "14px" }}>
                     By{" "}
                     <span className="fw-bold">
@@ -107,6 +137,13 @@ const Searchart = () => {
                       options
                     )}
                   </p>
+                  </div>
+
+                  <div className="">
+                    <ShareButton />
+                  </div>
+                 </div>
+
                 </div>
                 <div className="mt-3">
                   <img
@@ -188,8 +225,9 @@ const Searchart = () => {
               <h5 className="fw-bold">Related Articles</h5>
             </div>
             <div>
+              
               {data.slice(0,4).map((post, index) => (
-                
+                  
                 <div key={index} className="paddings">
                 
                   <a href={`/${post.cat_slug}/${post.post_name}`}><h4 className="fw-bold h5 hoverHead line-clamp">{post.post_title}</h4></a>
@@ -200,12 +238,24 @@ const Searchart = () => {
                       options
                     )}
                   </p>
+
+                <div className="d-flex gap-3">
+
+                <div style={{width:"90%"}}>
                   <p
                     className="just-text line-clamp mt-1"
                     style={{ fontSize: "15px" }}
                   >
                     {post.post_content}
                   </p>
+                  </div>
+
+                  <div>
+                    <span className="numb">{index + 1}</span>
+                  </div>
+
+                </div>
+
                   <p className="hr" />
                 </div>
               ))}
@@ -217,8 +267,9 @@ const Searchart = () => {
             >
               {/* Content for the 30% column */}
               {/* <p className="bllack">340*1500</p> */}
-             <a href="/"> <img style={{height:"", width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-2.jpg" alt="banner" /> </a>
-           
+              {advertisementData && advertisementData.length > 0 && (
+             <a href={`/${advertisementData[0].dest_url}`}> <img style={{height:"", width:"100%"}} src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[0].banner_img}`} alt={advertisementData[0].banner_name} /> </a>
+              )}
             </div>
           </div>
 
@@ -257,11 +308,13 @@ const Searchart = () => {
         <div className="row mt-5 spaceincontentbottm">
           <div className="col-md-12 mb-2 borderB">
             <div >
-            <a href="/">  <img
+            {advertisementData && advertisementData.length > 0 && (
+            <a href={`/${advertisementData[1].dest_url}`}>  <img
                 style={{ width: "100%" }}
-                src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png"
-                alt="banner"
+                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[1].banner_img}`}
+                alt={advertisementData[1].banner_name}
               /> </a>
+            )}
             </div>
           </div>
         </div>

@@ -3,6 +3,7 @@ import { Tab, Nav, Col, Row, NavDropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { useParams  } from 'react-router-dom';
+import axios from 'axios';
 
 
 const Searchtab = () => {
@@ -110,6 +111,24 @@ const Searchtab = () => {
   };
  
 
+  const [advertisementData, setAdvertisementData] = useState([]);
+
+  useEffect(() => {
+    const fetchAdvertisementData = async () => {
+      try {
+        const response = await axios.get('http://192.168.17.8:3000/api/advertisement/get_active');
+        setAdvertisementData(response.data);
+        // console.log(response.data)
+      } catch (error) {
+        console.error('Error fetching advertisement data:', error);
+      }
+    };
+  
+    fetchAdvertisementData();
+  }, []); // The empty dependency array ensures that this effect runs once when the component mounts
+  
+
+  
  
 
 
@@ -153,7 +172,7 @@ const Searchtab = () => {
                 <div className='flexAddver mt-4' style={{gap:"11px"}}>
 
                 {postData.slice(0, 3).map((post, result) => (     
-<div  className='addvert hover01' >
+<div  className='addvert ' >
 <div>
 <a href={`/${post.cat_slug}/${post.post_name}`}> 
 <figure>
@@ -313,7 +332,9 @@ const Searchtab = () => {
 
     <div className="col-md-4">
     <div >
-   <a href="/"> <img style={{ width:"100%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-2.jpg" alt="banner" /></a>
+    {advertisementData && advertisementData.length > 0 && (
+   <a href={`/${advertisementData[0].dest_url}`}> <img style={{ width:"100%"}} src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[0].banner_img}`} alt={advertisementData[0].banner_name} /></a>
+    )}
 </div>
     </div>
   </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../Styles/Latest.css";
 // import { Card } from "react-bootstrap";
 import Sidenav from "../Components/Sidenav";
+import axios from "axios";
 
 const Latest = () => {
   const [activeLink, setActiveLink] = useState("");
@@ -53,6 +54,27 @@ const Latest = () => {
 
     fetchData();
   }, []);
+
+
+
+  const [advertisementData, setAdvertisementData] = useState([]);
+
+useEffect(() => {
+  const fetchAdvertisementData = async () => {
+    try {
+      const response = await axios.get('http://192.168.17.8:3000/api/advertisement/get_active');
+      setAdvertisementData(response.data);
+      // console.log(response.data)
+    } catch (error) {
+      console.error('Error fetching advertisement data:', error);
+    }
+  };
+
+  fetchAdvertisementData();
+}, []); // The empty dependency array ensures that this effect runs once when the component mounts
+
+
+
 
   return (
     <div className="">
@@ -290,12 +312,13 @@ const Latest = () => {
           <div className="col-md-12 mb-5 spaceincontentbottm borderB">
             <div >
               <div id="article"></div>
-
-            <a href="/">  <img
+              {advertisementData && advertisementData.length > 0 && (
+            <a href={`/${advertisementData[1].dest_url}`}>  <img
                 style={{ width: "100%" }}
-                src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png"
-                alt="banner"
+                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[1].banner_img}`}
+                alt={advertisementData[1].banner_name}
               /> </a>
+              )}
             </div>
           </div>
         </div>
@@ -399,7 +422,7 @@ const Latest = () => {
               </div>
             ))}
 
-            <div id="podcast"></div>
+            
 
             {/* <div className='borderB'></div> */}
           </div>
@@ -414,32 +437,37 @@ const Latest = () => {
               }}
             >
               {/* <p className='bllack'>340*900</p> */}
-            <a href="/">  <img
+              {advertisementData && advertisementData.length > 0 && (
+            <a href={`/${advertisementData[0].dest_url}`}>  <img
                 style={{ height: "648px", width: "auto" }}
-                src="https://enterprisetalk.com/wp-content/uploads/2022/12/Advertorial-banner-2.jpg"
-                alt=""
+                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[0].banner_img}`}
+                alt={advertisementData[0].banner_name}
               /> </a>
+              )}
             </div>
           </div>
         </div>
       </div>
-
-      <div className="container container-max ">
+      {/* <div id="podcast"></div> */}
+      <div className="container container-max " >
         <div className="row mt-5 spaceincontentbottm">
-          <div className="col-md-12 mb-2 ">
+          <div className="col-md-12  ">
+            <div id="podcast"></div>
             <div   style={{ textAlign:"center", alignItems:"center", margin:"auto"}}>
-             <a href="/"> <img
+            {advertisementData && advertisementData.length > 0 && (
+             <a href={`/${advertisementData[1].dest_url}`}> <img
                 style={{width:"100%"}}
-                src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png"
-                alt="banner"
+                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[1].banner_img}`}
+                alt={advertisementData[1].banner_name}
               /> </a>
+            )}
             </div>
           </div>
         </div>
       </div>
 
       <div className="container container-max ">
-        <div className="row mt-5 spaceincontent justify-content-between">
+        <div className="row mt-5 spaceincontent justify-content-between ">
           <h5 className="fw-bold borderB py-1 h4">Podcasts</h5>
 
           {podcasts.slice(0, 1).map((post, index) => (
@@ -460,7 +488,8 @@ const Latest = () => {
                     </p>
                     <button className="btn-pod">Hear The Podcasts</button>
 
-                    <div id="hotseat"></div>
+                   
+                    {/* <div id="hotseat" style={{}}></div> */}
                   </h1>{" "}
                 </a>
               </div>
@@ -468,11 +497,13 @@ const Latest = () => {
           ))}
 
           {podcasts.slice(0, 1).map((post, index) => (
-            <div className="col-md-5 ">
-              <img className="ImgBoxGuets" src={post.banner_img} alt={post.banner_alt} />
+            <div className="col-md-5 mt-2" >
+              <img className="ImgBoxGuets mt-5" src={post.banner_img} alt={post.banner_alt} />
             </div>
           ))}
         </div>
+        <div id="hotseat" style={{height:"80px"}} className=" DesktopResponsive"></div>
+        
       </div>
 
       <div className="container container-max">
@@ -511,7 +542,7 @@ const Latest = () => {
                           options
                         )}
                       </p>
-<div id="future"></div>
+{/* <div id="future"></div> */}
                       <div id={`post-post_${index}`}></div>
                     </div>
                   </div>
@@ -519,7 +550,7 @@ const Latest = () => {
 
                 <div className="borderB"></div>
                 {/* <div id='featured'></div> */}
-                {/* <div id="future"></div> */}
+                <div id="future"></div>
               </div>
             ))}
           </div>
@@ -556,13 +587,18 @@ const Latest = () => {
                           undefined,
                           options
                         )}
+                         
                       </p>
+                      
+                      
                     </div>
                   </div>
                 </a>
 
                 <div className="borderB"></div>
+                
               </div>
+              
             ))}
           </div>
         </div>
@@ -602,40 +638,47 @@ const Latest = () => {
 
 </div> */}
 
-      <div className="container container-max d-flex gap-2 spaceincontent mt-5">
-        <div className="row  border-bottom ">
-          <h5 className="fw-bold borderB py-1 h4">Future Ready</h5>
+      <div className="container container-max d-flex gap-2 spaceincontent mt-2">
+        <div className="row  ">
+          <h5 className="fw-bold borderB py-1 h4 mt-5">Future Ready</h5>
           {futureready.map((post, index) => (
             <div
-              className="col-md-6  paddings mt-3 mb-4"
+              className="col-md-6  paddings mt-3 mb-4 borderB"
               style={{ padding: "10px" }}
             >
+              
               <a href={`/${post.cat_slug}/${post.post_name}`}>
                 {" "}
-                <h3 id="guest" className="fw-bold hoverHead">{post.post_title}</h3>
+                <h3  className="fw-bold hoverHead mt-3" >{post.post_title}</h3>
               </a>
-              <p  style={{ fontSize: "13px" }}>
+              
+              <p  style={{ fontSize: "13px" }} >
                 By{" "}
                 {new Date(post.post_date).toLocaleDateString(
                   undefined,
                   options
                 )}
+                
               </p>
-              {/* <div id="guest" ></div> */}
+              <div  id="guest" ></div>
+              <div  className="text-white">.</div>
+              <div  className="text-white">.</div>
+           
             </div>
           ))}
         </div>
       </div>
+      
 
       <div className="container container-max mt-5 spaceincontent">
         <div className="row">
           <h5 className="fw-bold borderB py-1 h4">Guest Author</h5>
 
           {guestauthor.slice(0, 1).map((post, index) => (
-            <div className="col-md-6 guestImg">
+            <div className="col-md-6 guestImg" style={{marginTop:"0px", marginBottom:"0px"}}>
               <a href={`/${post.cat_slug}/${post.post_name}`}>
                 {" "}
-                <img className="ImgBoxGuets" src={post.banner_img} alt={post.banner_alt} />
+                <img className="ImgBoxGuets"  src={post.banner_img} alt={post.banner_alt} />
               </a>
             </div>
           ))}
@@ -657,6 +700,10 @@ const Latest = () => {
                       )}
                     </p>
                     <button className="btn-pod">Hear The Podcasts</button>
+                   <p className="p text-white">.</p>
+                   <p className="p text-white">.</p>
+                   <p className="p text-white">.</p>
+                   
                     <div id="learning"></div>
                   </h2>{" "}
                 </a>
@@ -713,11 +760,13 @@ const Latest = () => {
         <div className="row mt-5 spaceincontentbottm">
           <div className="col-md-12 mb-2 borderB">
             <div >
-            <a href="/">  <img
+            {advertisementData && advertisementData.length > 0 && (
+            <a href={`/${advertisementData[1].dest_url}`}>  <img
                 style={{ width: "100%" }}
-                src="https://enterprisetalk.com/wp-content/uploads/2023/11/BlackNP-1.png"
-                alt="banner"
+                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[1].banner_img}`}
+                alt={advertisementData[1].banner_name}
               /> </a>
+            )}
             </div>
           </div>
         </div>
