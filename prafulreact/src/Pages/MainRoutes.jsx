@@ -17,6 +17,7 @@ import DoNotSell from "./DoNotSell";
 import Topic from "./Topic";
 import Searchlist from "./Searchlist";
 import Unsubscribe from "./Unsubscribe";
+import PostPreview from "./PostPreview";
 
 const MainRoutes = () => {
   return (
@@ -36,12 +37,18 @@ const MainRoutes = () => {
       <Route path="/Lazy" element={<Lazy />}></Route>
       <Route path="/Scrolltop" element={<Scrolltop />}></Route>
       <Route exact path="/tag/:subcat" element={<Tag />} />
-      <Route exact path="/:cat_slug/:post_name" element={<Topic />} />
+      <Route exact path="/:cat_slug/:post_name" element={<Topic />} /> 
       {/* <Route exact path="/:post_name" element={<Topic />} /> */}
       <Route exact path="/topic/:cat" element={<ContentCategory />} />
       <Route exact path="/topic/:cat/:subcat" element={<ContentCategory />} />
       <Route exact path="/search/:cat/:searchVal" element={<Searchlist />} />
       <Route exact path="/search/:cat/:searchVal/:subcat" element={<Searchlist />} />
+
+
+      {/* Post detail page preview  */}
+      <Route exact path="/preview/:cat_slug/:post_name"  element={<PostPreview />} />
+      {/* Post detail page preview  */}
+
 
       <Route path="*" element={<NotFound />} />
     </Routes>

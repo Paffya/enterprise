@@ -1,5 +1,6 @@
 .ArticleImg{
-    max-width: 250px;
+    /* max-width: 250px; */
+    max-width: 160px;
     height: auto;
     border-radius: 20px;
     margin: 0px 20px 0px 0px;
@@ -242,7 +243,7 @@ input[type=range]:focus::-ms-fill-upper {
  
     .ArticleBox{
        
-        display: grid;
+        /* display: grid; */
     }
 
     .ArticleImg{

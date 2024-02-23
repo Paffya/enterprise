@@ -43,10 +43,10 @@ const Searchlist = () => {
           <div className="col-md-12 mb-2 borderB">
             <div >
             {advertisementData && advertisementData.length > 0 && (
-             <a href={`/${advertisementData[1].dest_url}`}> <img
+             <a href={`/${advertisementData[2].dest_url}`}> <img
                 style={{ width: "100%" }}
-                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[1].banner_img}`}
-                alt={advertisementData[1].banner_name}
+                src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[2].banner_img}`}
+                alt={advertisementData[2].banner_name}
               /> </a>
             )}
             </div>

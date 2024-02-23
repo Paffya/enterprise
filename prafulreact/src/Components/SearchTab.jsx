@@ -140,11 +140,8 @@ const Searchtab = () => {
       <Nav.Item>
         <Nav.Link eventKey="Filter" className='tabButton' disabled>Filter :</Nav.Link>
       </Nav.Item>
-      {/* <Nav.Item >
-          <Nav.Link  className='tabButton text-black backgRed' href={`/search/all/${searchVal}`}>All</Nav.Link>
-        </Nav.Item> */}
-        
-      {/* Dynamically generate tabs based on fetched data */}
+     
+
       {categories.slice(0,9).map((category, index) => (
         <Nav.Item key={index}>
           <Nav.Link eventKey={index} className={`tabButton text-black backgRed ${category.cat_slug === cat ? 'isActive' : ''}`} href={`/search/${category.cat_slug}/${searchVal}`}>{category.cat_name}</Nav.Link>
@@ -181,7 +178,7 @@ const Searchtab = () => {
 </a>
 </div>
 <div className='padLR' id='datas'>
-<a href={`/${post.cat_slug}/${post.post_name}`}><h4 className='fw-bold h5 mt-3 hoverHead line-clamp'>{post.post_title}</h4></a>
+<a href={`/${post.cat_slug}/${post.post_name}`}><h2 className='fw-bold h5 mt-3 hoverHead line-clamp'>{post.post_title}</h2></a>
 <p style={{ fontSize: "13px" }}>
               By <span className="fw-bold">{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
             </p>
@@ -189,37 +186,6 @@ const Searchtab = () => {
 </div>
 </div>
                 ))}
-
-{/* <div className='borderR'></div> */}
-{/* <div  className='addvert zoom-in'>
-<div>
-  <img style={{width:"100%" , borderRadius:"20px",  height: "auto", objectFit:"cover"}} src="https://workdesign.com/wp-content/uploads/2018/05/Marvin_Windows_HeadQuarters_031.jpg" alt="" />
-</div>
-<div className='padLR'>
-<h4 className='fw-bold h5 mt-3 hoverHead'>Questel Plans for Growth by Expanding R&D and Manufacture</h4>
-<p style={{ fontSize: "13px" }}>
-              By <span className="fw-bold">John Smith</span> | 12
-              sept 2023
-            </p>
-            <p className='just-text line-clamp mt-1' style={{ fontSize: "15px" }}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo rerum hic aliquid iusto incidunt perferendis laudantium nostrum culpa ratione laboriosam ipsam explicabo fugiat natus, cumque</p>
-</div>
-</div>
-
-
-<div className='borderR'></div>
-<div  className='addvert zoom-in'>
-<div>
-  <img style={{width:"100%" , borderRadius:"20px",  height: "auto", objectFit:"cover"}} src="https://officesnapshots.com/wp-content/uploads/2018/06/marvin-windows-doors-headquarters-eagan-13-1200x800.jpg" alt="" />
-</div>
-<div className='padLR'>
-<h4 className='fw-bold h5 mt-3 hoverHead'>Questel Plans for Growth by Expanding R&D and Manufacture</h4>
-<p style={{ fontSize: "13px" }}>
-              By <span className="fw-bold">John Smith</span> | 12
-              sept 2023
-            </p>
-            <p className='just-text line-clamp mt-1' style={{ fontSize: "15px" }}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo rerum hic aliquid iusto incidunt perferendis laudantium nostrum culpa ratione laboriosam ipsam explicabo fugiat natus, cumque</p>
-</div>
-</div> */}
 
 
                 </div>
@@ -236,26 +202,7 @@ const Searchtab = () => {
 
     <div className="col-md-8">
 
-    {/* {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div>
-          {data.latest.map((post, index) => (
-            <div key={index}>
-              <div className='paddings'>
-                <Link to={"/Latest"}><h4 className='fw-bold h5 hoverHead'>{post.post_title}</h4></Link>
-                <p style={{ fontSize: '13px' }}>
-                  By <span className='fw-bold'>{post.post_author}</span> | {post.post_date}
-                </p>
-                <p className='just-text line-clamp mt-1' style={{ fontSize: '15px' }}>
-                  {post.post_content}
-                </p>
-              </div>
-              <p className='hr' />
-            </div>
-          ))}
-        </div>
-      )} */}
+  
 
 
 
@@ -271,7 +218,7 @@ const Searchtab = () => {
           </div>
 
           <div className='' style={{ width: '74%' }}>
-           <h5 className='fw-bold hoverHead quickText h5'>{post.post_title}</h5>
+           <h3 className='fw-bold hoverHead quickText h5'>{post.post_title}</h3>
             <p style={{ fontSize: '13px' }}>
               By <span className='fw-bold'>{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
             </p>
@@ -300,10 +247,7 @@ const Searchtab = () => {
            style={{cursor:"pointer"}}>{page}</button>
          </span>
       ))}
-  {/* <span>{pagination.page + 1}</span>
-  <span>{pagination.page + 2}</span>
-  <span>{pagination.page + 3}</span>
-  <span>{pagination.page + 4}</span> */}
+  
   <a href="#datas" className='mt-1 mb-1'>
   <button
     className='PaginatinNextBtn'
@@ -333,7 +277,7 @@ const Searchtab = () => {
     <div className="col-md-4">
     <div >
     {advertisementData && advertisementData.length > 0 && (
-   <a href={`/${advertisementData[0].dest_url}`}> <img style={{ width:"100%"}} src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[0].banner_img}`} alt={advertisementData[0].banner_name} /></a>
+   <a href={`/${advertisementData[0].dest_url}`}> <img style={{ width:"100%"}} src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[0].banner_img}`} alt={advertisementData[0].banner_name} /></a>
     )}
 </div>
     </div>

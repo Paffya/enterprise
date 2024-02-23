@@ -185,7 +185,21 @@ div {
   color: black;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 15px;
+  /* margin-left: -550px; */
+  /* margin-left: -468px; */
+  margin-left: -400px;
+  margin-top: 10px;
+}
+
+.dropdownLeader3 {
+  width: 1200px;
+  background-color: white;
+  color: black;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 15px;
   margin-left: -550px;
+  /* margin-left: -468px; */
+  /* margin-left: -400px; */
   margin-top: 10px;
 }
 
@@ -692,7 +706,9 @@ a:hover{
     position: absolute;
     background-color: white;
     margin-top: 32px;
-    width: 27%;
+    /* width: 27%; */
+    width: auto;
+    max-width: 50%;
     border-radius: 10px;
     padding-left: 0px;
     /* height: 316px; */
@@ -815,12 +831,20 @@ a:hover{
 @media (min-width: 375px) and (max-width: 425px) { 
   .searchBox{
     width: 90% !important;
+    max-width: 100%;
   }
 
   .search-input{
     border-bottom: none;
   }
  
+ }
+
+ @media (max-width: 576px) {
+  .searchBox{
+    width: 100% !important;
+    max-width: 100%;
+  }
  }
 
 
@@ -875,6 +899,7 @@ a:hover{
 
   .searchBox{
     width: 100%;
+    max-width: 87%;
   }
  
   

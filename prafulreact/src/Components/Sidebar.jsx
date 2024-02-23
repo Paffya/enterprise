@@ -424,16 +424,16 @@ const Navigation = () => {
     </Nav>
 
 
-          <Nav.Link className="text-white MobileResponsive" href="/Latest">
+          {/* <Nav.Link className="text-white MobileResponsive" href="/Latest">
             <p className="text-white">
               <a href="/Latest">Latest</a>
             </p>
-          </Nav.Link>
+          </Nav.Link> */}
 
           
 
           <NavDropdown
-            title="Leadership"
+            title="Latest"
             className=" text-white MobileResponsive"
           >
             {newsPosts.slice(0, 1).map((post, index) => (
@@ -524,7 +524,7 @@ const Navigation = () => {
             ))}
           </NavDropdown>
 
-          <NavDropdown title="Featured" className="MobileResponsive">
+          <NavDropdown title="Leadership" className="MobileResponsive">
             {newsPod.slice(0, 1).map((post, index) => (
               <NavDropdown.Item
                 href={`/${post.cat_slug}/${post.post_name}`}

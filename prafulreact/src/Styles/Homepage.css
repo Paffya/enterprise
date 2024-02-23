@@ -56,7 +56,7 @@
 .swiperBox{
     background-color:#f46363;
     /* padding: 80px 30px 80px 30px; */
-    padding: 30px 28px 2px 28px;
+    padding: 20px 15px 0px 15px;
     font-size: 15px;
 }
 
@@ -222,7 +222,9 @@
 
 @media (max-width: 576px) {
 
-   
+   .heightAuto{
+    height: auto !important;
+   }
    
   }
   

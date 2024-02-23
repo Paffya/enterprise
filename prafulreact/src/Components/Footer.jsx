@@ -102,7 +102,7 @@ const Footer = () => {
     <div className="row">
       <div className="col-md-3">
         <div>
-          <img className="FootLogo" src="https://enterprisetalk.com/wp-content/uploads/2022/10/Asset-5-300x61.png.webp" alt="" />
+          <img className="FootLogo" src="https://enterprisetalk.com/wp-content/uploads/2022/10/Asset-5-300x61.png.webp" alt="Enterprise Logo" />
         </div>
         <div className="mt-4">
           <p className="just-text">A Peer Knowledge resources - By the CXO, For the CXO</p>
@@ -122,7 +122,7 @@ const Footer = () => {
       <div className="col-md-3">
         <div className="">
           <div className="border-bottom mt-3">
-            <h5 className="fw-bold">About</h5>
+            <h6 className="fw-bold h5">About</h6>
           </div>
           <div className="border-bottom mt-3">
             <p ><a href="/about" className='text-black hoverHead'>About Us</a></p>
@@ -209,7 +209,7 @@ const Footer = () => {
       <div className="col-md-3">
         <div className="">
           <div className="border-bottom mt-3">
-            <h5 className="fw-bold">Policies</h5>
+            <h6 className="fw-bold h5">Policies</h6>
           </div>
           <div className="border-bottom mt-3">
            <a href='/privacy'> <p className='hoverHead'>Privacy Policy</p></a>
@@ -247,7 +247,7 @@ const Footer = () => {
       </div>
     </div>
     <div className="col-md-12 mt-3">
-      <h5 className="text-center  fw-bold">Other Publications</h5>
+      <h6 className="text-center h5 fw-bold">Other Publications</h6>
     </div>
     <div className="d-flex text-center otherPublic" >
       <div>

@@ -230,7 +230,7 @@ useEffect(() => {
           </div>
 
           <div>
-            <h5 className="fw-bold borderB py-1 h4 ">News</h5>
+            <h2 className="fw-bold borderB py-1 h4 ">News</h2>
 
             <div className="flexAddver mt-3" style={{ gap: "11px" }}>
               {/* {console.log(posts.news)} */}
@@ -257,9 +257,9 @@ useEffect(() => {
                     </div>
                     <div className="padLR ">
                       <a href={`/${post.cat_slug}/${post.post_name}`}>
-                        <h4 className="fw-bold h5 mt-3 hoverHead line-clamp">
+                        <h3 className="fw-bold h5 mt-3 hoverHead line-clamp">
                           {post.post_title}
-                        </h4>
+                        </h3>
                       </a>
                       <p style={{ fontSize: "13px" }}>
                         By <span className="fw-bold">{post.post_author}</span> |{" "}
@@ -313,10 +313,10 @@ useEffect(() => {
             <div >
               <div id="article"></div>
               {advertisementData && advertisementData.length > 0 && (
-            <a href={`/${advertisementData[1].dest_url}`}>  <img
+            <a href={`/${advertisementData[2].dest_url}`}>  <img
                 style={{ width: "100%" }}
-                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[1].banner_img}`}
-                alt={advertisementData[1].banner_name}
+                src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[2].banner_img}`}
+                alt={advertisementData[2].banner_name}
               /> </a>
               )}
             </div>
@@ -326,7 +326,7 @@ useEffect(() => {
 
       <div className="container container-max ">
         <div className="row ">
-          <h5 className="fw-bold borderB py-1 h4">Articles</h5>
+          <h3 className="fw-bold borderB py-1 h4">Articles</h3>
           <div className="col-md-4 mt-3">
             {featured.slice(0, 6).map((post, index) => (
               <React.Fragment key={index}>
@@ -384,7 +384,7 @@ useEffect(() => {
 
       <div className="container container-max">
         <div className="row mt-5 spaceincontent">
-          <h5 className="fw-bold borderB py-1 h4">Quick Bytes</h5>
+          <h4 className="fw-bold borderB py-1 h4">Quick Bytes</h4>
 
           <div className="col-md-8">
             {quickbytes.map((post, index) => (
@@ -404,9 +404,9 @@ useEffect(() => {
                     </div>
 
                     <div className="" style={{ width: "74%" }}>
-                      <h5 className="fw-bold hoverHead quickText h5 line-clamp">
+                      <h4 className="fw-bold hoverHead quickText h5 line-clamp">
                         {post.post_title}
-                      </h5>
+                      </h4>
                       <p style={{ fontSize: "13px" }}>
                         By <span className="fw-bold">{post.post_author}</span> |{" "}
                         {new Date(post.post_date).toLocaleDateString(
@@ -440,7 +440,7 @@ useEffect(() => {
               {advertisementData && advertisementData.length > 0 && (
             <a href={`/${advertisementData[0].dest_url}`}>  <img
                 style={{ height: "648px", width: "auto" }}
-                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[0].banner_img}`}
+                src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[0].banner_img}`}
                 alt={advertisementData[0].banner_name}
               /> </a>
               )}
@@ -455,10 +455,10 @@ useEffect(() => {
             <div id="podcast"></div>
             <div   style={{ textAlign:"center", alignItems:"center", margin:"auto"}}>
             {advertisementData && advertisementData.length > 0 && (
-             <a href={`/${advertisementData[1].dest_url}`}> <img
+             <a href={`/${advertisementData[2].dest_url}`}> <img
                 style={{width:"100%"}}
-                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[1].banner_img}`}
-                alt={advertisementData[1].banner_name}
+                src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[2].banner_img}`}
+                alt={advertisementData[2].banner_name}
               /> </a>
             )}
             </div>
@@ -468,13 +468,13 @@ useEffect(() => {
 
       <div className="container container-max ">
         <div className="row mt-5 spaceincontent justify-content-between ">
-          <h5 className="fw-bold borderB py-1 h4">Podcasts</h5>
+          <h4 className="fw-bold borderB py-1 h4">Podcasts</h4>
 
           {podcasts.slice(0, 1).map((post, index) => (
             <div className="col-md-7">
               <div className="podText">
                 <a href={`/${post.cat_slug}/${post.post_name}`}>
-                  <h1 className='fw-bold hoverHead guestFont2' >
+                  <h4 className='fw-bold hoverHead guestFont2' >
                     <p className='fw-bold hoverHead guestFont2 line-clamp' style={{fontSize:"50px"}}>{post.post_title}</p>
                     <p style={{ fontSize: "18px" }} className="fw-bold mt-2">
                       In conversation with
@@ -490,7 +490,7 @@ useEffect(() => {
 
                    
                     {/* <div id="hotseat" style={{}}></div> */}
-                  </h1>{" "}
+                  </h4>{" "}
                 </a>
               </div>
             </div>
@@ -508,7 +508,7 @@ useEffect(() => {
 
       <div className="container container-max">
         <div className="row mt-5 spaceincontent">
-          <h5 className="fw-bold borderB py-1 h4">Hot Seats</h5>
+          <h4 className="fw-bold borderB py-1 h4">Hot Seats</h4>
           
           <div className="col-md-6">
             {interview.slice(0, 2).map((post, index) => (
@@ -649,7 +649,7 @@ useEffect(() => {
               
               <a href={`/${post.cat_slug}/${post.post_name}`}>
                 {" "}
-                <h3  className="fw-bold hoverHead mt-3" >{post.post_title}</h3>
+                <h5  className="fw-bold h3 hoverHead mt-3" >{post.post_title}</h5>
               </a>
               
               <p  style={{ fontSize: "13px" }} >
@@ -687,7 +687,7 @@ useEffect(() => {
               <div className="align-center">
                 <a href={`/${post.cat_slug}/${post.post_name}`}>
                   {" "}
-                  <h2 className="fw-bold hoverHead guestFont">
+                  <h5 className="fw-bold h2 hoverHead guestFont">
                     <p className="fw-bold hoverHead guestFont">{post.post_title}</p>
                     <p style={{ fontSize: "18px" }} className="fw-bold mt-2">
                       In conversation with
@@ -705,7 +705,7 @@ useEffect(() => {
                    <p className="p text-white">.</p>
                    
                     <div id="learning"></div>
-                  </h2>{" "}
+                  </h5>{" "}
                 </a>
               </div>
             ))}
@@ -738,9 +738,9 @@ useEffect(() => {
                   </div>
 
                   <div className="mt-2" style={{ width: "60%" }}>
-                    <h4 className="fw-bold hoverHead h5 line-clamp3">
+                    <h5 className="fw-bold hoverHead h5 line-clamp3">
                       {post.post_title}
-                    </h4>
+                    </h5>
                     <p style={{ fontSize: "13px" }}>
                       By <span className="fw-bold">{post.post_author}</span>{" "}
                       {new Date(post.post_date).toLocaleDateString(
@@ -761,10 +761,10 @@ useEffect(() => {
           <div className="col-md-12 mb-2 borderB">
             <div >
             {advertisementData && advertisementData.length > 0 && (
-            <a href={`/${advertisementData[1].dest_url}`}>  <img
+            <a href={`/${advertisementData[2].dest_url}`}>  <img
                 style={{ width: "100%" }}
-                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[1].banner_img}`}
-                alt={advertisementData[1].banner_name}
+                src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[2].banner_img}`}
+                alt={advertisementData[2].banner_name}
               /> </a>
             )}
             </div>

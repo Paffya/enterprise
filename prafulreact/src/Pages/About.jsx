@@ -9,11 +9,11 @@ const About = () => {
 
         <div className="container container-max">
       <div className="row">
-        <h2 className="fw-bold py-1 mt-3 borderB">About Us</h2>
+        <h1 className="fw-bold h2 py-1 mt-3 borderB">About Us</h1>
         <div className="col-md-8">
-          <h4 className="fw-bold mt-3">
+          <h2 className="fw-bold h4 mt-3">
             A Peer Knowledge resources - By the CXO, For the CXO
-          </h4>
+          </h2>
           <p>
             With technology increasingly transforming business and driving
             strategies, first-hand inputs from Change Makers, Corporate Movers
@@ -45,7 +45,7 @@ const About = () => {
 
     <div className="container container-max mt-5">
       <div className="row">
-        <h5 className="fw-bold borderB py-1 h4">The Team</h5>
+        <h3 className="fw-bold borderB py-1 h4">The Team</h3>
         <div className="col-md-12">
           <p>
             The team that has conceptualized EnterpriseTalk, manages it, and

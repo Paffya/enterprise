@@ -144,7 +144,7 @@ useEffect(() => {
 
             <div>
               
-            <h5 className='fw-bold borderB py-1 h4'>News</h5>
+            <h2 className='fw-bold borderB py-1 h4'>News</h2>
 
             <div>
       {loading ? (
@@ -161,7 +161,7 @@ useEffect(() => {
                 </figure>
               </div> </a>
               <div className='padLR'>
-                <a href={`/${post.cat_slug}/${post.post_name}`}><h4 className='fw-bold h5 mt-3 hoverHead line-clamp'>{post.post_title}</h4></a>
+                <a href={`/${post.cat_slug}/${post.post_name}`}><h3 className='fw-bold h5 mt-3 hoverHead line-clamp'>{post.post_title}</h3></a>
                 <p style={{ fontSize: '13px' }}>
                   By <span className='fw-bold'>{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
                 </p>
@@ -250,10 +250,10 @@ useEffect(() => {
               <div id="article"></div>
 
               {advertisementData && advertisementData.length > 0 && (
-            <a href={`/${advertisementData[1].dest_url}`}>  <img
+            <a href={`/${advertisementData[2].dest_url}`}>  <img
                 style={{ width: "100%" }}
-                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[1].banner_img}`}
-                alt={advertisementData[1].banner_name}
+                src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[2].banner_img}`}
+                alt={advertisementData[2].banner_name}
               /> </a>
               )}
             </div>
@@ -271,10 +271,10 @@ useEffect(() => {
     data.featured && data.featured.length > 0 ? (
   <div className="row ">
 
-  <h5  className='fw-bold borderB py-1 h4'>Articles</h5>
+  <h3  className='fw-bold borderB py-1 h4'>Articles</h3>
   
    
-  <div className='col-md-4 mt-2'>
+  <div className='col-md-3 mt-2'>
       
   {data.featured.slice(0,7).map((featured, index) => (
       <div className='borderB mt-3'>
@@ -295,7 +295,7 @@ useEffect(() => {
     </div>
 
     {data.featured.slice(6,7).map((featured, index) => (
-    <div className="col-md-8">
+    <div className="col-md-9">
     <a href={`/${featured.cat_slug}/${featured.post_name}`}> <div >
             
            <div >
@@ -334,7 +334,7 @@ useEffect(() => {
     data.quickbytes && data.quickbytes.length > 0 ? (
   <div className="row mt-5 spaceincontent">
 
-  <h5  className='fw-bold borderB py-1 h4'>Quick Bytes</h5>
+  <h4  className='fw-bold borderB py-1 h4'>Quick Bytes</h4>
 
 
     <div className="col-md-8">
@@ -345,7 +345,7 @@ useEffect(() => {
       </div>
 
       <div className='' style={{width:"74%"}}>
-     <a href={`/${post.cat_slug}/${post.post_name}`}> <h5 className='fw-bold hoverHead quickText h5 line-clamp'>{post.post_title}</h5></a>
+     <a href={`/${post.cat_slug}/${post.post_name}`}> <h4 className='fw-bold hoverHead quickText h5 line-clamp'>{post.post_title}</h4></a>
       <p style={{ fontSize: "13px" }}>
                           By <span className="fw-bold" >{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
                         </p>
@@ -370,7 +370,7 @@ useEffect(() => {
     <div style={{height:"648px", textAlign:"center", margin:"auto", alignItems:"center"}}>
     {/* <p className='bllack'>340*900</p> */}
     {advertisementData && advertisementData.length > 0 && (
-   <a href={`/${advertisementData[0].dest_url}`}> <img style={{height:"648px", width:"auto"}}  src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[0].banner_img}`} alt={advertisementData[0].banner_name} /> </a>
+   <a href={`/${advertisementData[0].dest_url}`}> <img style={{height:"648px", width:"auto"}}  src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[0].banner_img}`} alt={advertisementData[0].banner_name} /> </a>
     )}
 </div>
     </div>
@@ -387,10 +387,10 @@ useEffect(() => {
           <div id="podcast"></div>
             <div   style={{ textAlign:"center", alignItems:"center", margin:"auto"}}>
             {advertisementData && advertisementData.length > 0 && (
-             <a href={`/${advertisementData[1].dest_url}`}> <img
+             <a href={`/${advertisementData[2].dest_url}`}> <img
                 style={{width:"100%"}}
-                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[1].banner_img}`}
-                alt={advertisementData[1].banner_name}
+                src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[2].banner_img}`}
+                alt={advertisementData[2].banner_name}
               /> </a>
             )}
             </div>
@@ -408,10 +408,10 @@ useEffect(() => {
     // Check if there is data.podcasts and it has at least one item
     data.podcasts && data.podcasts.length > 0 ? (
   <a href={`/${data.podcasts[0].cat_slug}/${data.podcasts[0].post_name}`}><div className='row mt-5 spaceincontent justify-content-between'>
-  <h5  className='fw-bold borderB py-1 h4'>Podcasts</h5>
+  <h4  className='fw-bold borderB py-1 h4'>Podcasts</h4>
     <div className="col-md-7">
       <div className='podText'>
-      <h1 className='fw-bold hoverHead guestFont2' > <p style={{fontSize:"50px"}} className='fw-bold hoverHead guestFont2 line-clamp'>{data.podcasts[0].post_title}</p>
+      <h4 className='fw-bold hoverHead guestFont2' > <p style={{fontSize:"50px"}} className='fw-bold hoverHead guestFont2 line-clamp'>{data.podcasts[0].post_title}</p>
       <p style={{ fontSize: "18px" }} className='fw-bold mt-2'>In conversation with</p>
       <p className='guestPtag'>
                           By <span className="fw-bold">{data.podcasts[0].post_author}</span> | {new Date(data.podcasts[0].post_date).toLocaleDateString(undefined, options)}
@@ -419,7 +419,7 @@ useEffect(() => {
                         <button className='btn-pod'>Hear The Podcasts</button>
 
                         {/* <div id="hotseat"></div> */}
-      </h1>
+      </h4>
       
                         </div>
     </div>
@@ -449,7 +449,7 @@ useEffect(() => {
     data.interview && data.interview.length > 0 ? (
   <div className="row mt-5 spaceincontent">
 {/* <div id="future"></div> */}
-  <h5  className='fw-bold borderB py-1 h4'>Hot Seats</h5>
+  <h4  className='fw-bold borderB py-1 h4'>Hot Seats</h4>
 
   {data.interview.slice(0,4).map((post, index) => (
     <div className="col-md-6">
@@ -581,7 +581,7 @@ useEffect(() => {
   <div className='row  border-bottom ' >
   <h5  className='fw-bold borderB py-1 h4'>Future Ready</h5>
 <div className='col-md-6 borderR paddings mt-3 mb-4' style={{padding:"10px"}}>
- <a href={`/${data.futureready[0].cat_slug}/${data.futureready[0].post_name}`}><h3 className='fw-bold hoverHead'>{data.futureready[0].post_title}</h3></a>
+ <a href={`/${data.futureready[0].cat_slug}/${data.futureready[0].post_name}`}><h5 className='fw-bold h2 hoverHead'>{data.futureready[0].post_title}</h5></a>
   <p style={{ fontSize: "13px" }}>
                           By <span className="fw-bold">{data.futureready[0].post_author}</span> | {new Date(data.futureready[0].post_date).toLocaleDateString(undefined, options)}
                         </p>
@@ -589,7 +589,7 @@ useEffect(() => {
 </div>
 {data.futureready.length > 1 && (
 <div className='col-md-6  paddings mt-3 mb-4' style={{padding:"10px"}} >
-<a href={`/${data.futureready[1].cat_slug}/${data.futureready[1].post_name}`}><h3  className='fw-bold  hoverHead'>{data.futureready[1].post_title}</h3></a>
+<a href={`/${data.futureready[1].cat_slug}/${data.futureready[1].post_name}`}><h5  className='fw-bold h2 hoverHead'>{data.futureready[1].post_title}</h5></a>
   <p style={{ fontSize: "13px" }}>
                           By <span className="fw-bold">{data.futureready[1].post_author}</span> | {new Date(data.futureready[1].post_date).toLocaleDateString(undefined, options)}
                         </p>
@@ -621,7 +621,7 @@ useEffect(() => {
 
     <div className="col-md-6  guestText" >
     <div className='align-center'>
-    <a href={`/${data.guestauthor[0].cat_slug}/${data.guestauthor[0].post_name}`}>  <h2 className='fw-bold hoverHead guestFont'> <p className='fw-bold hoverHead guestFont'>{data.guestauthor[0].post_title}</p>
+    <a href={`/${data.guestauthor[0].cat_slug}/${data.guestauthor[0].post_name}`}>  <h5 className='fw-bold h2 hoverHead guestFont'> <p className='fw-bold hoverHead guestFont'>{data.guestauthor[0].post_title}</p>
       <p style={{ fontSize: "18px" }} className='fw-bold mt-2'>In conversation with</p>
       <p className='guestPtag'>
                           By <span className="fw-bold">{data.guestauthor[0].post_author}</span> | {new Date(data.guestauthor[0].post_date).toLocaleDateString(undefined, options)}
@@ -633,7 +633,7 @@ useEffect(() => {
                    
                     <div id="learning"></div>
                         
-      </h2> </a>
+      </h5> </a>
       
                         </div>
     </div>
@@ -666,7 +666,7 @@ useEffect(() => {
       </div>
 
       <div className='mt-2' style={{width:"60%"}}>
-      <h4 className='fw-bold hoverHead h5'>{learningcenter.post_title}</h4>
+      <h5 className='fw-bold hoverHead h5'>{learningcenter.post_title}</h5>
       <p style={{ fontSize: "13px" }}>
                           By <span className="fw-bold">{learningcenter.post_author}</span> | {new Date(learningcenter.post_date).toLocaleDateString(undefined, options)}
                         </p>
@@ -691,10 +691,10 @@ useEffect(() => {
           <div className="col-md-12 mb-2 borderB">
             <div >
             {advertisementData && advertisementData.length > 0 && (
-             <a href={`/${advertisementData[1].dest_url}`}> <img
+             <a href={`/${advertisementData[2].dest_url}`}> <img
                 style={{ width: "100%" }}
-                src={`http://192.168.17.8:3000/uploads/ad_banner/${advertisementData[1].banner_img}`}
-                alt={advertisementData[1].banner_name}
+                src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[2].banner_img}`}
+                alt={advertisementData[2].banner_name}
               /> </a>
             )}
             </div>

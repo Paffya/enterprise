@@ -277,7 +277,7 @@ Philippines
 
            <div className="col-md-4 ">
            <div className="borderB mt-4 mb-4">
-            <h5 className="fw-bold pinkColor">Email Us</h5>
+            <h1 className="fw-bold h5 pinkColor">Email Us</h1>
           </div>
 
           <div>
@@ -291,7 +291,7 @@ Philippines
 
            <div className="col-md-4 ">
            <div className="borderB mt-4 mb-4">
-            <h5 className="fw-bold pinkColor">CCPA Helpline</h5>
+            <h2 className="fw-bold h5 pinkColor">CCPA Helpline</h2>
           </div>
 
           <div>
@@ -306,7 +306,7 @@ Philippines
 
           <div className="col-md-4">
           <div className=" mt-4 mb-4">
-            <h5 className="fw-bold pinkColor borderB">Send Us a Message</h5>
+            <h3 className="fw-bold pinkColor h5 borderB">Send Us a Message</h3>
           </div>
         
 

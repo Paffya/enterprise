@@ -4,7 +4,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import ShareButton from "../Components/ShareButton";
 
-const Searchart = () => {
+const PostPreview = () => {
   const options = {
     year: "numeric",
     month: "short",
@@ -20,63 +20,33 @@ const Searchart = () => {
   const [authorId, setAuthorId] = useState("");
   const [postData, setPostData] = useState([]);
   const [latestPosts, setLatestPosts] = useState([]);
-  // const [postId, setPostId] = useState("");
-  const [userIp, setUserIp] = useState('');
+
 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // user's IP address from the ipify service
-        const ipResponse = await fetch('https://api64.ipify.org?format=json');
+        // Fetch the user's IP address from the ipify service
+       
 
-        if (ipResponse.ok) {
-          const ipData = await ipResponse.json();
-          const userIp = ipData.ip;
-          setUserIp(userIp);
+        
 
-          // Now, you can use userIp as needed in your application
-          console.log('User IP Address:', userIp);
-
-          
+          // Continue with the rest of your code to fetch other data
           const response = await fetch(
-            `http://192.168.17.8:3000/api/post/postdetails/${cat_slug}/${post_name}`
+            `http://192.168.17.8:3000/api/post/preview-post/${cat_slug}/${post_name}`
           );
 
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
 
-          const data = await response.json(); 
-        
+          const data = await response.json();
 
           setHtmlContent(data.result[0].post_content);
           setAuthorId(data.result[0].post_author_id);
           setPostData(data.result);
-
-          // Now, send data to another API endpoint including the user's IP
-          const postDataForCount = {
-            postId: data.result[0].id,
-            ip_addr: userIp,
-          };
-
-          const countResponse = await fetch('http://192.168.17.8:3000/api/post/post_count/'+data.result[0].id, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(postDataForCount),
-          });
-
-          if (!countResponse.ok) {
-            throw new Error(`HTTP error! Status: ${countResponse.status}`);
-          }
-
-          const countData = await countResponse.json();
-          console.log('Count data:', countData);
-        } else {
-          console.error('Error fetching IP address:', ipResponse.status);
-        }
+   
+        
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -89,7 +59,7 @@ const Searchart = () => {
 
 
   useEffect(() => {
-    // Fetch data from the API using Axios
+   
     axios
       .get("http://192.168.17.8:3000/api/post/latest")
       .then((response) => {
@@ -98,10 +68,13 @@ const Searchart = () => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []); // Empty dependency array to run the effect once on mount
+  }, []); 
+
+
+
 
   const [data, setData] = useState([]);
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -120,7 +93,7 @@ const Searchart = () => {
             post_content: removeHtmlTags(post.post_content),
           }))
         );
-        // console.log(result)
+      
       } catch (error) {}
     };
 
@@ -168,63 +141,37 @@ const Searchart = () => {
     fetchAuthorData();
   }, []);
 
-  const [headings, setHeadings] = useState([]);
-
-  useEffect(() => {
-    const container = document.createElement('div');
-    container.innerHTML = htmlContent;
-
-    const headingsList = Array.from(container.querySelectorAll('h1, h2, h3, h4, h5, h6')).map((heading, index) => ({
-      text: heading.innerText,
-      id: heading.id || `heading-${index}`,  // Use existing ID or generate one
-    }));
-    
-    setHeadings(headingsList);
-  }, [htmlContent]);
-
-  const scrollToHeading = (id) => {
-    const element = document.getElementById(id);
-    console.log('scrollToHeading called with id:', id);
-    
-    if (element) {
-      console.log('Element found:', element);
-      element.scrollIntoView({ behavior: 'smooth' });
-      setTimeout(() => {
-        window.scrollBy(0, -100); // Adjust the value (-100) to set the desired distance from the top
-    }, 500); // Adjust the delay if needed to ensure it's after the smooth scrolling
-    
-    } else {
-      console.log('Element not found with id:', id);
-    }
-  };
-
-
-  const tempDiv = document.createElement('div');
-tempDiv.innerHTML = htmlContent;
-
-// Get all h1, h2, h3 elements
-const heading = tempDiv.querySelectorAll('h2, h3, h4');
-
-// Loop through the headings and assign dynamic IDs
-heading.forEach((heading, index) => {
-    heading.id = `heading-${index + 0}`; // You can change the ID format as per your requirement
-});
 
 
 
+  // const [randomName, setRandomName] = useState('');
+  // const [randomDescription, setRandomDescription] = useState('');
 
-// Set the modified HTML content back
-const updatedHtmlContent = tempDiv.innerHTML;
+  // useEffect(() => {
+  //   if (!authorData.author_display_name) {
+  //     // Generate a random name when author_display_name is not present
+  //     const randomNames = ['John Doe', 'Jane Doe', 'Anonymous', 'Mystery Author'];
+  //     const randomIndex = Math.floor(Math.random() * randomNames.length);
+  //     setRandomName(randomNames[randomIndex]);
+  //   }
+
+  //   if (!authorData.author_description) {
+  //     // Generate a random description when author_description is not present
+  //     const randomDescriptions = ['A mysterious author', 'Passionate storyteller', 'Author of the unknown'];
+  //     const randomIndex = Math.floor(Math.random() * randomDescriptions.length);
+  //     setRandomDescription(randomDescriptions[randomIndex]);
+  //   }
+  // }, [authorData.author_display_name, authorData.author_description]);
 
 
-  
+
   return (
     <div>
       <div className="container container-max ">
         <div className="row ">
           <div className="hr"></div>
 
-          <div className="col-md-9 borderR mt-2">
+          <div className="col-md-8 borderR mt-2">
             {postloading ? (
               <p></p>
             ) : (
@@ -265,28 +212,10 @@ const updatedHtmlContent = tempDiv.innerHTML;
 
                 <div style={{ fontSize: "14px" }}>
                   <p className="paddings">
-                  
-
-                  {headings.length > 0 && (
-  <div className="contentTableBox">
-    <h2 className="fw-bold mb-1 ">Table of Contents</h2>
-    <ol className="px-3">
-      {headings.map((heading) => (
-        <li key={heading.id} className="list-group-item ">
-          <a href={`#${heading.id}`}  onClick={() => scrollToHeading(heading.id)} className="text-black">{heading.text}</a>
-        </li>
-        //  href={`#${heading.id}`}
-      ))}
-    </ol>
-  </div>
-)}
-
-{/* <div className="content mt-2"  dangerouslySetInnerHTML={{ __html: htmlContent }} /> */}
-<div className="content mt-2" dangerouslySetInnerHTML={{ __html: updatedHtmlContent }} />
-                    {/* <div
+                    <div
                       className="content mt-2"
                       dangerouslySetInnerHTML={{ __html: htmlContent }}
-                    /> */}
+                    />
                   </p>
                 </div>
 
@@ -301,8 +230,8 @@ const updatedHtmlContent = tempDiv.innerHTML;
             />
           </div>
           <div style={{ fontSize: "14px", padding: "10px" }}>
-            <h2 className="fw-bold h6">{authorData.author_display_name}</h2>
-            <p>{authorData.author_description}</p>
+            <h2 className="fw-bold h6">{authorData.author_display_name || "Praful Dalwi"}</h2>
+            <p>{authorData.author_description || "this ia ETBureauenterprisetalk.com author"}</p>
           </div>
         </>
       )}
@@ -369,7 +298,7 @@ const updatedHtmlContent = tempDiv.innerHTML;
             ))}
           </div>
 
-          <div className="col-md-3">
+          <div className="col-md-4">
             <div className=" borderB paddings">
               <h5 className="fw-bold">Related Articles</h5>
             </div>
@@ -473,4 +402,4 @@ const updatedHtmlContent = tempDiv.innerHTML;
   );
 };
 
-export default Searchart;
+export default PostPreview;

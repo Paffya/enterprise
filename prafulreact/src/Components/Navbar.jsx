@@ -1,24 +1,16 @@
-import React, { useEffect } from "react";
-// import { Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css"; // Import Bootstrap CSS
-import {
-  Nav,
-  Navbar,
-  Container,
-  NavDropdown,
-  Form,
-  Row,
-  Col,
-} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Nav, Navbar, Container, NavDropdown, Form, Row, Col } from "react-bootstrap";
 import "../App.css";
 import "../Styles/Navbar.css";
 import Search from "./NavbarCompo/Search";
 import Sidebar from "./Sidebar";
-import { Link } from "react-router-dom";
-import { useState } from "react";
 // import laptopImg from "../Images/enterpriselaptop.png"
 import Modal from "react-bootstrap/Modal";
 import silverLaptop from "../Images/silverlaptop.png";
+
+
+
 
 const CustomNavbar = () => {
   const options = {
@@ -41,6 +33,14 @@ const CustomNavbar = () => {
   };
   const hideDropdownNav = (e) => {
     setNav(false);
+  };
+
+  const [feat, setFeat] = useState(false);
+  const showFeatdownNav = (e) => {
+    setFeat(!feat);
+  };
+  const hideFeatdownNav = (e) => {
+    setFeat(false);
   };
 
   const [show, setShow] = useState(false);
@@ -108,6 +108,30 @@ const CustomNavbar = () => {
     validateEmail();
   };
 
+  const handleEmailBlur = () => {
+    validateEmail(email);
+  };
+
+
+
+  // useEffect(() => {
+  //   if (!isValidEmail) {
+  //     const hideErrorTimeout = setTimeout(() => {
+  //       setIsValidEmail(true);
+  //     }, 1000);
+
+  //     return () => clearTimeout(hideErrorTimeout);
+  //   }
+  // }, [isValidEmail]);
+  
+
+  // setTimeout(() => {
+ 
+  //   const isValid = validateEmail();
+  //   setIsValidEmail(isValid);
+  // }, 300); 
+
+
   const resetForm = () => {
     setEmail("");
     setIsValidEmail(true);
@@ -161,6 +185,13 @@ const CustomNavbar = () => {
     }
   };
 
+  const handleChange = (e) => {
+    e.preventDefault();
+  };
+
+
+ 
+
   return (
     <>
       <div>
@@ -191,20 +222,7 @@ const CustomNavbar = () => {
               </Navbar.Brand>
             </div>
 
-            {/* <Navbar.Brand className="logoImp mt-2" style={{textAlign:"center", margin:"auto"}}>
-            
-            <a href="/">
-            <img
-            
-            className="MainLogo"
-            style={{ width: "70%" }}
-            src="https://enterprisetalk.com/wp-content/uploads/2022/10/Asset-5-300x61.png.webp"
-            alt=""
-          />
-            </a>
-          </Navbar.Brand> */}
-
-            {/* <Navbar.Toggle aria-controls="responsive-navbar-na" /> */}
+           
 
             <div className="d-flex  gap-3">
               <div className="DesktopResponsive">
@@ -239,7 +257,7 @@ const CustomNavbar = () => {
                               borderRadius: "10px",
                             }}
                             src={silverLaptop}
-                            alt=""
+                            alt="silverLaptop"
                           />
                         </Col>
                         <Col md={7}>
@@ -270,18 +288,24 @@ const CustomNavbar = () => {
                             <Form.Control
                               type="email"
                               placeholder="Email ID"
+                              onBlur={handleEmailBlur}
+                              autoComplete="off"
+                              aria-label="email"
+                              data-testid="TextInput"
                               className={`mt-3 py-3 ${
                                 isValidEmail ? "" : "is-invalid"
                               }`}
                               value={email}
                               onChange={handleEmailChange}
+                              onCut={handleChange}
+                            onCopy={handleChange}
+                            onPaste={handleChange}
                             />
                             <div
                               className="mt-3 px-2 fw-bold"
                               style={{ fontSize: "14px" }}
                             >
                               {policyText}
-                              
                             </div>
 
                             {!isValidEmail && (
@@ -316,20 +340,17 @@ const CustomNavbar = () => {
             {/* <Sidebar /> */}
             <Container >
               <Nav className="w-100 text-center d-flex justify-content-center gap-5" >
-                <Nav.Link className="text-black fw-bold hover-underline-animation " id="news">
-                  <Link to="/latest" className="text-black hoverHead" >
-                    Latest
-                  </Link>
-                </Nav.Link>
 
-                <NavDropdown
+
+              <NavDropdown
                   show={open}
                   onMouseEnter={showDropdown}
                   onMouseLeave={hideDropdown}
-                  title="Leadership"
+                  title="Latest"
                   id="basic-nav-dropdown"
                   className="custom-dropdown hover-underline-animation "
                 >
+                  
                   <div className="dropdownLeader1">
                     <div className="d-flex justify-content-evenly">
                       <div className="borderR" style={{width:"50%"}}>
@@ -477,14 +498,17 @@ const CustomNavbar = () => {
                   </div>
                 </NavDropdown>
 
+
                 <NavDropdown
-                  show={nav}
-                  onMouseEnter={showDropdownNav}
-                  onMouseLeave={hideDropdownNav}
-                  title="Featured"
+                  show={feat}
+                  onMouseEnter={showFeatdownNav}
+                  onMouseLeave={hideFeatdownNav}
+                  title="Leadership"
                   id="basic-nav-dropdown"
                   className="custom-dropdown hover-underline-animation "
+                  // onSelect={handleDropdownSelect}
                 >
+                  
                   <div className="dropdownLeader2">
                     <div className="d-flex justify-content-evenly">
                       <div className="borderR">
@@ -499,7 +523,7 @@ const CustomNavbar = () => {
                               style={{
                                 width: "100%",
                                 gap: "20px",
-                                // borderBottom: "1px solid #bdbdbd",
+                               
                               }}
                             >
                               <div style={{ width: "34%" }} className="imgMob">
@@ -557,11 +581,11 @@ const CustomNavbar = () => {
                         </a>
                       </div>
 
-                      {/* <div style={{borderLeft:"1px solid #bdbdbd"}}></div> */}
+                      
 
                       <div className="borderR">
                         <p className="fw-bold text-center mt-2">
-                          featured Interview
+                          Featured Interview
                         </p>
                         {interPosts.map((post, index) => (
                           <NavDropdown.Item
@@ -573,7 +597,7 @@ const CustomNavbar = () => {
                               style={{
                                 width: "100%",
                                 gap: "20px",
-                                // borderBottom: "1px solid #bdbdbd",
+                               
                               }}
                             >
                               <div style={{ width: "34%" }} className="imgMob">
@@ -631,7 +655,7 @@ const CustomNavbar = () => {
                         </a>
                       </div>
 
-                      {/* <div style={{borderLeft:"1px solid #bdbdbd"}}></div> */}
+                     
 
                       <div>
                         <p className="fw-bold text-center mt-2">Guest Posts</p>
@@ -645,7 +669,236 @@ const CustomNavbar = () => {
                               style={{
                                 width: "100%",
                                 gap: "20px",
-                                // borderBottom: "1px solid #bdbdbd",
+                               
+                              }}
+                            >
+                              <div style={{ width: "34%" }} className="imgMob">
+                                <img
+                                  style={{
+                                    width: "100%",
+                                    borderRadius: "10px",
+                                    height: "85px",
+                                    objectFit: "cover",
+                                  }}
+                                  src={post.banner_img}
+                                  alt={post.banner_alt}
+                                />
+                              </div>
+
+                              <div style={{ width: "61%" }} className="paraMob">
+                                <h5
+                                  className="fw-bold line-clamp"
+                                  style={{
+                                    fontSize: "15px",
+                                    marginBottom: "5px",
+                                    marginTop: "5px",
+                                  }}
+                                >
+                                  <a
+                                    className="text-black hoverHead"
+                                    href={`/${post.cat_slug}/${post.post_name}`}
+                                  >
+                                    {" "}
+                                    {post.post_title}
+                                  </a>
+                                </h5>
+                                <div className="DesktopResponsive ">
+                                  <p style={{ fontSize: "12px" }}>
+                                    By{" "}
+                                    <span className="fw-bold">
+                                      {post.post_author}
+                                    </span>{" "}
+                                    |
+                                    {new Date(
+                                      post.post_date
+                                    ).toLocaleDateString(undefined, options)}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </NavDropdown.Item>
+                        ))}
+
+                        <a
+                          href="/topic/guest-author"
+                          className="text-black ended mx-4"
+                        >
+                          See more
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </NavDropdown>
+
+                <NavDropdown
+                  show={nav}
+                  onMouseEnter={showDropdownNav}
+                  onMouseLeave={hideDropdownNav}
+                  title="Featured"
+                  id="basic-nav-dropdown"
+                  className="custom-dropdown hover-underline-animation "
+                >
+                  <div className="dropdownLeader3">
+                    <div className="d-flex justify-content-evenly">
+                      <div className="borderR">
+                        <p className="fw-bold text-center mt-2">Article</p>
+                        {newsPod.map((post, index) => (
+                          <NavDropdown.Item
+                            href={`/${post.cat_slug}/${post.post_name}`}
+                            className="text-black borderB"
+                          >
+                            <div
+                              className="d-flex"
+                              style={{
+                                width: "100%",
+                                gap: "20px",
+                               
+                              }}
+                            >
+                              <div style={{ width: "34%" }} className="imgMob">
+                                <img
+                                  style={{
+                                    width: "100%",
+                                    borderRadius: "10px",
+                                    height: "85px",
+                                    objectFit: "cover",
+                                  }}
+                                  src={post.banner_img}
+                                  alt={post.banner_alt}
+                                />
+                              </div>
+
+                              <div style={{ width: "61%" }} className="paraMob">
+                                <h5
+                                  className="fw-bold line-clamp"
+                                  style={{
+                                    fontSize: "15px",
+                                    marginBottom: "5px",
+                                    marginTop: "5px",
+                                  }}
+                                >
+                                  <a
+                                    className="text-black hoverHead"
+                                    href={`/${post.cat_slug}/${post.post_name}`}
+                                  >
+                                    {" "}
+                                    {post.post_title}
+                                  </a>
+                                </h5>
+                                <div className="DesktopResponsive ">
+                                  <p style={{ fontSize: "12px" }}>
+                                    By{" "}
+                                    <span className="fw-bold">
+                                      {post.post_author}
+                                    </span>{" "}
+                                    |
+                                    {new Date(
+                                      post.post_date
+                                    ).toLocaleDateString(undefined, options)}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </NavDropdown.Item>
+                        ))}
+
+                        <a
+                          href="/topic/podcasts"
+                          className="text-black ended mx-4"
+                        >
+                          See more
+                        </a>
+                      </div>
+
+                      
+
+                      <div className="borderR">
+                        <p className="fw-bold text-center mt-2">
+                          Future Ready
+                        </p>
+                        {interPosts.map((post, index) => (
+                          <NavDropdown.Item
+                            href={`/${post.cat_slug}/${post.post_name}`}
+                            className="text-black borderB"
+                          >
+                            <div
+                              className="d-flex"
+                              style={{
+                                width: "100%",
+                                gap: "20px",
+                               
+                              }}
+                            >
+                              <div style={{ width: "34%" }} className="imgMob">
+                                <img
+                                  style={{
+                                    width: "100%",
+                                    borderRadius: "10px",
+                                    height: "85px",
+                                    objectFit: "cover",
+                                  }}
+                                  src={post.banner_img}
+                                  alt={post.banner_alt}
+                                />
+                              </div>
+
+                              <div style={{ width: "61%" }} className="paraMob">
+                                <h5
+                                  className="fw-bold line-clamp"
+                                  style={{
+                                    fontSize: "15px",
+                                    marginBottom: "5px",
+                                    marginTop: "5px",
+                                  }}
+                                >
+                                  <a
+                                    className="text-black hoverHead"
+                                    href={`/${post.cat_slug}/${post.post_name}`}
+                                  >
+                                    {" "}
+                                    {post.post_title}
+                                  </a>
+                                </h5>
+                                <div className="DesktopResponsive ">
+                                  <p style={{ fontSize: "12px" }}>
+                                    By{" "}
+                                    <span className="fw-bold">
+                                      {post.post_author}
+                                    </span>{" "}
+                                    |
+                                    {new Date(
+                                      post.post_date
+                                    ).toLocaleDateString(undefined, options)}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </NavDropdown.Item>
+                        ))}
+
+                        <a
+                          href="/topic/interview"
+                          className="text-black ended mx-4"
+                        >
+                          See more
+                        </a>
+                      </div>
+
+                     
+
+                      <div>
+                        <p className="fw-bold text-center mt-2">Learning Center</p>
+                        {guestPosts.map((post, index) => (
+                          <NavDropdown.Item
+                            href={`/${post.cat_slug}/${post.post_name}`}
+                            className="text-black borderB"
+                          >
+                            <div
+                              className="d-flex"
+                              style={{
+                                width: "100%",
+                                gap: "20px",
+                               
                               }}
                             >
                               <div style={{ width: "34%" }} className="imgMob">
