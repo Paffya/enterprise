@@ -3,6 +3,8 @@ import "../Styles/Article.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import ShareButton from "../Components/ShareButton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
 const Searchart = () => {
   const options = {
@@ -171,16 +173,44 @@ const Searchart = () => {
   const [headings, setHeadings] = useState([]);
 
   useEffect(() => {
-    const container = document.createElement('div');
-    container.innerHTML = htmlContent;
+  const container = document.createElement('div');
+  container.innerHTML = htmlContent;
+  
+  
 
-    const headingsList = Array.from(container.querySelectorAll('h1, h2, h3, h4, h5, h6')).map((heading, index) => ({
-      text: heading.innerText,
-      id: heading.id || `heading-${index}`,  // Use existing ID or generate one
-    }));
+  let index = 1;
+  let subIndex = 0;
+  const headingsList = Array.from(container.querySelectorAll('h1, h2, h3, h4, h5, h6')).map((heading, i) => {
+    let text = heading.innerText;
+    let id = heading.id || `heading-${i}`;
     
-    setHeadings(headingsList);
-  }, [htmlContent]);
+
+    if (heading.tagName === 'H2') {
+      text = (
+        <span style={{fontWeight:"600"}}>
+        {index}. {text}
+        </span>
+        );
+      index++;
+      subIndex = 0; // Reset subindex for each new H2
+    } else if (heading.tagName === 'H3') {
+      subIndex++;
+      // text = `${index - 1}.${subIndex} ${text}`;
+      text = (
+        <span style={{ marginLeft:"20px" }}>
+          {index - 1}.{subIndex} {text}
+        </span>
+      );
+    }
+    return {
+      text: text,
+      id: id,
+    };
+  });
+  
+  setHeadings(headingsList);
+}, [htmlContent]);
+
 
   const scrollToHeading = (id) => {
     const element = document.getElementById(id);
@@ -189,10 +219,10 @@ const Searchart = () => {
     if (element) {
       console.log('Element found:', element);
       element.scrollIntoView({ behavior: 'smooth' });
+      // window.scrollBy(0, -130);
       setTimeout(() => {
-        window.scrollBy(0, -100); // Adjust the value (-100) to set the desired distance from the top
-    }, 500); // Adjust the delay if needed to ensure it's after the smooth scrolling
-    
+        window.scrollBy(0, -90); // Adjust the value (-100) to set the desired distance from the top
+    }, 700); // Adjust the delay if needed to ensure it's after the smooth scrolling
     } else {
       console.log('Element not found with id:', id);
     }
@@ -205,20 +235,43 @@ tempDiv.innerHTML = htmlContent;
 // Get all h1, h2, h3 elements
 const heading = tempDiv.querySelectorAll('h2, h3, h4');
 
+
 // Loop through the headings and assign dynamic IDs
 heading.forEach((heading, index) => {
     heading.id = `heading-${index + 0}`; // You can change the ID format as per your requirement
 });
 
 
-
-
 // Set the modified HTML content back
 const updatedHtmlContent = tempDiv.innerHTML;
 
 
+const [accordionOpen, setAccordionOpen] = useState(false);
+
+  // const openAccordion = () => {
+  //   setAccordionOpen(true);
+  // };
+
+  // const closeAccordion = () => {
+  //   setAccordionOpen(false);
+  // };
+
+  const handleHeaderClick = () => {
+    setAccordionOpen(!accordionOpen);
+  };
+
+  const handleLinkClick = (e) => {
+    e.stopPropagation(); // Prevent the accordion from closing when clicking on a link
+  };
+  
+  const [activeHeadingId, setActiveHeadingId] = useState(null);
+  console.log("actived",activeHeadingId)
+
+
+
   
   return (
+    
     <div>
       <div className="container container-max ">
         <div className="row ">
@@ -265,21 +318,46 @@ const updatedHtmlContent = tempDiv.innerHTML;
 
                 <div style={{ fontSize: "14px" }}>
                   <p className="paddings">
+                    
+
+                    
                   
 
                   {headings.length > 0 && (
-  <div className="contentTableBox">
-    <h2 className="fw-bold mb-1 ">Table of Contents</h2>
-    <ol className="px-3">
-      {headings.map((heading) => (
-        <li key={heading.id} className="list-group-item ">
-          <a href={`#${heading.id}`}  onClick={() => scrollToHeading(heading.id)} className="text-black">{heading.text}</a>
-        </li>
-        //  href={`#${heading.id}`}
-      ))}
-    </ol>
-  </div>
+        <div className="contentTableBox" onClick={handleHeaderClick}>
+          <h2 className="fw-bold px-1 h4 clippath" >
+           <div className="d-flex justify-content-between ">
+           <div className="mb-1" style={{cursor:"pointer"}}>Table of Contents</div>   <div style={{cursor:"pointer"}} className="px-2"><FontAwesomeIcon icon={faBars}  /></div>
+           </div>
+          </h2>
+         <React.Fragment>
+         {accordionOpen && (
+  <ol className="px-3">
+    {headings.map((heading, index) => (
+      
+      <li key={heading.id} className="tocBack ">
+        <a
+          href={`#${heading.id}`}
+          onClick={(e) => { 
+            scrollToHeading(heading.id); 
+            handleLinkClick(e); 
+            setActiveHeadingId(heading.id); // Set active heading id when clicked
+          }}
+          className={`text-black mb-1 backLine hover-underline-animations ${activeHeadingId === heading.id ? 'actived' : ''}`}
+        >
+        
+            {heading.text}   
+            
+        </a>
+      </li>
+    ))}
+  </ol>
 )}
+     
+    </React.Fragment>
+  
+        </div>
+      )}
 
 {/* <div className="content mt-2"  dangerouslySetInnerHTML={{ __html: htmlContent }} /> */}
 <div className="content mt-2" dangerouslySetInnerHTML={{ __html: updatedHtmlContent }} />
@@ -423,9 +501,15 @@ const updatedHtmlContent = tempDiv.innerHTML;
                 </a>
               )}
             </div>
+
+            
           </div>
+
+          
         </div>
       </div>
+
+      
 
       <div className="container container-max ">
         <div className="row">
