@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import API_ROOT from '../apiConfig';
 
 const SelectTab = () => {
   const { cat, subcat } = useParams();
@@ -25,7 +26,7 @@ const SelectTab = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let apiUrl = `http://192.168.17.8:3000/api/post/topic/${cat}`;
+        let apiUrl = `${API_ROOT}/api/post/topic/${cat}`;
 
         if (subcat) {
           apiUrl += `/${subcat}`;
@@ -97,7 +98,7 @@ const SelectTab = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://192.168.17.8:3000/api/category/subcatlist"
+          `${API_ROOT}/api/category/subcatlist`
         );
         const data = await response.json();
         setCategories(data); // Assuming the API response is an array of categories
@@ -135,7 +136,7 @@ const SelectTab = () => {
     const fetchAdvertisementData = async () => {
       try {
         const response = await axios.get(
-          "http://192.168.17.8:3000/api/advertisement/get_active"
+          `${API_ROOT}/api/advertisement/get_active`
         );
         setAdvertisementData(response.data);
         // console.log(response.data)
@@ -332,7 +333,7 @@ const SelectTab = () => {
                           {" "}
                           <img
                             style={{ width: "100%" }}
-                            src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[0].banner_img}`}
+                            src={`${API_ROOT}/uploads/promo_img/${advertisementData[0].banner_img}`}
                             alt={advertisementData[0].banner_name}
                           />{" "}
                         </a>

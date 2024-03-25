@@ -3,6 +3,7 @@ import { Nav, Form } from "react-bootstrap";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
+import API_ROOT from "../../apiConfig";
 
 
 const Search = () => {
@@ -36,7 +37,7 @@ const Search = () => {
 
     try {
       // console.log("Sending search query:", searchQuery);
-      const response = await fetch(`http://192.168.17.8:3000/api/post/navsearch/${searchQuery}`);
+      const response = await fetch(`${API_ROOT}/api/post/navsearch/${searchQuery}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -188,6 +189,7 @@ const Search = () => {
           </div>
         )} */}
         <div
+        title="Search"
           className={
             search === true
               ? "icon-bg fadeOut"

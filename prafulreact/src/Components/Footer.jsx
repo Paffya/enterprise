@@ -12,6 +12,9 @@ import talkcmo1 from "../Images/talkcmo1.png"
 import facebook from "../Images/facebook-f.png"
 import instagram from "../Images/instagram.png"
 import linkedin from "../Images/linkedin.png"
+import news6 from "../Images/news6.png";
+// import { Link } from 'react-router-dom';
+import API_ROOT from '../apiConfig';
 
 const Footer = () => {
 
@@ -52,7 +55,7 @@ const Footer = () => {
   const handleSubmit = async () => {
     if (validateEmail()) {
       try {
-        const response = await fetch('http://192.168.17.8:3000/api/subscribe/add', {
+        const response = await fetch(`${API_ROOT}/api/subscribe/add`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -150,28 +153,14 @@ const Footer = () => {
               <img className="DesktopResponsive mt-3" style={{width:"100%" ,objectFit:"cover", borderRadius:"10px"}} src={laptopImg} alt="" />
 
             </Col>
-            <Col  md={7} >
-            <div className="">
-            <div className="letter-image">
-	<div className="animated-mail">
-		<div className="back-fold"></div>
-		<div className="letter">
-			<div className="letter-border"></div>
-			<div className="letter-title"></div>
-			<div className="letter-context"></div>
-			<div className="letter-stamp">
-				<div className="letter-stamp-inner"></div>
-			</div>
-		</div>
-		<div className="top-fold"></div>
-		<div className="body"></div>
-		<div className="left-fold"></div>
-	</div>
-	{/* <div className="shadow"></div> */}
-</div>
-            </div>
-              {/* <img className="mt-3" style={{width:"100%", borderRadius:"10px"}} src="https://cdn.theatlantic.com/thumbor/PYB6KEn99IAzMg5JDWCuXclJHjI=/0x43:2000x1085/1200x625/media/img/mt/2022/11/Emails/original.gif" alt="" /> */}
-              <Form.Group className="px-3 mb-3 martop" controlId="exampleForm.ControlInput1">
+         
+
+            <Col md={7}>
+                         <div style={{textAlign:"center"}}>
+                         <img className="mt-3" style={{width:"40%", borderRadius:"10px", filter: 'brightness(0) saturate(100%) invert(14%) sepia(100%) saturate(1000%) hue-rotate(345deg)' }} src={news6} alt="" />
+                         </div>
+                         
+                          <Form.Group className="px-3 mb-3" controlId="exampleForm.ControlInput1">
         <Form.Control
           type="email"
           placeholder="Email ID"

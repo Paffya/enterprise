@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
 import Sidenav from '../Components/Sidenav';
+import API_ROOT from '../apiConfig';
 
 
 
@@ -35,7 +36,7 @@ const Tag  = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://192.168.17.8:3000/api/post/tag/${subcat}`);
+        const response = await axios.get(`${API_ROOT}/api/post/tag/${subcat}`);
         
         setData(response.data.posts);
         setsubcatName(response.data.posts.subCatName)
@@ -57,7 +58,7 @@ const Tag  = () => {
 useEffect(() => {
   const fetchAdvertisementData = async () => {
     try {
-      const response = await axios.get('http://192.168.17.8:3000/api/advertisement/get_active');
+      const response = await axios.get(`${API_ROOT}/api/advertisement/get_active`);
       setAdvertisementData(response.data);
       // console.log(response.data)
     } catch (error) {
@@ -252,7 +253,7 @@ useEffect(() => {
               {advertisementData && advertisementData.length > 0 && (
             <a href={`/${advertisementData[2].dest_url}`}>  <img
                 style={{ width: "100%" }}
-                src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[2].banner_img}`}
+                src={`${API_ROOT}/uploads/promo_img/${advertisementData[2].banner_img}`}
                 alt={advertisementData[2].banner_name}
               /> </a>
               )}
@@ -370,7 +371,7 @@ useEffect(() => {
     <div style={{height:"648px", textAlign:"center", margin:"auto", alignItems:"center"}}>
     {/* <p className='bllack'>340*900</p> */}
     {advertisementData && advertisementData.length > 0 && (
-   <a href={`/${advertisementData[0].dest_url}`}> <img style={{height:"648px", width:"auto"}}  src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[0].banner_img}`} alt={advertisementData[0].banner_name} /> </a>
+   <a href={`/${advertisementData[0].dest_url}`}> <img style={{height:"648px", width:"auto"}}  src={`${API_ROOT}/uploads/promo_img/${advertisementData[0].banner_img}`} alt={advertisementData[0].banner_name} /> </a>
     )}
 </div>
     </div>
@@ -389,7 +390,7 @@ useEffect(() => {
             {advertisementData && advertisementData.length > 0 && (
              <a href={`/${advertisementData[2].dest_url}`}> <img
                 style={{width:"100%"}}
-                src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[2].banner_img}`}
+                src={`${API_ROOT}/uploads/promo_img/${advertisementData[2].banner_img}`}
                 alt={advertisementData[2].banner_name}
               /> </a>
             )}
@@ -693,7 +694,7 @@ useEffect(() => {
             {advertisementData && advertisementData.length > 0 && (
              <a href={`/${advertisementData[2].dest_url}`}> <img
                 style={{ width: "100%" }}
-                src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[2].banner_img}`}
+                src={`${API_ROOT}/uploads/promo_img/${advertisementData[2].banner_img}`}
                 alt={advertisementData[2].banner_name}
               /> </a>
             )}

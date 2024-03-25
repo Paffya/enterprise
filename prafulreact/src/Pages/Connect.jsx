@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { Card, Form, Button } from "react-bootstrap";
+import API_ROOT from '../apiConfig';
 
 
 const Connect = () => {
@@ -71,7 +72,7 @@ const Connect = () => {
       } else {
         setLoading(true);
 
-        const response = await fetch('http://192.168.17.8:3000/api/contact/add', {
+        const response = await fetch(`${API_ROOT}/api/contact/add`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

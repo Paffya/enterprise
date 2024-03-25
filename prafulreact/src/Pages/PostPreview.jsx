@@ -3,6 +3,7 @@ import "../Styles/Article.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import ShareButton from "../Components/ShareButton";
+import API_ROOT from '../apiConfig';
 
 const PostPreview = () => {
   const options = {
@@ -33,7 +34,7 @@ const PostPreview = () => {
 
           // Continue with the rest of your code to fetch other data
           const response = await fetch(
-            `http://192.168.17.8:3000/api/post/preview-post/${cat_slug}/${post_name}`
+            `${API_ROOT}/api/post/preview-post/${cat_slug}/${post_name}`
           );
 
           if (!response.ok) {
@@ -61,7 +62,7 @@ const PostPreview = () => {
   useEffect(() => {
    
     axios
-      .get("http://192.168.17.8:3000/api/post/latest")
+      .get(`${API_ROOT}/api/post/latest`)
       .then((response) => {
         setLatestPosts(response.data);
       })
@@ -80,7 +81,7 @@ const PostPreview = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://192.168.17.8:3000/api/post/asidetopic/${cat_slug}`
+          `${API_ROOT}/api/post/asidetopic/${cat_slug}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
@@ -106,7 +107,7 @@ const PostPreview = () => {
     const fetchAdvertisementData = async () => {
       try {
         const response = await axios.get(
-          "http://192.168.17.8:3000/api/advertisement/get_active"
+          `${API_ROOT}/api/advertisement/get_active`
         );
         setAdvertisementData(response.data);
         // console.log(response.data)
@@ -130,7 +131,7 @@ const PostPreview = () => {
   useEffect(() => {
     const fetchAuthorData = async () => {
       try {
-        const response = await axios.get('http://192.168.17.8:3000/api/author/2');
+        const response = await axios.get(`${API_ROOT}/api/author/2`);
         setAuthorData(response.data.result[0]);
       
       } catch (error) {
@@ -205,7 +206,7 @@ const PostPreview = () => {
                   <img
                     className="topicImg"
                     // src={postData[0].banner_img}
-                    src={`http://192.168.17.8:3000/uploads/${postData[0].banner_img}`}
+                    src={`${API_ROOT}/uploads/${postData[0].banner_img}`}
                     alt={postData[0].banner_alt}
                   />
                 </div>
@@ -225,7 +226,7 @@ const PostPreview = () => {
           <div>
             <img
               className="ArticleImg"
-              src={`http://192.168.17.8:3000/uploads/author-profiles/${authorData.author_photo}` || 'http://192.168.17.8:3000/uploads/author-profiles/default-author.jpg'}
+              src={`${API_ROOT}/uploads/author-profiles/${authorData.author_photo}` || `${API_ROOT}/uploads/author-profiles/default-author.jpg`}
               alt={authorData.author_name}
             />
           </div>
@@ -346,7 +347,7 @@ const PostPreview = () => {
                   {" "}
                   <img
                     style={{ height: "", width: "100%" }}
-                    src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[0].banner_img}`}
+                    src={`${API_ROOT}/uploads/promo_img/${advertisementData[0].banner_img}`}
                     alt={advertisementData[0].banner_name}
                   />{" "}
                 </a>
@@ -389,7 +390,7 @@ const PostPreview = () => {
                   {" "}
                   <img
                     style={{ width: "100%" }}
-                    src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[2].banner_img}`}
+                    src={`${API_ROOT}/uploads/promo_img/${advertisementData[2].banner_img}`}
                     alt={advertisementData[2].banner_name}
                   />{" "}
                 </a>

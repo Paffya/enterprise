@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import "../Styles/Article.css"
 
 import axios from 'axios';
+import API_ROOT from '../apiConfig';
 
 
 
@@ -25,7 +26,7 @@ const ArticleDesc = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://192.168.17.8:3000/api/post/viewpost/91942');
+        const response = await axios.get(`${API_ROOT}/api/post/viewpost/91942`);
         setData(response.data);
         console.log(response.data)
       } catch (error) {
@@ -45,7 +46,7 @@ const ArticleDesc = () => {
 
   useEffect(() => {
     // Fetch data from the API using Axios
-    axios.get('http://192.168.17.8:3000/api/post/latest')
+    axios.get(`${API_ROOT}/api/post/latest`)
       .then(response => {
         console.log('latest respionce ' + response);
         console.log('latest respionce  data ' + response.data);
@@ -61,7 +62,7 @@ const ArticleDesc = () => {
 
   useEffect(() => {
     // Fetch HTML content from your API
-    fetch('http://192.168.17.8:3000/api/post/viewpost/91942')
+    fetch(`${API_ROOT}/api/post/viewpost/91942`)
       .then(response => response.json())
       .then(data => setHtmlContent(data.postData[0].post_content))
       .catch(error => console.error('Error fetching HTML content:', error));
@@ -70,7 +71,7 @@ const ArticleDesc = () => {
 
   // useEffect(() => {
   //   // Fetch HTML content from your API
-  //   fetch('http://192.168.17.8:3000/api/post/91942')
+  //   fetch('${API_ROOT}/api/post/91942')
   //     .then(response => response.text())
   //     .then(data => setHtmlContent(data))
   //     .catch(error => console.error('Error fetching HTML content:', error));

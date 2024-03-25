@@ -19,6 +19,7 @@ import Searchlist from "./Searchlist";
 import Unsubscribe from "./Unsubscribe";
 import PostPreview from "./PostPreview";
 
+
 const MainRoutes = () => {
   return (
     <Routes>
@@ -43,6 +44,8 @@ const MainRoutes = () => {
       <Route exact path="/topic/:cat/:subcat" element={<ContentCategory />} />
       <Route exact path="/search/:cat/:searchVal" element={<Searchlist />} />
       <Route exact path="/search/:cat/:searchVal/:subcat" element={<Searchlist />} />
+
+      
 
 
       {/* Post detail page preview  */}

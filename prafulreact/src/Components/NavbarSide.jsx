@@ -39,7 +39,7 @@ const CustomNavbar = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://192.168.17.8:3000/api/post/leadership');
+        const response = await fetch('https://app-node.enterprisetalk.com:3000/api/post/leadership');
         const data = await response.json();
         setNewsPosts(data.newsData);
         setArticlePosts(data.artilceData);
@@ -54,7 +54,7 @@ const CustomNavbar = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://192.168.17.8:3000/api/post/featured');
+        const response = await fetch('https://app-node.enterprisetalk.com:3000/api/post/featured');
         const data = await response.json();
         setNewsPod(data.podcastData);
         setInterPosts(data.inteviewData);
@@ -96,7 +96,7 @@ const CustomNavbar = () => {
   const handleSubmit = async () => {
     if (validateEmail()) {
       try {
-        const response = await fetch('http://192.168.17.8:3000/api/subscribe/add', {
+        const response = await fetch('https://app-node.enterprisetalk.com:3000/api/subscribe/add', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -3,6 +3,7 @@ import axios from "axios";
 import "../Styles/Content.css";
 import SelectTab from "../Components/SelectTab";
 import { useParams } from "react-router-dom";
+import API_ROOT from '../apiConfig';
 
 
 const ContentCategory = () => {
@@ -13,7 +14,7 @@ const ContentCategory = () => {
   useEffect(() => {
     const fetchAdvertisementData = async () => {
       try {
-        const response = await axios.get('http://192.168.17.8:3000/api/advertisement/get_active');
+        const response = await axios.get(`${API_ROOT}/api/advertisement/get_active`);
         setAdvertisementData(response.data);
         // console.log(response.data)
       } catch (error) {
@@ -50,7 +51,7 @@ const ContentCategory = () => {
             {advertisementData && advertisementData.length > 0 && (
              <a href={`/${advertisementData[2].dest_url}`}> <img
                 style={{ width: "100%" }}
-                src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[2].banner_img}`}
+                src={`${API_ROOT}/uploads/promo_img/${advertisementData[2].banner_img}`}
                 alt={advertisementData[2].banner_name}
               /> </a>
             )}

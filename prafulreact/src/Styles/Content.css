@@ -18,6 +18,10 @@
   color: white;
 }
 
+.content {
+  white-space: normal;
+}
+
 .content img {
   width: 100%;
   object-fit: contain;
@@ -165,6 +169,14 @@
   border: transparent;
   width: 30px;
   border-radius: 3px;
+}
+
+.share-btn {
+  border: transparent;
+  width: 30px;
+  border-radius: 3px;
+  background-color: #fff;
+  cursor:default !important;
 }
 
 .btn-share img:hover {

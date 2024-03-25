@@ -9,6 +9,10 @@ import Sidebar from "./Sidebar";
 import Modal from "react-bootstrap/Modal";
 import silverLaptop from "../Images/silverlaptop.png";
 
+import news6 from "../Images/news6.png";
+// import { Link } from "react-router-dom";
+import API_ROOT from '../apiConfig';
+
 
 
 
@@ -55,11 +59,16 @@ const CustomNavbar = () => {
   const [interPosts, setInterPosts] = useState([]);
   const [guestPosts, setGuestPosts] = useState([]);
 
+  const [ feartureArticlePost ,setfeartureArticlePost] = useState([]);
+  const [ feartureReadyPosts ,setfeartureReadyPosts] = useState([]);
+  const [ feartureLearningPosts ,setfeartureLearningPosts] = useState([]);
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://192.168.17.8:3000/api/post/leadership"
+          `${API_ROOT}/api/post/latestPost`
         );
         const data = await response.json();
         setNewsPosts(data.newsData);
@@ -76,12 +85,30 @@ const CustomNavbar = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://192.168.17.8:3000/api/post/featured"
+          `${API_ROOT}/api/post/leadership`
         );
         const data = await response.json();
         setNewsPod(data.podcastData);
         setInterPosts(data.inteviewData);
         setGuestPosts(data.guestPostData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${API_ROOT}/api/post/featured`
+        );
+        const data = await response.json();
+        setfeartureArticlePost(data.articleData);
+        setfeartureReadyPosts(data.futureReadyData);
+        setfeartureLearningPosts(data.learningData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -144,7 +171,7 @@ const CustomNavbar = () => {
     if (validateEmail()) {
       try {
         const response = await fetch(
-          "http://192.168.17.8:3000/api/subscribe/add",
+          `${API_ROOT}/api/subscribe/add`,
           {
             method: "POST",
             headers: {
@@ -208,7 +235,7 @@ const CustomNavbar = () => {
           >
             <div className="marginNav d-flex">
               {/* <Navbar.Toggle aria-controls="responsive-navbar-na" /> */}
-              <Sidebar />
+              <Sidebar  />
               &nbsp; &nbsp;
               <Navbar.Brand className="logoImp">
                 <a href="/">
@@ -261,28 +288,12 @@ const CustomNavbar = () => {
                           />
                         </Col>
                         <Col md={7}>
-                          <div className="">
-                            <div className="letter-image">
-                              <div className="animated-mail">
-                                <div className="back-fold"></div>
-                                <div className="letter">
-                                  <div className="letter-border"></div>
-                                  <div className="letter-title"></div>
-                                  <div className="letter-context"></div>
-                                  <div className="letter-stamp">
-                                    <div className="letter-stamp-inner"></div>
-                                  </div>
-                                </div>
-                                <div className="top-fold"></div>
-                                <div className="body"></div>
-                                <div className="left-fold"></div>
-                              </div>
-                              {/* <div className="shadow"></div> */}
-                            </div>
-                          </div>
-                          {/* <img className="mt-3" style={{width:"100%", borderRadius:"10px"}} src="https://cdn.theatlantic.com/thumbor/PYB6KEn99IAzMg5JDWCuXclJHjI=/0x43:2000x1085/1200x625/media/img/mt/2022/11/Emails/original.gif" alt="" /> */}
+                         <div style={{textAlign:"center"}}>
+                         <img className="mt-3" style={{width:"40%", borderRadius:"10px", filter: 'brightness(0) saturate(100%) invert(14%) sepia(100%) saturate(1000%) hue-rotate(345deg)' }} src={news6} alt="" />
+                         </div>
+                         
                           <Form.Group
-                            className="px-3 mb-3 martop"
+                            className="px-3 mb-3"
                             controlId="exampleForm.ControlInput1"
                           >
                             <Form.Control
@@ -741,8 +752,8 @@ const CustomNavbar = () => {
                   <div className="dropdownLeader3">
                     <div className="d-flex justify-content-evenly">
                       <div className="borderR">
-                        <p className="fw-bold text-center mt-2">Article</p>
-                        {newsPod.map((post, index) => (
+                        <p className="fw-bold text-center mt-2">Articles</p>
+                        {feartureArticlePost.map((post, index) => (
                           <NavDropdown.Item
                             href={`/${post.cat_slug}/${post.post_name}`}
                             className="text-black borderB"
@@ -803,7 +814,7 @@ const CustomNavbar = () => {
                         ))}
 
                         <a
-                          href="/topic/podcasts"
+                          href="/topic/featured"
                           className="text-black ended mx-4"
                         >
                           See more
@@ -816,7 +827,7 @@ const CustomNavbar = () => {
                         <p className="fw-bold text-center mt-2">
                           Future Ready
                         </p>
-                        {interPosts.map((post, index) => (
+                        {feartureReadyPosts.map((post, index) => (
                           <NavDropdown.Item
                             href={`/${post.cat_slug}/${post.post_name}`}
                             className="text-black borderB"
@@ -877,7 +888,7 @@ const CustomNavbar = () => {
                         ))}
 
                         <a
-                          href="/topic/interview"
+                          href="/topic/future-ready"
                           className="text-black ended mx-4"
                         >
                           See more
@@ -888,7 +899,7 @@ const CustomNavbar = () => {
 
                       <div>
                         <p className="fw-bold text-center mt-2">Learning Center</p>
-                        {guestPosts.map((post, index) => (
+                        {feartureLearningPosts.map((post, index) => (
                           <NavDropdown.Item
                             href={`/${post.cat_slug}/${post.post_name}`}
                             className="text-black borderB"
@@ -949,7 +960,7 @@ const CustomNavbar = () => {
                         ))}
 
                         <a
-                          href="/topic/guest-author"
+                          href="/topic/learning-center"
                           className="text-black ended mx-4"
                         >
                           See more

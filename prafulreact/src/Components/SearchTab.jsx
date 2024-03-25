@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { useParams  } from 'react-router-dom';
 import axios from 'axios';
+import API_ROOT from '../apiConfig';
 
 
 const Searchtab = () => {
@@ -32,7 +33,7 @@ const Searchtab = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let apiUrl = `http://192.168.17.8:3000/api/post/search/${cat}/${searchVal}`;
+        let apiUrl = `${API_ROOT}/api/post/search/${cat}/${searchVal}`;
 
         if (subcat) {
           apiUrl = `/${subcat}`;
@@ -79,7 +80,7 @@ const Searchtab = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://192.168.17.8:3000/api/category/all');
+        const response = await fetch(`${API_ROOT}/api/category/all`);
         const data = await response.json();
         setCategories(data.category);// Assuming the API response is an array of categories
       } catch (error) {
@@ -116,7 +117,7 @@ const Searchtab = () => {
   useEffect(() => {
     const fetchAdvertisementData = async () => {
       try {
-        const response = await axios.get('http://192.168.17.8:3000/api/advertisement/get_active');
+        const response = await axios.get(`${API_ROOT}/api/advertisement/get_active`);
         setAdvertisementData(response.data);
         // console.log(response.data)
       } catch (error) {
@@ -277,7 +278,7 @@ const Searchtab = () => {
     <div className="col-md-4">
     <div >
     {advertisementData && advertisementData.length > 0 && (
-   <a href={`/${advertisementData[0].dest_url}`}> <img style={{ width:"100%"}} src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[0].banner_img}`} alt={advertisementData[0].banner_name} /></a>
+   <a href={`/${advertisementData[0].dest_url}`}> <img style={{ width:"100%"}} src={`${API_ROOT}/uploads/promo_img/${advertisementData[0].banner_img}`} alt={advertisementData[0].banner_name} /></a>
     )}
 </div>
     </div>

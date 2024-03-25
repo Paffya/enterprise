@@ -13,7 +13,8 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import axios from "axios"
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import API_ROOT from '../apiConfig';
 
 
 
@@ -35,7 +36,7 @@ const Homepage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://192.168.17.8:3000/api/post/homepost');
+        const response = await axios.get(`${API_ROOT}/api/post/homepost`);
         const removeHtmlTags = (html) => html.replace(/<[^>]*>/g, '');
 
         // Remove HTML tags from specific fields in the response data
@@ -82,7 +83,7 @@ const [advertisementData, setAdvertisementData] = useState([]);
 useEffect(() => {
   const fetchAdvertisementData = async () => {
     try {
-      const response = await axios.get('http://192.168.17.8:3000/api/advertisement/get_active');
+      const response = await axios.get(`${API_ROOT}/api/advertisement/get_active`);
       setAdvertisementData(response.data);
       // console.log(response.data)
     } catch (error) {
@@ -92,6 +93,10 @@ useEffect(() => {
 
   fetchAdvertisementData();
 }, []); // The empty dependency array ensures that this effect runs once when the component mounts
+
+
+
+
 
 
 
@@ -151,7 +156,7 @@ useEffect(() => {
             </a>
             </div>
             <div className='padLR'>
-            <a href={`/${data.latestNews[1].cat_slug}/${data.latestNews[1].post_name}`}> <h2 className='fw-bold h5 mt-3 hoverHead'>{data.latestNews[1].post_title}</h2></a>
+            <a href={`/${data.latestNews[1].cat_slug}/${data.latestNews[1].post_name}`}> <h2 className='fw-bold h5 mt-3 hoverHead line-clamp'>{data.latestNews[1].post_title}</h2></a>
             <p style={{ fontSize: "13px" }}>
             By <span className='fw-bold'>{data.latestNews[1].post_author}</span> | {new Date(data.latestNews[1].post_date).toLocaleDateString(undefined, options)}
                         </p>
@@ -174,7 +179,7 @@ useEffect(() => {
             </a>
             </div>
             <div className='padLR'>
-            <a href={`/${data.latestNews[2].cat_slug}/${data.latestNews[2].post_name}`}><h2 className='fw-bold h5 mt-3 hoverHead'>{data.latestNews[2].post_title}</h2></a>
+            <a href={`/${data.latestNews[2].cat_slug}/${data.latestNews[2].post_name}`}><h2 className='fw-bold h5 mt-3 hoverHead line-clamp'>{data.latestNews[2].post_title}</h2></a>
             <p style={{ fontSize: "13px" }}>
             By <span className='fw-bold'>{data.latestNews[2].post_author}</span> | {new Date(data.latestNews[2].post_date).toLocaleDateString(undefined, options)}
                         </p>
@@ -209,7 +214,7 @@ useEffect(() => {
           {data.latest.map((post, index) => (
             <div key={index}>
               <div className='paddings'>
-                <Link to={`/${post.cat_slug}/${post.post_name}`}><h3 className='fw-bold h5 hoverHead'>{post.post_title}</h3></Link>
+                <a href={`/${post.cat_slug}/${post.post_name}`}><h3 className='fw-bold h5 hoverHead'>{post.post_title}</h3></a>
                 <p style={{ fontSize: '13px' }}>
                   By <span className='fw-bold'>{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
                 </p>
@@ -236,7 +241,7 @@ useEffect(() => {
           {data.popular.map((post, index) => (
             <div key={index}>
               <div className='paddings'>
-                <Link to={`/${post.cat_slug}/${post.post_name}`}><h3 className='fw-bold h5 hoverHead'>{post.post_title}</h3></Link>
+                <a href={`/${post.cat_slug}/${post.post_name}`}><h3 className='fw-bold h5 hoverHead'>{post.post_title}</h3></a>
                 <p style={{ fontSize: '13px' }}>
                   By <span className='fw-bold'>{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
                 </p>
@@ -263,7 +268,7 @@ useEffect(() => {
             {/* <p className=' bllack'>340*400</p> */}
             {advertisementData && advertisementData.length > 0 && (
   <a href={`/${advertisementData[1].dest_url}`}>
-    <img className='mt-5' style={{ height: "300px", width: "auto" }} src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[1].banner_img}`} alt={advertisementData[1].banner_name} />
+    <img className='mt-5' style={{ height: "300px", width: "auto" }} src={`${API_ROOT}/uploads/promo_img/${advertisementData[1].banner_img}`} alt={advertisementData[1].banner_name} />
   </a>
 )}
 
@@ -355,93 +360,6 @@ useEffect(() => {
     </div>
 
 
-
-            {/* <SwiperSlide style={{}}>
-            <Card style={{}}>
-      <Card.Img style={{ objectFit:'cover'}} src="https://kgv.ae/wp-content/uploads/2023/03/01-Kenny-Waribam-XDBS.jpg" />
-      <Card className='p-md-3 cardHover'>
-        <Card.Title className='fw-bold'>Wondershare EdrawMax</Card.Title>
-        <Card.Title>CEO | BOEAT</Card.Title>
-        <Card.Text  className='fw-bold line-clamp'>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure incidunt enim quas similique soluta
-        </Card.Text>
-        <Card.Text className='mt-2 just-text line-clamp'>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure incidunt enim quas similique soluta
-        </Card.Text>
-        
-      </Card>
-    </Card>
-            </SwiperSlide>
-
-
-            <SwiperSlide style={{}}>
-            <Card style={{}}>
-      <Card.Img style={{ objectFit:'cover'}} src="https://kgv.ae/wp-content/uploads/2023/03/05-Samarth-Bhargava-Kings-Research.jpg" />
-      <Card className='p-md-3 cardHover'>
-        <Card.Title className='fw-bold'>Wondershare EdrawMax</Card.Title>
-        <Card.Title>CEO | BOEAT</Card.Title>
-        <Card.Text  className='fw-bold line-clamp'>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure incidunt enim quas similique soluta
-        </Card.Text>
-        <Card.Text className='mt-2 just-text line-clamp'>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure incidunt enim quas similique soluta
-        </Card.Text>
-        
-      </Card>
-    </Card>
-            </SwiperSlide>
-
-
-            <SwiperSlide style={{}}>
-            <Card style={{}}>
-      <Card.Img style={{ objectFit:'cover'}} src="https://kgv.ae/wp-content/uploads/2023/04/10-Kelvin-Cheung-Juns.jpg" />
-      <Card className='p-md-3 cardHover'>
-        <Card.Title className='fw-bold'>Wondershare EdrawMax</Card.Title>
-        <Card.Title>CEO | BOEAT</Card.Title>
-        <Card.Text  className='fw-bold line-clamp'>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure incidunt enim quas similique soluta
-        </Card.Text>
-        <Card.Text className='mt-2 just-text line-clamp'>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure incidunt enim quas similique soluta
-        </Card.Text>
-        
-      </Card>
-    </Card>
-            </SwiperSlide>
-
-            <SwiperSlide style={{}}>
-            <Card style={{}}>
-      <Card.Img style={{ objectFit:'cover'}} src="https://kgv.ae/wp-content/uploads/2023/03/04-Kunal-Jain.jpg" />
-      <Card className='p-md-3 cardHover'>
-        <Card.Title className='fw-bold'>Wondershare EdrawMax</Card.Title>
-        <Card.Title>CEO | BOEAT</Card.Title>
-        <Card.Text  className='fw-bold line-clamp'>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure incidunt enim quas similique soluta
-        </Card.Text>
-        <Card.Text className='mt-2 just-text line-clamp'>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure incidunt enim quas similique soluta
-        </Card.Text>
-        
-      </Card>
-    </Card>
-            </SwiperSlide>
-
-            <SwiperSlide style={{}}>
-            <Card style={{}}>
-      <Card.Img style={{ objectFit:'cover'}} src="https://kgv.ae/wp-content/uploads/2023/04/09-Abhinav-Mishra-Vibe.jpg" />
-      <Card className='p-md-3 cardHover'>
-        <Card.Title className='fw-bold'>Wondershare EdrawMax</Card.Title>
-        <Card.Title>CEO | BOEAT</Card.Title>
-        <Card.Text  className='fw-bold line-clamp'>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure incidunt enim quas similique soluta
-        </Card.Text>
-        <Card.Text className='mt-2 just-text line-clamp'>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iure incidunt enim quas similique soluta
-        </Card.Text>
-        
-      </Card>
-    </Card>
-            </SwiperSlide> */}
             <button className='btn-nav' ref={navigationPrevRef}>Previous</button>
         <button className='btn-nav' ref={navigationNextRef}>Next</button>
             </Swiper>
@@ -701,7 +619,7 @@ useEffect(() => {
             {advertisementData && advertisementData.length > 0 && (
              <a href={`/${advertisementData[2].dest_url}`}> <img
                 style={{ width: "100%" }}
-                src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[2].banner_img}`}
+                src={`${API_ROOT}/uploads/promo_img/${advertisementData[2].banner_img}`}
                 alt={advertisementData[2].banner_name}
               /> </a>
             )}

@@ -25,7 +25,7 @@ const DemoNavbar = () => {
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch('http://192.168.17.8:3000/api/post/leadership');
+            const response = await fetch('https://app-node.enterprisetalk.com:3000/api/post/leadership');
             const data = await response.json();
             setNewsPosts(data.newsData);
             setArticlePosts(data.artilceData);
@@ -40,7 +40,7 @@ const DemoNavbar = () => {
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await fetch('http://192.168.17.8:3000/api/post/featured');
+            const response = await fetch('https://app-node.enterprisetalk.com:3000/api/post/featured');
             const data = await response.json();
             setNewsPod(data.podcastData);
             setInterPosts(data.inteviewData);

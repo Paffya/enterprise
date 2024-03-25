@@ -3,6 +3,7 @@ import { Tab, Nav, Col, Row, NavDropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
+import API_ROOT from '../apiConfig';
 
 const Author = () => {
   const { cat, subcat } = useParams();
@@ -24,7 +25,7 @@ const Author = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let apiUrl = `http://192.168.17.8:3000/api/post/topic/${cat}`;
+        let apiUrl = `${API_ROOT}/api/post/topic/${cat}`;
 
         if (subcat) {
           apiUrl += `/${subcat}`;
@@ -96,7 +97,7 @@ const Author = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://192.168.17.8:3000/api/category/subcatlist"
+          `${API_ROOT}/api/category/subcatlist`
         );
         const data = await response.json();
         setCategories(data); // Assuming the API response is an array of categories

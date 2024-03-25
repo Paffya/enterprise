@@ -15,6 +15,10 @@ import "../Styles/Navbar.css";
 import useOnclickOutside from "react-cool-onclickoutside";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
+import news6 from "../Images/news6.png";
+
+// import { Link } from "react-router-dom";
+import API_ROOT from '../apiConfig';
 
 const MyContext = React.createContext();
 
@@ -58,7 +62,7 @@ const Navigation = () => {
     const fetchMenuItems = async () => {
       try {
         const response = await axios.get(
-          "http://192.168.17.8:3000/api/category/subcatlist"
+          `${API_ROOT}/api/category/subcatlist`
         );
         setMenuItems(response.data);
       } catch (error) {
@@ -84,11 +88,17 @@ const Navigation = () => {
   const [interPosts, setInterPosts] = useState([]);
   const [guestPosts, setGuestPosts] = useState([]);
 
+  const [ feartureArticlePost ,setfeartureArticlePost] = useState([]);
+  const [ feartureReadyPosts ,setfeartureReadyPosts] = useState([]);
+  const [ feartureLearningPosts ,setfeartureLearningPosts] = useState([]);
+  
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://192.168.17.8:3000/api/post/leadership"
+          `${API_ROOT}/api/post/latestPost`
         );
         const data = await response.json();
         setNewsPosts(data.newsData);
@@ -105,12 +115,31 @@ const Navigation = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://192.168.17.8:3000/api/post/featured"
+          `${API_ROOT}/api/post/leadership`
         );
         const data = await response.json();
         setNewsPod(data.podcastData);
         setInterPosts(data.inteviewData);
         setGuestPosts(data.guestPostData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `${API_ROOT}/api/post/featured`
+        );
+        const data = await response.json();
+        setfeartureArticlePost(data.articleData);
+        setfeartureReadyPosts(data.futureReadyData);
+        setfeartureLearningPosts(data.learningData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -148,7 +177,7 @@ const Navigation = () => {
     if (validateEmail()) {
       try {
         const response = await fetch(
-          "http://192.168.17.8:3000/api/subscribe/add",
+          `${API_ROOT}/api/subscribe/add`,
           {
             method: "POST",
             headers: {
@@ -231,7 +260,7 @@ const Navigation = () => {
 
     try {
       // console.log("Sending search query:", searchQuery);
-      const response = await fetch(`http://192.168.17.8:3000/api/post/navsearch/${searchQuery}`);
+      const response = await fetch(`${API_ROOT}/api/post/navsearch/${searchQuery}`);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -440,6 +469,7 @@ const Navigation = () => {
               <NavDropdown.Item
                 href={`/${post.cat_slug}/${post.post_name}`}
                 key={index}
+                className="mt-0"
               >
                 News
                 <div
@@ -471,7 +501,7 @@ const Navigation = () => {
                   </div>
                 </div>
                 <NavDropdown.Item href="/topic/news">
-                  <a href="/topic/news" className="text-black ended">
+                  <a href="/topic/news" className="text-black ended mt-0">
                     See more
                   </a>
                 </NavDropdown.Item>
@@ -482,6 +512,7 @@ const Navigation = () => {
               <NavDropdown.Item
                 href={`/${post.cat_slug}/${post.post_name}`}
                 key={index}
+                className="mt-0"
               >
                 Articles
                 <div
@@ -515,7 +546,7 @@ const Navigation = () => {
                 <NavDropdown.Item href="/topic/featured">
                   <a
                     href="/topic/featured"
-                    className="text-black ended"
+                    className="text-black ended mt-0"
                   >
                     See more
                   </a>
@@ -529,6 +560,7 @@ const Navigation = () => {
               <NavDropdown.Item
                 href={`/${post.cat_slug}/${post.post_name}`}
                 key={index}
+                className="mt-0"
               >
                 Podcasts
                 <div
@@ -560,7 +592,7 @@ const Navigation = () => {
                 <NavDropdown.Item href="/topic/podcasts">
                   <a
                     href="/topic/podcasts"
-                    className="text-black ended"
+                    className="text-black ended mt-0"
                   >
                     See more
                   </a>
@@ -572,6 +604,7 @@ const Navigation = () => {
               <NavDropdown.Item
                 href={`/${post.cat_slug}/${post.post_name}`}
                 key={index}
+                className="mt-0"
               >
                 Featured Interview
                 <div
@@ -603,7 +636,7 @@ const Navigation = () => {
                 <NavDropdown.Item href="/topic/interview">
                   <a
                     href="/topic/interview"
-                    className="text-black ended"
+                    className="text-black ended mt-0"
                   >
                     See more
                   </a>
@@ -615,6 +648,7 @@ const Navigation = () => {
               <NavDropdown.Item
                 href={`/${post.cat_slug}/${post.post_name}`}
                 key={index}
+                className="mt-0"
               >
                 Guest Posts
                 <div
@@ -646,7 +680,141 @@ const Navigation = () => {
                 <NavDropdown.Item href="/topic/guest-author">
                   <a
                     href="/topic/guest-author"
-                    className="text-black ended"
+                    className="text-black ended mt-0"
+                  >
+                    See more
+                  </a>
+                </NavDropdown.Item>
+              </NavDropdown.Item>
+            ))}
+          </NavDropdown>
+
+          <NavDropdown title="Featured" className="MobileResponsive">
+            {feartureArticlePost.slice(0, 1).map((post, index) => (
+              <NavDropdown.Item
+                href={`/${post.cat_slug}/${post.post_name}`}
+                key={index}
+                className="mt-0"
+              >
+                Articles
+                <div
+                  className="d-flex"
+                  style={{
+                    width: "100%",
+                    gap: "20px",
+                    borderBottom: "1px solid #bdbdbd",
+                  }}
+                >
+                  <div style={{ width: "61%" }} className="paraMob">
+                    <h5 className="fw-bold" style={{ fontSize: "15px" }}>
+                      <a
+                        className="text-black hoverHead line-clamp"
+                        href={`/${post.cat_slug}/${post.post_name}`}
+                      >
+                        {" "}
+                        {post.post_title}
+                      </a>
+                    </h5>
+                    {/* <div className="DesktopResponsive ">
+                        <p style={{ fontSize: "14px" }}>
+                          By <span className="fw-bold">John Smith</span> | 12
+                          sept 2023
+                        </p>
+                      </div> */}
+                  </div>
+                </div>
+                <NavDropdown.Item href="/topic/featured">
+                  <a
+                    href="/topic/featured"
+                    className="text-black ended mt-0"
+                  >
+                    See more
+                  </a>
+                </NavDropdown.Item>
+              </NavDropdown.Item>
+            ))}
+
+            {feartureReadyPosts.slice(0, 1).map((post, index) => (
+              <NavDropdown.Item
+                href={`/${post.cat_slug}/${post.post_name}`}
+                key={index}
+                className="mt-0"
+              >
+                Future Ready
+                <div
+                  className="d-flex"
+                  style={{
+                    width: "100%",
+                    gap: "20px",
+                    borderBottom: "1px solid #bdbdbd",
+                  }}
+                >
+                  <div style={{ width: "61%" }} className="paraMob">
+                    <h5 className="fw-bold" style={{ fontSize: "15px" }}>
+                      <a
+                        className="text-black hoverHead line-clamp"
+                        href={`/${post.cat_slug}/${post.post_name}`}
+                      >
+                        {" "}
+                        {post.post_title}
+                      </a>
+                    </h5>
+                    {/* <div className="DesktopResponsive ">
+                        <p style={{ fontSize: "14px" }}>
+                          By <span className="fw-bold">John Smith</span> | 12
+                          sept 2023
+                        </p>
+                      </div> */}
+                  </div>
+                </div>
+                <NavDropdown.Item href="/topic/future-ready">
+                  <a
+                    href="/topic/future-ready"
+                    className="text-black ended mt-0"
+                  >
+                    See more
+                  </a>
+                </NavDropdown.Item>
+              </NavDropdown.Item>
+            ))}
+
+            {feartureLearningPosts.slice(0, 1).map((post, index) => (
+              <NavDropdown.Item
+                href={`/${post.cat_slug}/${post.post_name}`}
+                key={index}
+                className="mt-0"
+              >
+                Learning Center
+                <div
+                  className="d-flex"
+                  style={{
+                    width: "100%",
+                    gap: "20px",
+                    borderBottom: "1px solid #bdbdbd",
+                  }}
+                >
+                  <div style={{ width: "61%" }} className="paraMob">
+                    <h5 className="fw-bold" style={{ fontSize: "15px" }}>
+                      <a
+                        className="text-black hoverHead line-clamp"
+                        href={`/${post.cat_slug}/${post.post_name}`}
+                      >
+                        {" "}
+                        {post.post_title}
+                      </a>
+                    </h5>
+                    <div className="DesktopResponsive ">
+                      <p style={{ fontSize: "14px" }}>
+                        By <span className="fw-bold">John Smith</span> | 12 sept
+                        2023
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <NavDropdown.Item href="/topic/learning-center">
+                  <a
+                    href="/topic/learning-center"
+                    className="text-black ended mt-0"
                   >
                     See more
                   </a>
@@ -675,7 +843,6 @@ const Navigation = () => {
           </Nav.Link> */}
           
           
-
 
         </Nav>
       </Navbar.Collapse>
@@ -714,27 +881,11 @@ const Navigation = () => {
               <Container className="popupBack">
                 <Row>
                   <Col md={7}>
-                  <div className="">
-                            <div className="letter-image">
-                              <div className="animated-mail">
-                                <div className="back-fold"></div>
-                                <div className="letter">
-                                  <div className="letter-border"></div>
-                                  <div className="letter-title"></div>
-                                  <div className="letter-context"></div>
-                                  <div className="letter-stamp">
-                                    <div className="letter-stamp-inner"></div>
-                                  </div>
-                                </div>
-                                <div className="top-fold"></div>
-                                <div className="body"></div>
-                                <div className="left-fold"></div>
-                              </div>
-                              {/* <div className="shadow"></div> */}
-                            </div>
-                          </div>
+                  <div style={{textAlign:"center"}}>
+                         <img className="mt-3" style={{width:"40%", borderRadius:"10px", filter: 'brightness(0) saturate(100%) invert(14%) sepia(100%) saturate(1000%) hue-rotate(345deg)' }} src={news6} alt="" />
+                         </div>
                     <Form.Group
-                      className="px-3 mb-3 mobileinputsubscribe"
+                      className="px-3 mb-3 "
                       controlId="exampleForm.ControlInput1"
                     >
                       <Form.Control

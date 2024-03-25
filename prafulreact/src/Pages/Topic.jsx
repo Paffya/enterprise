@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import ShareButton from "../Components/ShareButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import API_ROOT from "../apiConfig";
 
 const Searchart = () => {
   const options = {
@@ -14,7 +15,6 @@ const Searchart = () => {
   };
 
 
-  
 
   const { cat_slug, post_name } = useParams();
   const [postloading, setPostLoading] = useState(true);
@@ -38,11 +38,11 @@ const Searchart = () => {
           setUserIp(userIp);
 
           // Now, you can use userIp as needed in your application
-          console.log('User IP Address:', userIp);
+          // console.log('User IP Address:', userIp);
 
           
           const response = await fetch(
-            `http://192.168.17.8:3000/api/post/postdetails/${cat_slug}/${post_name}`
+            `${API_ROOT}/api/post/postdetails/${cat_slug}/${post_name}`
           );
 
           if (!response.ok) {
@@ -62,7 +62,7 @@ const Searchart = () => {
             ip_addr: userIp,
           };
 
-          const countResponse = await fetch('http://192.168.17.8:3000/api/post/post_count/'+data.result[0].id, {
+          const countResponse = await fetch(`${API_ROOT}/api/post/post_count/`+data.result[0].id, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ const Searchart = () => {
           }
 
           const countData = await countResponse.json();
-          console.log('Count data:', countData);
+          // console.log('Count data:', countData);
         } else {
           console.error('Error fetching IP address:', ipResponse.status);
         }
@@ -93,7 +93,7 @@ const Searchart = () => {
   useEffect(() => {
     // Fetch data from the API using Axios
     axios
-      .get("http://192.168.17.8:3000/api/post/latest")
+      .get(`${API_ROOT}/api/post/latest`)
       .then((response) => {
         setLatestPosts(response.data);
       })
@@ -109,7 +109,7 @@ const Searchart = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `http://192.168.17.8:3000/api/post/asidetopic/${cat_slug}`
+          `${API_ROOT}/api/post/asidetopic/${cat_slug}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch data");
@@ -135,7 +135,7 @@ const Searchart = () => {
     const fetchAdvertisementData = async () => {
       try {
         const response = await axios.get(
-          "http://192.168.17.8:3000/api/advertisement/get_active"
+          `${API_ROOT}/api/advertisement/get_active`
         );
         setAdvertisementData(response.data);
         // console.log(response.data)
@@ -153,34 +153,36 @@ const Searchart = () => {
   
 
 
-
   const [authorData, setAuthorData] = useState(null);
-
+  const [loading, setLoading] = useState(true); // Add loading state
+  
   useEffect(() => {
     const fetchAuthorData = async () => {
       try {
-        const response = await axios.get('http://192.168.17.8:3000/api/author/2');
+        const response = await axios.get(`${API_ROOT}/api/author/${authorId}`);
         setAuthorData(response.data.result[0]);
-      
       } catch (error) {
         console.error('Error fetching author data:', error.message);
+        // Handle error state if needed
+      } finally {
+        setLoading(false); // Update loading state after fetching data
       }
     };
-
+  
     fetchAuthorData();
-  }, []);
+  }, [authorId]); // Include authorId in dependency array
+  
 
   const [headings, setHeadings] = useState([]);
 
   useEffect(() => {
   const container = document.createElement('div');
   container.innerHTML = htmlContent;
-  
-  
 
   let index = 1;
   let subIndex = 0;
-  const headingsList = Array.from(container.querySelectorAll('h1, h2, h3, h4, h5, h6')).map((heading, i) => {
+ 
+  const headingsList = Array.from(container.querySelectorAll('h1, h2, h3')).map((heading, i) => {
     let text = heading.innerText;
     let id = heading.id || `heading-${i}`;
     
@@ -201,7 +203,7 @@ const Searchart = () => {
           {index - 1}.{subIndex} {text}
         </span>
       );
-    }
+    } 
     return {
       text: text,
       id: id,
@@ -214,10 +216,10 @@ const Searchart = () => {
 
   const scrollToHeading = (id) => {
     const element = document.getElementById(id);
-    console.log('scrollToHeading called with id:', id);
+    // console.log('scrollToHeading called with id:', id);
     
     if (element) {
-      console.log('Element found:', element);
+      // console.log('Element found:', element);
       element.scrollIntoView({ behavior: 'smooth' });
       // window.scrollBy(0, -130);
       setTimeout(() => {
@@ -233,7 +235,7 @@ const Searchart = () => {
 tempDiv.innerHTML = htmlContent;
 
 // Get all h1, h2, h3 elements
-const heading = tempDiv.querySelectorAll('h2, h3, h4');
+const heading = tempDiv.querySelectorAll('h2, h3');
 
 
 // Loop through the headings and assign dynamic IDs
@@ -265,13 +267,12 @@ const [accordionOpen, setAccordionOpen] = useState(false);
   };
   
   const [activeHeadingId, setActiveHeadingId] = useState(null);
-  console.log("actived",activeHeadingId)
+  // console.log("actived",activeHeadingId)
 
 
 
   
   return (
-    
     <div>
       <div className="container container-max ">
         <div className="row ">
@@ -307,60 +308,74 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                     </div>
                   </div>
                 </div>
-                <div className="mt-3">
+                {postData[0].banner_img && (
+                  <div className="mt-3">
+                    <img
+                      className="topicImg"
+                      src={`${postData[0].banner_img}`}
+                      alt={postData[0].banner_alt}
+                    />
+                  </div>
+                )}
+                {/* <div className="mt-3">
                   <img
                     className="topicImg"
-                    // src={postData[0].banner_img}
-                    src={`http://192.168.17.8:3000/uploads/${postData[0].banner_img}`}
+                    src={`${API_ROOT}/uploads/${postData[0].banner_img}`}
                     alt={postData[0].banner_alt}
                   />
-                </div>
+                </div> */}
 
                 <div style={{ fontSize: "14px" }}>
                   <p className="paddings">
-                    
+                    {headings.length > 0 && (
+                      <div
+                        className="contentTableBox"
+                        onClick={handleHeaderClick}
+                      >
+                        <h2 className="fw-bold px-1 h4 clippath">
+                          <div className="d-flex justify-content-between ">
+                            <div className="mb-1" style={{ cursor: "pointer" }}>
+                              Table of Contents
+                            </div>{" "}
+                            <div style={{ cursor: "pointer" }} className="px-2">
+                              <FontAwesomeIcon icon={faBars} />
+                            </div>
+                          </div>
+                        </h2>
+                        <React.Fragment>
+                          {accordionOpen && (
+                            <ol className="px-3">
+                              {headings.map((heading, index) => (
+                                <li key={heading.id} className="tocBack ">
+                                  <a
+                                    href={`#${heading.id}`}
+                                    onClick={(e) => {
+                                      scrollToHeading(heading.id);
+                                      handleLinkClick(e);
+                                      setActiveHeadingId(heading.id); // Set active heading id when clicked
+                                    }}
+                                    className={`text-black mb-1 backLine hover-underline-animations ${
+                                      activeHeadingId === heading.id
+                                        ? "actived"
+                                        : ""
+                                    }`}
+                                  >
+                                    {heading.text}
+                                  </a>
+                                </li>
+                              ))}
+                            </ol>
+                          )}
+                        </React.Fragment>
+                      </div>
+                    )}
 
-                    
-                  
-
-                  {headings.length > 0 && (
-        <div className="contentTableBox" onClick={handleHeaderClick}>
-          <h2 className="fw-bold px-1 h4 clippath" >
-           <div className="d-flex justify-content-between ">
-           <div className="mb-1" style={{cursor:"pointer"}}>Table of Contents</div>   <div style={{cursor:"pointer"}} className="px-2"><FontAwesomeIcon icon={faBars}  /></div>
-           </div>
-          </h2>
-         <React.Fragment>
-         {accordionOpen && (
-  <ol className="px-3">
-    {headings.map((heading, index) => (
-      
-      <li key={heading.id} className="tocBack ">
-        <a
-          href={`#${heading.id}`}
-          onClick={(e) => { 
-            scrollToHeading(heading.id); 
-            handleLinkClick(e); 
-            setActiveHeadingId(heading.id); // Set active heading id when clicked
-          }}
-          className={`text-black mb-1 backLine hover-underline-animations ${activeHeadingId === heading.id ? 'actived' : ''}`}
-        >
-        
-            {heading.text}   
-            
-        </a>
-      </li>
-    ))}
-  </ol>
-)}
-     
-    </React.Fragment>
-  
-        </div>
-      )}
-
-{/* <div className="content mt-2"  dangerouslySetInnerHTML={{ __html: htmlContent }} /> */}
-<div className="content mt-2" dangerouslySetInnerHTML={{ __html: updatedHtmlContent }} />
+                    {/* <div className="content mt-2"  dangerouslySetInnerHTML={{ __html: htmlContent }} /> */}
+                    <div
+                      className="content mt-2"
+                      dangerouslySetInnerHTML={{ __html: updatedHtmlContent }}
+                    />
+                    {/* <div className="content mt-2">{updatedHtmlContent}</div> */}
                     {/* <div
                       className="content mt-2"
                       dangerouslySetInnerHTML={{ __html: htmlContent }}
@@ -369,46 +384,24 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                 </div>
 
                 <div className="ArticleBox mt-5 mb-5" style={{ alignItems: "center" }}>
-      {authorData && (
-        <>
-          <div>
-            <img
-              className="ArticleImg"
-              src={`http://192.168.17.8:3000/uploads/author-profiles/${authorData.author_photo}` || 'http://192.168.17.8:3000/uploads/author-profiles/default-author.jpg'}
-              alt={authorData.author_name}
-            />
-          </div>
-          <div style={{ fontSize: "14px", padding: "10px" }}>
-            <h2 className="fw-bold h6">{authorData.author_display_name}</h2>
-            <p>{authorData.author_description}</p>
-          </div>
-        </>
-      )}
-    </div>
-{/* 
-                <div
-                  className=" ArticleBox mt-5 mb-5"
-                  style={{ alignItems: "center" }}
-                >
-                  <div>
-                    <img
-                      className="ArticleImg"
-                      src="https://people.com/thmb/RpnNLplOGndVrTF-rdBlp0biuxE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(719x39:721x41)/Emma-Watson-c59dff78899047bb839b894665b85a13.jpg"
-                      alt="Emma Watson"
-                    />
-                  </div>
-                  <div style={{ fontSize: "14px", padding: "10px" }}>
-                    <h2 className="fw-bold h6">Jane Smith</h2>
-                    <p>
-                      {" "}
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Sit, vero praesentium quibusdam officiis itaque distinctio
-                      magnam sequi quia, tempora vitae, labore reiciendis natus
-                      facere temporibus cupiditate dignissimos nisi! Dolorum,
-                      illum!
-                    </p>
-                  </div>
-                </div> */}
+    {loading ? (
+      <p></p> // Display loading message while fetching data
+    ) : (
+      <>
+        <div>
+          <img
+            className="ArticleImg"
+            src={`${API_ROOT}/uploads/author-profiles/${authorData?.author_photo || 'default-author.jpg'}`}
+            alt={authorData?.author_name}
+          />
+        </div>
+        <div style={{ fontSize: "14px", padding: "10px" }}>
+          <h2 className="fw-bold h6">{authorData?.author_display_name}</h2>
+          <p>{authorData?.author_description}</p>
+        </div>
+      </>
+    )}
+  </div>
               </div>
             )}
 
@@ -425,7 +418,7 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                   <div className="quickImgBox">
                     <img
                       style={{ width: "90%", borderRadius: "14px" }}
-                      src={post.banner_img}
+                      src={`${post.banner_img}`}
                       alt={post.banner_alt}
                     />
                   </div>
@@ -495,21 +488,15 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                   {" "}
                   <img
                     style={{ height: "", width: "100%" }}
-                    src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[0].banner_img}`}
+                    src={`${API_ROOT}/uploads/promo_img/${advertisementData[0].banner_img}`}
                     alt={advertisementData[0].banner_name}
                   />{" "}
                 </a>
               )}
             </div>
-
-            
           </div>
-
-          
         </div>
       </div>
-
-      
 
       <div className="container container-max ">
         <div className="row">
@@ -544,7 +531,7 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                   {" "}
                   <img
                     style={{ width: "100%" }}
-                    src={`http://192.168.17.8:3000/uploads/promo_img/${advertisementData[2].banner_img}`}
+                    src={`${API_ROOT}/uploads/promo_img/${advertisementData[2].banner_img}`}
                     alt={advertisementData[2].banner_name}
                   />{" "}
                 </a>
