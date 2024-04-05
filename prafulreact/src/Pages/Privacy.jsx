@@ -1,9 +1,16 @@
 import React from 'react'
+import {Helmet} from "react-helmet"
 
 
 const Privacy = () => {
   return (
     <div>
+
+        <Helmet>
+            <title>Privacy | Enterprise Talk</title>
+            <meta name="description" content="A Peer Knowledge Resource Expert inputs on challenges, triumphs &amp; innovative solutions from corporate Movers &amp; Shakers in global Leadership." />
+            <link rel="canonical" href="https://enterprisetalk.com/privacy"  />
+        </Helmet>
 
 <div className='container container-max'>
     <div className='row'>

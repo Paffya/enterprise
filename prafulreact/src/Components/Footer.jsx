@@ -14,7 +14,8 @@ import instagram from "../Images/instagram.png"
 import linkedin from "../Images/linkedin.png"
 import news6 from "../Images/news6.png";
 // import { Link } from 'react-router-dom';
-import API_ROOT from '../apiConfig';
+import {API_ROOT,webPath} from "../apiConfig";
+import EnterpriseLogo from "../Images/enterpriseLogo.webp"
 
 const Footer = () => {
 
@@ -105,7 +106,7 @@ const Footer = () => {
     <div className="row">
       <div className="col-md-3">
         <div>
-          <img className="FootLogo" src="https://enterprisetalk.com/wp-content/uploads/2022/10/Asset-5-300x61.png.webp" alt="Enterprise Logo" />
+          <img className="FootLogo" src={EnterpriseLogo} alt="Enterprise Logo" />
         </div>
         <div className="mt-4">
           <p className="just-text">A Peer Knowledge resources - By the CXO, For the CXO</p>
@@ -117,7 +118,7 @@ const Footer = () => {
           <div>
             <a className="text-black fw-bold hoverHead" href="mailto: media@enterprisetalk.com">Media@Enterprisetalk.com</a>
           </div>
-          <div className='mt-3'>
+          <div className='mt-1'>
             <a className="text-black fw-bold hoverHead" href="mailto: sales@enterprisetalk.com">Sales@EnterpriseTalk.com</a>
           </div>
         </div>

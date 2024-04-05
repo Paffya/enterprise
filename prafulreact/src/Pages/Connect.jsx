@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { Card, Form, Button } from "react-bootstrap";
-import API_ROOT from '../apiConfig';
+import {API_ROOT,webPath} from "../apiConfig";
+import {Helmet} from "react-helmet"
 
 
 const Connect = () => {
@@ -99,11 +100,17 @@ const Connect = () => {
   };
 
   
-  
+  const pageTitle = "Contact Us | Enterprise Talk"
 
 
   return (
     <div>
+      <Helmet>
+<title>{pageTitle}</title>
+<meta name="description" content="Contact Us" />
+<link rel="canonical" href="https://enterprisetalk.com/connect" />
+
+</Helmet>
       <div className="container container-max mb-4">
         <div className="row">
 

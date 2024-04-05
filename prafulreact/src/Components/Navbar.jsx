@@ -11,7 +11,8 @@ import silverLaptop from "../Images/silverlaptop.png";
 
 import news6 from "../Images/news6.png";
 // import { Link } from "react-router-dom";
-import API_ROOT from '../apiConfig';
+import {API_ROOT,webPath} from "../apiConfig";
+import EnterpriseLogo from "../Images/enterpriseLogo.webp"
 
 
 
@@ -242,7 +243,8 @@ const CustomNavbar = () => {
                   <img
                     className="MainLogo"
                     style={{ width: "70%" }}
-                    src="https://enterprisetalk.com/wp-content/uploads/2022/10/Asset-5-300x61.png.webp"
+                    // src="https://enterprisetalk.com/wp-content/uploads/2022/10/Asset-5-300x61.png.webp"
+                    src={EnterpriseLogo}
                     alt="Logo"
                   />
                 </a>
@@ -389,7 +391,7 @@ const CustomNavbar = () => {
                                     height: "84px",
                                     objectFit: "cover",
                                   }}
-                                  src={post.banner_img}
+                                  src={`${webPath}${post.banner_img}`}
                                   alt={post.banner_alt}
                                 />
                               </div>
@@ -459,7 +461,7 @@ const CustomNavbar = () => {
                                     height: "84px",
                                     objectFit: "cover",
                                   }}
-                                  src={post.banner_img}
+                                  src={`${webPath}${post.banner_img}`}
                                   alt={post.banner_alt}
                                 />
                               </div>
@@ -545,7 +547,7 @@ const CustomNavbar = () => {
                                     height: "85px",
                                     objectFit: "cover",
                                   }}
-                                  src={post.banner_img}
+                                  src={`${webPath}${post.banner_img}`}
                                   alt={post.banner_alt}
                                 />
                               </div>
@@ -619,7 +621,7 @@ const CustomNavbar = () => {
                                     height: "85px",
                                     objectFit: "cover",
                                   }}
-                                  src={post.banner_img}
+                                  src={`${webPath}${post.banner_img}`}
                                   alt={post.banner_alt}
                                 />
                               </div>
@@ -691,7 +693,7 @@ const CustomNavbar = () => {
                                     height: "85px",
                                     objectFit: "cover",
                                   }}
-                                  src={post.banner_img}
+                                  src={`${webPath}${post.banner_img}`}
                                   alt={post.banner_alt}
                                 />
                               </div>
@@ -745,7 +747,7 @@ const CustomNavbar = () => {
                   show={nav}
                   onMouseEnter={showDropdownNav}
                   onMouseLeave={hideDropdownNav}
-                  title="Featured"
+                  title="Features"
                   id="basic-nav-dropdown"
                   className="custom-dropdown hover-underline-animation "
                 >
@@ -774,7 +776,7 @@ const CustomNavbar = () => {
                                     height: "85px",
                                     objectFit: "cover",
                                   }}
-                                  src={post.banner_img}
+                                  src={`${webPath}${post.banner_img}`}
                                   alt={post.banner_alt}
                                 />
                               </div>
@@ -848,7 +850,7 @@ const CustomNavbar = () => {
                                     height: "85px",
                                     objectFit: "cover",
                                   }}
-                                  src={post.banner_img}
+                                  src={`${webPath}${post.banner_img}`}
                                   alt={post.banner_alt}
                                 />
                               </div>
@@ -920,7 +922,7 @@ const CustomNavbar = () => {
                                     height: "85px",
                                     objectFit: "cover",
                                   }}
-                                  src={post.banner_img}
+                                  src={`${webPath}${post.banner_img}`}
                                   alt={post.banner_alt}
                                 />
                               </div>

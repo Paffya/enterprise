@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import "../Styles/Article.css"
 
 import axios from 'axios';
-import API_ROOT from '../apiConfig';
+import {API_ROOT,webPath} from "../apiConfig";
 
 
 
@@ -107,7 +107,7 @@ const ArticleDesc = () => {
                        
            </div>
            <div className='mt-3'>
-           <img className='homeImg' src={data.postData[0].banner_img} alt={data.postData[0].banner_alt} />
+           <img className='homeImg' src={`${webPath}${data.postData[0].banner_img}`} alt={data.postData[0].banner_alt} />
            </div>
 
            <div style={{fontSize:"14px"}}>
@@ -184,7 +184,7 @@ const ArticleDesc = () => {
 {postData.map((post, index) => (
 <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
   <div  className='quickImgBox'>
-    <img style={{ width:"90%"  , borderRadius:"14px"}} src={post.banner_img} alt={post.banner_alt} />
+    <img style={{ width:"90%"  , borderRadius:"14px"}} src={`${webPath}${post.banner_img}`} alt={post.banner_alt} />
   </div>
 
   <div className='' style={{width:"74%"}}>

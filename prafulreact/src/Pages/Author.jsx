@@ -3,7 +3,7 @@ import { Tab, Nav, Col, Row, NavDropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
-import API_ROOT from '../apiConfig';
+import {API_ROOT,webPath} from "../apiConfig";
 
 const Author = () => {
   const { cat, subcat } = useParams();
@@ -222,7 +222,7 @@ const Author = () => {
                                 height: "auto",
                                 objectFit: "cover",
                               }}
-                              src={post.banner_img}
+                              src={`${webPath}${post.banner_img}`}
                               alt={post.banner_alt}
                             />
                           </figure>
@@ -270,7 +270,7 @@ const Author = () => {
                               <div className="quickImgBox">
                                 <img
                                   style={{ width: "90%", borderRadius: "14px" }}
-                                  src={post.banner_img}
+                                  src={`${webPath}${post.banner_img}`}
                                   alt={post.banner_alt}
                                 />
                               </div>

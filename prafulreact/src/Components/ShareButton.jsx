@@ -2,6 +2,7 @@ import React from 'react';
 import facebook from "../Images/facebook-f.png"
 
 import linkedin from "../Images/linkedin.png"
+import pintrest from "../Images/pinterest.png"
 import shareIcon from "../Images/shareIcon.png"
 
 
@@ -27,7 +28,7 @@ const ShareButtons = ({ shareText, shareUrl }) => {
       </button>
 
       <button className='mx-1 bg-black btn-share' title='Share on Pintrest' onClick={() => openSharePopup(pinterestShareUrl)}>
-      <img src="https://www.freeiconspng.com/uploads/white-pinterest-logo-png--30.png" alt="facebook" style={{width:"20px", padding:"2px"}} />
+      <img src={pintrest} alt="facebook" style={{width:"20px", padding:"2px"}} />
       </button>
 
       <button className='mx-1 bg-black btn-share' title='Share on LinkedIn' onClick={() => openSharePopup(linkedinShareUrl)}>

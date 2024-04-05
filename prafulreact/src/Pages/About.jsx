@@ -1,11 +1,19 @@
 import React from 'react'
 import "../Styles/About.css"
+import { Helmet } from 'react-helmet'
+
 
 const About = () => {
+
+  const pageTitle = "About Us | Enterprise Talk"
   return (
     <div>
 
+<Helmet>
+<title>{pageTitle}</title>
+<meta name="description" content="About page description" />
 
+</Helmet>
 
         <div className="container container-max">
       <div className="row">

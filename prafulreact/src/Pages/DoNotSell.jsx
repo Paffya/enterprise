@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { Form, Button } from "react-bootstrap";
-import API_ROOT from '../apiConfig';
+import {API_ROOT,webPath} from "../apiConfig";
+import {Helmet} from "react-helmet"
 
 const DoNotSell = () => {
   const initialFormData = {
@@ -74,6 +75,11 @@ const DoNotSell = () => {
   return (
     <div>
 
+<Helmet>
+<title>Do not sell | Enterprise Talk</title>
+	<meta name="description" content="A Peer Knowledge Resource Expert inputs on challenges, triumphs &amp; innovative solutions from corporate Movers &amp; Shakers in global Leadership." />
+	<link rel="canonical" href="https://enterprisetalk.com/opt-out-form" />
+</Helmet>
 
         <div className='container container-max mb-5'>
             <div className="row">

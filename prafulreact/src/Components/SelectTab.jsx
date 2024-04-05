@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import API_ROOT from '../apiConfig';
+import {API_ROOT,webPath} from "../apiConfig";
 
 const SelectTab = () => {
   const { cat, subcat } = useParams();
@@ -212,7 +212,7 @@ const SelectTab = () => {
                               height: "auto",
                               objectFit: "cover",
                             }}
-                            src={post.banner_img}
+                            src={`${webPath}${post.banner_img}`}
                             alt={post.banner_alt}
                           />
                         </figure>
@@ -259,7 +259,7 @@ const SelectTab = () => {
                             <div className="quickImgBox">
                               <img
                                 style={{ width: "90%", borderRadius: "14px" }}
-                                src={post.banner_img}
+                                src={`${webPath}${post.banner_img}`}
                                 alt={post.banner_alt}
                               />
                             </div>
@@ -329,11 +329,11 @@ const SelectTab = () => {
                   <div className="col-md-4">
                     <div>
                       {advertisementData && advertisementData.length > 0 && (
-                        <a href={`/${advertisementData[0].dest_url}`}>
+                        <a href={`${advertisementData[0].dest_url}`}>
                           {" "}
                           <img
                             style={{ width: "100%" }}
-                            src={`${API_ROOT}/uploads/promo_img/${advertisementData[0].banner_img}`}
+                            src={`${webPath}${advertisementData[0].banner_img}`}
                             alt={advertisementData[0].banner_name}
                           />{" "}
                         </a>

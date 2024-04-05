@@ -4,7 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { useParams  } from 'react-router-dom';
 import axios from 'axios';
-import API_ROOT from '../apiConfig';
+import {API_ROOT,webPath} from "../apiConfig";
+
+
 
 
 const Searchtab = () => {
@@ -134,6 +136,10 @@ const Searchtab = () => {
 
 
   return (
+    <div>
+  
+    
+     
     <Tab.Container id="tabs-with-dropdown" defaultActiveKey="first">
       <Row className="clearfix">
         <Col sm={12}>
@@ -174,7 +180,7 @@ const Searchtab = () => {
 <div>
 <a href={`/${post.cat_slug}/${post.post_name}`}> 
 <figure>
-<img  style={{width:"100%", borderRadius:"20px",  height: "auto", objectFit:"cover"}} src={post.banner_img} alt={post.banner_alt} />
+<img  style={{width:"100%", borderRadius:"20px",  height: "auto", objectFit:"cover"}} src={`${webPath}${post.banner_img}`} alt={post.banner_alt} />
 </figure>
 </a>
 </div>
@@ -213,7 +219,7 @@ const Searchtab = () => {
           <div className='quickImgBox'>
             <img
               style={{ width: '90%', borderRadius: '14px' }}
-              src={post.banner_img}
+              src={`${webPath}${post.banner_img}`}
               alt={post.banner_alt}
             />
           </div>
@@ -278,7 +284,7 @@ const Searchtab = () => {
     <div className="col-md-4">
     <div >
     {advertisementData && advertisementData.length > 0 && (
-   <a href={`/${advertisementData[0].dest_url}`}> <img style={{ width:"100%"}} src={`${API_ROOT}/uploads/promo_img/${advertisementData[0].banner_img}`} alt={advertisementData[0].banner_name} /></a>
+   <a href={`${advertisementData[0].dest_url}`}> <img style={{ width:"100%"}} src={`${webPath}${advertisementData[0].banner_img}`} alt={advertisementData[0].banner_name} /></a>
     )}
 </div>
     </div>
@@ -294,6 +300,7 @@ const Searchtab = () => {
         </Col>
       </Row>
     </Tab.Container>
+    </div>
   );
 };
 

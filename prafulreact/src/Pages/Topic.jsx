@@ -5,9 +5,11 @@ import { useParams } from "react-router-dom";
 import ShareButton from "../Components/ShareButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import API_ROOT from "../apiConfig";
+import {API_ROOT,webPath} from "../apiConfig";
+import getYouTubeID from 'get-youtube-id';
+import { Helmet } from 'react-helmet';
 
-const Searchart = () => {
+const Searchart = ( ) => {
   const options = {
     year: "numeric",
     month: "short",
@@ -46,8 +48,15 @@ const Searchart = () => {
           );
 
           if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            // throw new Error(`HTTP error! Status: ${response.status}`);
+
+            
+                 // Redirect to 404 Not Found page
+                 window.location.href = '/NotFound'; // Replace '/404' with the actual path to your 404 page
+                 return; // Stop further execution
+              
           }
+          
 
           const data = await response.json(); 
         
@@ -159,6 +168,8 @@ const Searchart = () => {
   useEffect(() => {
     const fetchAuthorData = async () => {
       try {
+        setLoading(true); // Set loading state to true before fetching data
+  
         const response = await axios.get(`${API_ROOT}/api/author/${authorId}`);
         setAuthorData(response.data.result[0]);
       } catch (error) {
@@ -169,8 +180,10 @@ const Searchart = () => {
       }
     };
   
-    fetchAuthorData();
-  }, [authorId]); // Include authorId in dependency array
+    if (authorId) { // Check if authorId is truthy
+      fetchAuthorData();
+    }
+  }, [authorId]); 
   
 
   const [headings, setHeadings] = useState([]);
@@ -269,11 +282,34 @@ const [accordionOpen, setAccordionOpen] = useState(false);
   const [activeHeadingId, setActiveHeadingId] = useState(null);
   // console.log("actived",activeHeadingId)
 
+  if (!postData || postData.length === 0) {
+    return null; // Or you can render a placeholder or loading indicator
+  }
+
+  // Extract the YouTube video ID if the podcast link is available
+  const videoId = postData[0].podcast_link ? getYouTubeID(postData[0].podcast_link) : '';
+
+  const canonicalUrl = `https://enterprisetalk.com/${cat_slug}/${post_name}`
 
 
   
+
   return (
     <div>
+   
+         <Helmet>
+        <title>{postData[0].post_title}</title>
+        <meta name="description" content={postData[0].meta_description} />
+        <meta property="og:title" content={postData[0].post_title} />
+        <meta property="og:description" content={postData[0].meta_description} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content={`${webPath}${postData[0].banner_img}`}/>
+        <meta property="og:image:width" content="844" />
+	<meta property="og:image:height" content="172" />
+  <meta property="og:image:type" content="image/png" />
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
+    
       <div className="container container-max ">
         <div className="row ">
           <div className="hr"></div>
@@ -308,15 +344,22 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                     </div>
                   </div>
                 </div>
-                {postData[0].banner_img && (
+                {postData[0].banner_img && postData[0].banner_show == 1 && (
                   <div className="mt-3">
                     <img
                       className="topicImg"
-                      src={`${postData[0].banner_img}`}
+                      src={`${webPath}${postData[0].banner_img}`}
                       alt={postData[0].banner_alt}
                     />
                   </div>
                 )}
+
+{/* src={
+                        postData[0].banner_img.includes("enterprisetalk")
+                          ? postData[0].banner_img
+                          : `https://staging.enterprisetalk.com${postData[0].banner_img}`
+                      } */}
+
                 {/* <div className="mt-3">
                   <img
                     className="topicImg"
@@ -371,6 +414,21 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                     )}
 
                     {/* <div className="content mt-2"  dangerouslySetInnerHTML={{ __html: htmlContent }} /> */}
+                    {postData[0].podcast_link && (
+  <div className="video-responsive">
+    <iframe
+      width="560"
+      height="315"
+      src={`https://www.youtube.com/embed/${videoId}`}
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+    ></iframe>
+  </div>
+)}
+
                     <div
                       className="content mt-2"
                       dangerouslySetInnerHTML={{ __html: updatedHtmlContent }}
@@ -391,13 +449,13 @@ const [accordionOpen, setAccordionOpen] = useState(false);
         <div>
           <img
             className="ArticleImg"
-            src={`${API_ROOT}/uploads/author-profiles/${authorData?.author_photo || 'default-author.jpg'}`}
+            src={`${webPath}${authorData?.author_photo || 'default-author.jpg'}`}
             alt={authorData?.author_name}
           />
         </div>
         <div style={{ fontSize: "14px", padding: "10px" }}>
           <h2 className="fw-bold h6">{authorData?.author_display_name}</h2>
-          <p>{authorData?.author_description}</p>
+          <p dangerouslySetInnerHTML={{ __html: authorData?.author_description }} />
         </div>
       </>
     )}
@@ -418,7 +476,7 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                   <div className="quickImgBox">
                     <img
                       style={{ width: "90%", borderRadius: "14px" }}
-                      src={`${post.banner_img}`}
+                      src={`${webPath}${post.banner_img}`}
                       alt={post.banner_alt}
                     />
                   </div>
@@ -448,7 +506,7 @@ const [accordionOpen, setAccordionOpen] = useState(false);
               {data.slice(0, 4).map((post, index) => (
                 <div key={index} className="paddings">
                   <a href={`/${post.cat_slug}/${post.post_name}`}>
-                    <h5 className="fw-bold h5 hoverHead line-clamp">
+                    <h5 className="fw-bold h5 hoverHead line-clamp" title={post.post_title}>
                       {post.post_title}
                     </h5>
                   </a>
@@ -484,11 +542,11 @@ const [accordionOpen, setAccordionOpen] = useState(false);
               {/* Content for the 30% column */}
               {/* <p className="bllack">340*1500</p> */}
               {advertisementData && advertisementData.length > 0 && (
-                <a href={`/${advertisementData[0].dest_url}`}>
+                <a href={`${advertisementData[0].dest_url}`}>
                   {" "}
                   <img
                     style={{ height: "", width: "100%" }}
-                    src={`${API_ROOT}/uploads/promo_img/${advertisementData[0].banner_img}`}
+                    src={`${webPath}${advertisementData[0].banner_img}`}
                     alt={advertisementData[0].banner_name}
                   />{" "}
                 </a>
@@ -527,11 +585,11 @@ const [accordionOpen, setAccordionOpen] = useState(false);
           <div className="col-md-12 mb-2 borderB">
             <div>
               {advertisementData && advertisementData.length > 0 && (
-                <a href={`/${advertisementData[2].dest_url}`}>
+                <a href={`${advertisementData[2].dest_url}`}>
                   {" "}
                   <img
                     style={{ width: "100%" }}
-                    src={`${API_ROOT}/uploads/promo_img/${advertisementData[2].banner_img}`}
+                    src={`${webPath}${advertisementData[2].banner_img}`}
                     alt={advertisementData[2].banner_name}
                   />{" "}
                 </a>

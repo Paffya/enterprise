@@ -3,7 +3,7 @@ import "../Styles/Latest.css";
 // import { Card } from "react-bootstrap";
 import Sidenav from "../Components/Sidenav";
 import axios from "axios";
-import API_ROOT from '../apiConfig';
+import {API_ROOT,webPath} from "../apiConfig";
 
 const Latest = () => {
   const [activeLink, setActiveLink] = useState("");
@@ -314,9 +314,9 @@ useEffect(() => {
             <div >
               <div id="article"></div>
               {advertisementData && advertisementData.length > 0 && (
-            <a href={`/${advertisementData[2].dest_url}`}>  <img
+            <a href={`${advertisementData[2].dest_url}`}>  <img
                 style={{ width: "100%" }}
-                src={`${API_ROOT}/uploads/promo_img/${advertisementData[2].banner_img}`}
+                src={`${API_ROOT}${advertisementData[2].banner_img}`}
                 alt={advertisementData[2].banner_name}
               /> </a>
               )}
@@ -439,9 +439,9 @@ useEffect(() => {
             >
               {/* <p className='bllack'>340*900</p> */}
               {advertisementData && advertisementData.length > 0 && (
-            <a href={`/${advertisementData[0].dest_url}`}>  <img
+            <a href={`${advertisementData[0].dest_url}`}>  <img
                 style={{ height: "648px", width: "auto" }}
-                src={`${API_ROOT}/uploads/promo_img/${advertisementData[0].banner_img}`}
+                src={`${API_ROOT}${advertisementData[0].banner_img}`}
                 alt={advertisementData[0].banner_name}
               /> </a>
               )}
@@ -456,9 +456,9 @@ useEffect(() => {
             <div id="podcast"></div>
             <div   style={{ textAlign:"center", alignItems:"center", margin:"auto"}}>
             {advertisementData && advertisementData.length > 0 && (
-             <a href={`/${advertisementData[2].dest_url}`}> <img
+             <a href={`${advertisementData[2].dest_url}`}> <img
                 style={{width:"100%"}}
-                src={`${API_ROOT}/uploads/promo_img/${advertisementData[2].banner_img}`}
+                src={`${API_ROOT}${advertisementData[2].banner_img}`}
                 alt={advertisementData[2].banner_name}
               /> </a>
             )}
@@ -762,9 +762,9 @@ useEffect(() => {
           <div className="col-md-12 mb-2 borderB">
             <div >
             {advertisementData && advertisementData.length > 0 && (
-            <a href={`/${advertisementData[2].dest_url}`}>  <img
+            <a href={`${advertisementData[2].dest_url}`}>  <img
                 style={{ width: "100%" }}
-                src={`${API_ROOT}/uploads/promo_img/${advertisementData[2].banner_img}`}
+                src={`${API_ROOT}${advertisementData[2].banner_img}`}
                 alt={advertisementData[2].banner_name}
               /> </a>
             )}

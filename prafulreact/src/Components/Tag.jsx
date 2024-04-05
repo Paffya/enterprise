@@ -5,7 +5,8 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 
 import Sidenav from '../Components/Sidenav';
-import API_ROOT from '../apiConfig';
+import {API_ROOT,webPath} from "../apiConfig";
+import {Helmet} from "react-helmet"
 
 
 
@@ -71,14 +72,22 @@ useEffect(() => {
 
 
   
-
-
+   const pageTitle = `${subcatName}`
+   const canonicalUrl = `https://enterprisetalk.com/tag/${subcat}`
 
   return (
 
     
 
     <div className=''>
+
+<Helmet>
+      <title>{pageTitle} | Enterprise Talk</title>
+	<meta name="description" content="A Peer Knowledge Resource Expert inputs on challenges, triumphs &amp; innovative solutions from corporate Movers &amp; Shakers in global Leadership." />
+	<link rel="canonical" href={canonicalUrl} />
+  <meta property="og:title" content="Home" />
+        <meta property="og:url" content={canonicalUrl} />
+      </Helmet> 
   
   <Sidenav />
   
@@ -143,26 +152,30 @@ useEffect(() => {
             </div>
 
 
-            <div>
-              
-            <h2 className='fw-bold borderB py-1 h4'>News</h2>
+            {data && data.news && data.news.length > 0 && (
+  <div>
+    <h2 className='fw-bold borderB py-1 h4'>News</h2>
 
-            <div>
+    <div>
       {loading ? (
         <p></p>
       ) : error ? (
         <p>Error: {error}</p>
-      ) : data && data.news && data.news.length > 0 ? (
+      ) : (
         <div className='flexAddver mt-3' style={{ gap: '11px' }}>
           {data.news.slice(0, limit).map((post, index) => (
             <div key={index} className='addvert hover01'>
-              <a href={`/${post.cat_slug}/${post.post_name}`}> <div>
-                <figure>
-                <img style={{ width: '100%', borderRadius: '20px', height: 'auto', objectFit: 'cover' }} src={post.banner_img} alt={post.banner_alt} />
-                </figure>
-              </div> </a>
+              <a href={`/${post.cat_slug}/${post.post_name}`}>
+                <div>
+                  <figure>
+                    <img style={{ width: '100%', borderRadius: '20px', height: 'auto', objectFit: 'cover' }} src={`${webPath}${post.banner_img}`} alt={post.banner_alt} />
+                  </figure>
+                </div>
+              </a>
               <div className='padLR'>
-                <a href={`/${post.cat_slug}/${post.post_name}`}><h3 className='fw-bold h5 mt-3 hoverHead line-clamp'>{post.post_title}</h3></a>
+                <a href={`/${post.cat_slug}/${post.post_name}`}>
+                  <h3 className='fw-bold h5 mt-3 hoverHead line-clamp'>{post.post_title}</h3>
+                </a>
                 <p style={{ fontSize: '13px' }}>
                   By <span className='fw-bold'>{post.post_author}</span> | {new Date(post.post_date).toLocaleDateString(undefined, options)}
                 </p>
@@ -173,9 +186,11 @@ useEffect(() => {
             </div>
           ))}
         </div>
-      ) : null /* Render nothing when there is no data */}
+      )}
     </div>
-            </div>
+  </div>
+)}
+
            
 
         </div>
@@ -251,9 +266,9 @@ useEffect(() => {
               <div id="article"></div>
 
               {advertisementData && advertisementData.length > 0 && (
-            <a href={`/${advertisementData[2].dest_url}`}>  <img
+            <a href={`${advertisementData[2].dest_url}`}>  <img
                 style={{ width: "100%" }}
-                src={`${API_ROOT}/uploads/promo_img/${advertisementData[2].banner_img}`}
+                src={`${webPath}${advertisementData[2].banner_img}`}
                 alt={advertisementData[2].banner_name}
               /> </a>
               )}
@@ -296,11 +311,11 @@ useEffect(() => {
     </div>
 
     {data.featured.slice(6,7).map((featured, index) => (
-    <div className="col-md-9">
+    <div className="col-md-9 mt-2">
     <a href={`/${featured.cat_slug}/${featured.post_name}`}> <div >
             
            <div >
-           <img  className='homeImg' src={featured.banner_img} alt={featured.banner_alt} />
+           <img  className='homeImg' src={`${webPath}${featured.banner_img}`} alt={featured.banner_alt} />
            </div>
            
            <div className='paddings'>
@@ -342,7 +357,7 @@ useEffect(() => {
     {data.quickbytes.map((post, index) => (
     <div key={index} className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
       <div  className='quickImgBox'>
-        <img style={{ width:"90%"  , borderRadius:"14px"}} src={post.banner_img} alt={post.banner_alt} />
+        <img style={{ width:"90%"  , borderRadius:"14px"}} src={`${webPath}${post.banner_img}`} alt={post.banner_alt} />
       </div>
 
       <div className='' style={{width:"74%"}}>
@@ -371,7 +386,7 @@ useEffect(() => {
     <div style={{height:"648px", textAlign:"center", margin:"auto", alignItems:"center"}}>
     {/* <p className='bllack'>340*900</p> */}
     {advertisementData && advertisementData.length > 0 && (
-   <a href={`/${advertisementData[0].dest_url}`}> <img style={{height:"648px", width:"auto"}}  src={`${API_ROOT}/uploads/promo_img/${advertisementData[0].banner_img}`} alt={advertisementData[0].banner_name} /> </a>
+   <a href={`${advertisementData[0].dest_url}`}> <img style={{height:"648px", width:"auto"}}  src={`${webPath}${advertisementData[0].banner_img}`} alt={advertisementData[0].banner_name} /> </a>
     )}
 </div>
     </div>
@@ -388,9 +403,9 @@ useEffect(() => {
           <div id="podcast"></div>
             <div   style={{ textAlign:"center", alignItems:"center", margin:"auto"}}>
             {advertisementData && advertisementData.length > 0 && (
-             <a href={`/${advertisementData[2].dest_url}`}> <img
+             <a href={`${advertisementData[2].dest_url}`}> <img
                 style={{width:"100%"}}
-                src={`${API_ROOT}/uploads/promo_img/${advertisementData[2].banner_img}`}
+                src={`${webPath}${advertisementData[2].banner_img}`}
                 alt={advertisementData[2].banner_name}
               /> </a>
             )}
@@ -426,7 +441,7 @@ useEffect(() => {
     </div>
 
     <div className="col-md-5 " style={{margin:"auto"}}>
-      <img className='ImgBoxGuets'  src={data.podcasts[0].banner_img} alt={data.podcasts[0].banner_alt} />
+      <img className='ImgBoxGuets'  src={`${webPath}${data.podcasts[0].banner_img}`} alt={data.podcasts[0].banner_alt} />
       
     </div>
 
@@ -457,7 +472,7 @@ useEffect(() => {
    
     <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
       <div style={{width:"40%", height:"150px"}}>
-        <img style={{ width:"90%", height:"150px", objectFit:"cover"  , borderRadius:"14px"}} src={post.banner_img} alt={post.banner_alt} />
+        <img style={{ width:"90%", height:"150px", objectFit:"cover"  , borderRadius:"14px"}} src={`${webPath}${post.banner_img}`} alt={post.banner_alt} />
       </div>
 
       <div className='mt-2' style={{width:"60%"}}>
@@ -617,7 +632,7 @@ useEffect(() => {
   <div className="row">
   <h5  className='fw-bold borderB py-1 h4'>Guest Author</h5>
     <div className="col-md-6 guestImg">
-      <img className='ImgBoxGuets'  src={data.guestauthor[0].banner_img} alt={data.guestauthor[0].banner_alt}/>
+      <img className='ImgBoxGuets'  src={`${webPath}${data.guestauthor[0].banner_img}`} alt={data.guestauthor[0].banner_alt}/>
     </div>
 
     <div className="col-md-6  guestText" >
@@ -648,7 +663,7 @@ useEffect(() => {
 
 
 
-
+{/* 
 <div className='container container-max mt-5 spaceincontent borderB' >
 {loading ? (
     <p></p>
@@ -657,17 +672,17 @@ useEffect(() => {
     data.learningcenter && data.learningcenter.length > 0 ? (
   <div className="row mb-2">
   <h5  className='fw-bold borderB py-1 h4'>Learning Center</h5>
-    <div className="col-md-12  learningBox" style={{gap:"13px"}}>
+    <div className="col-md-12  learningBox" style={{gap:"50px"}}>
 
     {data.learningcenter.slice(0,3).map((learningcenter, index) => (
     <a href={`/${learningcenter.cat_slug}/${learningcenter.post_name}`}>  
     <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
-      <div style={{width:"38%", height:"140px"}}>
+      <div style={{ height:"140px"}}>
         <img style={{ width:"93%", height:"140px", objectFit:"cover"  , borderRadius:"14px"}} src={learningcenter.banner_img} alt={learningcenter.banner_alt} />
       </div>
 
-      <div className='mt-2' style={{width:"60%"}}>
-      <h5 className='fw-bold hoverHead h5'>{learningcenter.post_title}</h5>
+      <div className='mt-2' >
+      <h5 className='fw-bold hoverHead h5 line-clamp' style={{width:"100%"}}>{learningcenter.post_title}</h5>
       <p style={{ fontSize: "13px" }}>
                           By <span className="fw-bold">{learningcenter.post_author}</span> | {new Date(learningcenter.post_date).toLocaleDateString(undefined, options)}
                         </p>
@@ -680,7 +695,31 @@ useEffect(() => {
   </div>
  ) : null // Render nothing when there is no data or remove complete Div
  )}
-</div>
+</div> */}
+
+{data && data.learningcenter && data.learningcenter.length > 0 && (
+  <div className='container container-max mt-5 spaceincontent '>
+    <div className="row justify-content-between ">
+    <h5  className='fw-bold borderB py-1 h4'>Learning Center</h5>
+      {data.learningcenter.slice(0, 3).map((learningcenter, index) => (
+        <div className="col-md-4 d-flex mt-4 mb-4 " style={{ alignItems: "center" }} key={index}>
+          <a href={`/${learningcenter.cat_slug}/${learningcenter.post_name}`} className="d-flex w-100" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div style={{ width: "50%" }}>
+              <img style={{ width: "92%", height:"130px" ,objectFit: "cover", borderRadius: "14px" }} src={`${webPath}${learningcenter.banner_img}`} alt={learningcenter.banner_alt} />
+            </div>
+            <div style={{ width: "50%" }} className='m-auto'>
+              <h5 className='line-clamp h5 fw-bold hoverHead' title={learningcenter.post_title}>{learningcenter.post_title}</h5>
+              <p style={{ fontSize: "12px" }}>
+                By <span className="fw-bold">{learningcenter.post_author}</span> | {new Date(learningcenter.post_date).toLocaleDateString(undefined, options)}
+              </p>
+            </div>
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+)}
+
 
 
 
@@ -692,9 +731,9 @@ useEffect(() => {
           <div className="col-md-12 mb-2 borderB">
             <div >
             {advertisementData && advertisementData.length > 0 && (
-             <a href={`/${advertisementData[2].dest_url}`}> <img
+             <a href={`${advertisementData[2].dest_url}`}> <img
                 style={{ width: "100%" }}
-                src={`${API_ROOT}/uploads/promo_img/${advertisementData[2].banner_img}`}
+                src={`${webPath}${advertisementData[2].banner_img}`}
                 alt={advertisementData[2].banner_name}
               /> </a>
             )}

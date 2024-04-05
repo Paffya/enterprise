@@ -18,7 +18,7 @@ import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import news6 from "../Images/news6.png";
 
 // import { Link } from "react-router-dom";
-import API_ROOT from '../apiConfig';
+import {API_ROOT,webPath} from "../apiConfig";
 
 const MyContext = React.createContext();
 

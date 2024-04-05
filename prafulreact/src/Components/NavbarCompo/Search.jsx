@@ -3,7 +3,7 @@ import { Nav, Form } from "react-bootstrap";
 import useOnclickOutside from "react-cool-onclickoutside";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
-import API_ROOT from "../../apiConfig";
+import {API_ROOT,webPath } from "../../apiConfig";
 
 
 const Search = () => {

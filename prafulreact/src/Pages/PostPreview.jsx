@@ -3,7 +3,11 @@ import "../Styles/Article.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import ShareButton from "../Components/ShareButton";
-import API_ROOT from '../apiConfig';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import {API_ROOT,webPath} from "../apiConfig";
+import getYouTubeID from 'get-youtube-id';
+import {Helmet} from "react-helmet";
 
 const PostPreview = () => {
   const options = {
@@ -13,7 +17,6 @@ const PostPreview = () => {
   };
 
 
-  
 
   const { cat_slug, post_name } = useParams();
   const [postloading, setPostLoading] = useState(true);
@@ -21,18 +24,25 @@ const PostPreview = () => {
   const [authorId, setAuthorId] = useState("");
   const [postData, setPostData] = useState([]);
   const [latestPosts, setLatestPosts] = useState([]);
-
+  // const [postId, setPostId] = useState("");
+  const [userIp, setUserIp] = useState('');
 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch the user's IP address from the ipify service
-       
-
+        // user's IP address from the ipify service
+        const ipResponse = await fetch('https://api64.ipify.org?format=json');
         
-
-          // Continue with the rest of your code to fetch other data
+        if (ipResponse.ok) {
+          const ipData = await ipResponse.json();
+          const userIp = ipData.ip;
+          setUserIp(userIp);
+          
+          // Now, you can use userIp as needed in your application
+          // console.log('User IP Address:', userIp);
+          
+          
           const response = await fetch(
             `${API_ROOT}/api/post/preview-post/${cat_slug}/${post_name}`
           );
@@ -41,13 +51,36 @@ const PostPreview = () => {
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
 
-          const data = await response.json();
+          const data = await response.json(); 
+        
 
           setHtmlContent(data.result[0].post_content);
           setAuthorId(data.result[0].post_author_id);
           setPostData(data.result);
-   
-        
+
+          // Now, send data to another API endpoint including the user's IP
+          const postDataForCount = {
+            postId: data.result[0].id,
+            ip_addr: userIp,
+          };
+
+          const countResponse = await fetch(`${API_ROOT}/api/post/post_count/`+data.result[0].id, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postDataForCount),
+          });
+
+          if (!countResponse.ok) {
+            throw new Error(`HTTP error! Status: ${countResponse.status}`);
+          }
+
+          const countData = await countResponse.json();
+          // console.log('Count data:', countData);
+        } else {
+          console.error('Error fetching IP address:', ipResponse.status);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -60,7 +93,7 @@ const PostPreview = () => {
 
 
   useEffect(() => {
-   
+    // Fetch data from the API using Axios
     axios
       .get(`${API_ROOT}/api/post/latest`)
       .then((response) => {
@@ -69,13 +102,10 @@ const PostPreview = () => {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []); 
-
-
-
+  }, []); // Empty dependency array to run the effect once on mount
 
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -94,7 +124,7 @@ const PostPreview = () => {
             post_content: removeHtmlTags(post.post_content),
           }))
         );
-      
+        // console.log(result)
       } catch (error) {}
     };
 
@@ -125,54 +155,153 @@ const PostPreview = () => {
   
 
 
-
   const [authorData, setAuthorData] = useState(null);
-
+  const [loading, setLoading] = useState(true); // Add loading state
+  
   useEffect(() => {
     const fetchAuthorData = async () => {
       try {
-        const response = await axios.get(`${API_ROOT}/api/author/2`);
+        setLoading(true); // Set loading state to true before fetching data
+  
+        const response = await axios.get(`${API_ROOT}/api/author/${authorId}`);
         setAuthorData(response.data.result[0]);
-      
       } catch (error) {
         console.error('Error fetching author data:', error.message);
+        // Handle error state if needed
+      } finally {
+        setLoading(false); // Update loading state after fetching data
       }
     };
+  
+    if (authorId) { // Check if authorId is truthy
+      fetchAuthorData();
+    }
+  }, [authorId]); 
+  
 
-    fetchAuthorData();
-  }, []);
+  const [headings, setHeadings] = useState([]);
+
+  useEffect(() => {
+  const container = document.createElement('div');
+  container.innerHTML = htmlContent;
+
+  let index = 1;
+  let subIndex = 0;
+ 
+  const headingsList = Array.from(container.querySelectorAll('h1, h2, h3')).map((heading, i) => {
+    let text = heading.innerText;
+    let id = heading.id || `heading-${i}`;
+    
+
+    if (heading.tagName === 'H2') {
+      text = (
+        <span style={{fontWeight:"600"}}>
+        {index}. {text}
+        </span>
+        );
+      index++;
+      subIndex = 0; // Reset subindex for each new H2
+    } else if (heading.tagName === 'H3') {
+      subIndex++;
+      // text = `${index - 1}.${subIndex} ${text}`;
+      text = (
+        <span style={{ marginLeft:"20px" }}>
+          {index - 1}.{subIndex} {text}
+        </span>
+      );
+    } 
+    return {
+      text: text,
+      id: id,
+    };
+  });
+  
+  setHeadings(headingsList);
+}, [htmlContent]);
 
 
+  const scrollToHeading = (id) => {
+    const element = document.getElementById(id);
+    // console.log('scrollToHeading called with id:', id);
+    
+    if (element) {
+      // console.log('Element found:', element);
+      element.scrollIntoView({ behavior: 'smooth' });
+      // window.scrollBy(0, -130);
+      setTimeout(() => {
+        window.scrollBy(0, -90); // Adjust the value (-100) to set the desired distance from the top
+    }, 700); // Adjust the delay if needed to ensure it's after the smooth scrolling
+    } else {
+      console.log('Element not found with id:', id);
+    }
+  };
 
 
-  // const [randomName, setRandomName] = useState('');
-  // const [randomDescription, setRandomDescription] = useState('');
+  const tempDiv = document.createElement('div');
+tempDiv.innerHTML = htmlContent;
 
-  // useEffect(() => {
-  //   if (!authorData.author_display_name) {
-  //     // Generate a random name when author_display_name is not present
-  //     const randomNames = ['John Doe', 'Jane Doe', 'Anonymous', 'Mystery Author'];
-  //     const randomIndex = Math.floor(Math.random() * randomNames.length);
-  //     setRandomName(randomNames[randomIndex]);
-  //   }
+// Get all h1, h2, h3 elements
+const heading = tempDiv.querySelectorAll('h2, h3');
 
-  //   if (!authorData.author_description) {
-  //     // Generate a random description when author_description is not present
-  //     const randomDescriptions = ['A mysterious author', 'Passionate storyteller', 'Author of the unknown'];
-  //     const randomIndex = Math.floor(Math.random() * randomDescriptions.length);
-  //     setRandomDescription(randomDescriptions[randomIndex]);
-  //   }
-  // }, [authorData.author_display_name, authorData.author_description]);
 
+// Loop through the headings and assign dynamic IDs
+heading.forEach((heading, index) => {
+    heading.id = `heading-${index + 0}`; // You can change the ID format as per your requirement
+});
+
+
+// Set the modified HTML content back
+const updatedHtmlContent = tempDiv.innerHTML;
+
+
+const [accordionOpen, setAccordionOpen] = useState(false);
+
+  // const openAccordion = () => {
+  //   setAccordionOpen(true);
+  // };
+
+  // const closeAccordion = () => {
+  //   setAccordionOpen(false);
+  // };
+
+  const handleHeaderClick = () => {
+    setAccordionOpen(!accordionOpen);
+  };
+
+  const handleLinkClick = (e) => {
+    e.stopPropagation(); // Prevent the accordion from closing when clicking on a link
+  };
+  
+  const [activeHeadingId, setActiveHeadingId] = useState(null);
+  // console.log("actived",activeHeadingId)
+
+  if (!postData || postData.length === 0) {
+    return null; // Or you can render a placeholder or loading indicator
+  }
+
+  // Extract the YouTube video ID if the podcast link is available
+  const videoId = postData[0].podcast_link ? getYouTubeID(postData[0].podcast_link) : '';
+
+
+  const canonicalUrl = `https://enterprisetalk.com/${cat_slug}/${post_name}`
 
 
   return (
     <div>
+      <head>
+         <Helmet>
+        <title>{postData[0].post_title}</title>
+        <meta name="description" content={postData[0].meta_description} />
+        <meta property="og:description" content={postData[0].meta_description} />
+        <meta property="og:url" content={canonicalUrl} />
+        <link rel="canonical" href={canonicalUrl} />
+      </Helmet>
+      </head>
       <div className="container container-max ">
         <div className="row ">
           <div className="hr"></div>
 
-          <div className="col-md-8 borderR mt-2">
+          <div className="col-md-9 borderR mt-2">
             {postloading ? (
               <p></p>
             ) : (
@@ -202,65 +331,116 @@ const PostPreview = () => {
                     </div>
                   </div>
                 </div>
-                <div className="mt-3">
+                
+                {postData[0].banner_img && postData[0].banner_show == 1 && (
+                  <div className="mt-3">
+                    <img
+                      className="topicImg"
+                      src={`${webPath}${postData[0].banner_img}`}
+                      alt={postData[0].banner_alt}
+                    />
+                  </div>
+                )}
+                {/* <div className="mt-3">
                   <img
                     className="topicImg"
-                    // src={postData[0].banner_img}
                     src={`${API_ROOT}/uploads/${postData[0].banner_img}`}
                     alt={postData[0].banner_alt}
                   />
-                </div>
+                </div> */}
 
                 <div style={{ fontSize: "14px" }}>
                   <p className="paddings">
+                    {headings.length > 0 && (
+                      <div
+                        className="contentTableBox"
+                        onClick={handleHeaderClick}
+                      >
+                        <h2 className="fw-bold px-1 h4 clippath">
+                          <div className="d-flex justify-content-between ">
+                            <div className="mb-1" style={{ cursor: "pointer" }}>
+                              Table of Contents
+                            </div>{" "}
+                            <div style={{ cursor: "pointer" }} className="px-2">
+                              <FontAwesomeIcon icon={faBars} />
+                            </div>
+                          </div>
+                        </h2>
+                        <React.Fragment>
+                          {accordionOpen && (
+                            <ol className="px-3">
+                              {headings.map((heading, index) => (
+                                <li key={heading.id} className="tocBack ">
+                                  <a
+                                    href={`#${heading.id}`}
+                                    onClick={(e) => {
+                                      scrollToHeading(heading.id);
+                                      handleLinkClick(e);
+                                      setActiveHeadingId(heading.id); // Set active heading id when clicked
+                                    }}
+                                    className={`text-black mb-1 backLine hover-underline-animations ${
+                                      activeHeadingId === heading.id
+                                        ? "actived"
+                                        : ""
+                                    }`}
+                                  >
+                                    {heading.text}
+                                  </a>
+                                </li>
+                              ))}
+                            </ol>
+                          )}
+                        </React.Fragment>
+                      </div>
+                    )}
+
+                    {/* <div className="content mt-2"  dangerouslySetInnerHTML={{ __html: htmlContent }} /> */}
+                    {postData[0].podcast_link && (
+  <div className="video-responsive">
+    <iframe
+      width="560"
+      height="315"
+      src={`https://www.youtube.com/embed/${videoId}`}
+      title="YouTube video player"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+    ></iframe>
+  </div>
+)}
+
                     <div
                       className="content mt-2"
-                      dangerouslySetInnerHTML={{ __html: htmlContent }}
+                      dangerouslySetInnerHTML={{ __html: updatedHtmlContent }}
                     />
+                    {/* <div className="content mt-2">{updatedHtmlContent}</div> */}
+                    {/* <div
+                      className="content mt-2"
+                      dangerouslySetInnerHTML={{ __html: htmlContent }}
+                    /> */}
                   </p>
                 </div>
 
                 <div className="ArticleBox mt-5 mb-5" style={{ alignItems: "center" }}>
-      {authorData && (
-        <>
-          <div>
-            <img
-              className="ArticleImg"
-              src={`${API_ROOT}/uploads/author-profiles/${authorData.author_photo}` || `${API_ROOT}/uploads/author-profiles/default-author.jpg`}
-              alt={authorData.author_name}
-            />
-          </div>
-          <div style={{ fontSize: "14px", padding: "10px" }}>
-            <h2 className="fw-bold h6">{authorData.author_display_name || "Praful Dalwi"}</h2>
-            <p>{authorData.author_description || "this ia ETBureauenterprisetalk.com author"}</p>
-          </div>
-        </>
-      )}
-    </div>
-{/* 
-                <div
-                  className=" ArticleBox mt-5 mb-5"
-                  style={{ alignItems: "center" }}
-                >
-                  <div>
-                    <img
-                      className="ArticleImg"
-                      src="https://people.com/thmb/RpnNLplOGndVrTF-rdBlp0biuxE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(719x39:721x41)/Emma-Watson-c59dff78899047bb839b894665b85a13.jpg"
-                      alt="Emma Watson"
-                    />
-                  </div>
-                  <div style={{ fontSize: "14px", padding: "10px" }}>
-                    <h2 className="fw-bold h6">Jane Smith</h2>
-                    <p>
-                      {" "}
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Sit, vero praesentium quibusdam officiis itaque distinctio
-                      magnam sequi quia, tempora vitae, labore reiciendis natus
-                      facere temporibus cupiditate dignissimos nisi! Dolorum,
-                      illum!
-                    </p>
-                  </div>
-                </div> */}
+    {loading ? (
+      <p></p> // Display loading message while fetching data
+    ) : (
+      <>
+        <div>
+          <img
+            className="ArticleImg"
+            src={`${API_ROOT}/uploads/author-profiles/${authorData?.author_photo || 'default-author.jpg'}`}
+            alt={authorData?.author_name}
+          />
+        </div>
+        <div style={{ fontSize: "14px", padding: "10px" }}>
+          <h2 className="fw-bold h6">{authorData?.author_display_name}</h2>
+          <p>{authorData?.author_description}</p>
+        </div>
+      </>
+    )}
+  </div>
               </div>
             )}
 
@@ -277,7 +457,7 @@ const PostPreview = () => {
                   <div className="quickImgBox">
                     <img
                       style={{ width: "90%", borderRadius: "14px" }}
-                      src={post.banner_img}
+                      src={`${webPath}${post.banner_img}`}
                       alt={post.banner_alt}
                     />
                   </div>
@@ -299,7 +479,7 @@ const PostPreview = () => {
             ))}
           </div>
 
-          <div className="col-md-4">
+          <div className="col-md-3">
             <div className=" borderB paddings">
               <h5 className="fw-bold">Related Articles</h5>
             </div>
@@ -343,11 +523,11 @@ const PostPreview = () => {
               {/* Content for the 30% column */}
               {/* <p className="bllack">340*1500</p> */}
               {advertisementData && advertisementData.length > 0 && (
-                <a href={`/${advertisementData[0].dest_url}`}>
+                <a href={`${advertisementData[0].dest_url}`}>
                   {" "}
                   <img
                     style={{ height: "", width: "100%" }}
-                    src={`${API_ROOT}/uploads/promo_img/${advertisementData[0].banner_img}`}
+                    src={`${webPath}${advertisementData[0].banner_img}`}
                     alt={advertisementData[0].banner_name}
                   />{" "}
                 </a>
@@ -386,11 +566,11 @@ const PostPreview = () => {
           <div className="col-md-12 mb-2 borderB">
             <div>
               {advertisementData && advertisementData.length > 0 && (
-                <a href={`/${advertisementData[2].dest_url}`}>
+                <a href={`${advertisementData[2].dest_url}`}>
                   {" "}
                   <img
                     style={{ width: "100%" }}
-                    src={`${API_ROOT}/uploads/promo_img/${advertisementData[2].banner_img}`}
+                    src={`${webPath}${advertisementData[2].banner_img}`}
                     alt={advertisementData[2].banner_name}
                   />{" "}
                 </a>
