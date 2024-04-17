@@ -2,7 +2,7 @@
 import React, { lazy, Suspense } from 'react';
 
 // Use React.lazy to lazily import the component
-const Homepage = lazy(() => import('../Pages/Homepage'));
+const Homepage = React.lazy(() => import('../Pages/Homepage'));
 const Latest = lazy(() => import('../Pages/Latest'));
 const About = lazy(() => import('../Pages/About'));
 const ContentCategory = lazy(() => import('../Pages/ContentCategory'));

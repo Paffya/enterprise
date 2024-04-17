@@ -246,6 +246,7 @@ const CustomNavbar = () => {
                     // src="https://enterprisetalk.com/wp-content/uploads/2022/10/Asset-5-300x61.png.webp"
                     src={EnterpriseLogo}
                     alt="Logo"
+                   
                   />
                 </a>
               </Navbar.Brand>
@@ -268,7 +269,7 @@ const CustomNavbar = () => {
                     <Modal.Header closeButton>
                       <img
                         
-                        src="https://enterprisetalk.com/wp-content/uploads/2022/10/Asset-5-300x61.png.webp"
+                        src={EnterpriseLogo}
                         alt="Banner"
                         className="subslogo"
                       />

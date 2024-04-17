@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import "../Styles/Footer.css"
 import { Container,  Form, Row, Col } from "react-bootstrap";
 import Modal from 'react-bootstrap/Modal';
-
+import LazyLoad from 'react-lazyload';
 import laptopImg from "../Images/enterpriselaptop.png"
 import talkdev from "../Images/TalkDev.png"
 import talkmar from "../Images/TalkMartech.png"
@@ -95,12 +95,54 @@ const Footer = () => {
     }
   };
 
+  const [className, setClassName] = useState('');
 
+  useEffect(() => {
+    const sections = 5; 
+    let currentSection = 1;
+
+    const setSectionClassName = () => {
+      const removeTimer = setTimeout(() => {
+        setClassName('');
+      }, 0);
+
+      const setTimer = setTimeout(() => {
+        setClassName('loaded');
+        currentSection++;
+
+        if (currentSection <= sections) {
+          setSectionClassName();
+        } else {
+          
+          window.removeEventListener('scroll', handleScroll);
+        }
+      }, currentSection * 150);
+
+      return () => {
+        clearTimeout(removeTimer);
+        clearTimeout(setTimer);
+      };
+    };
+
+    const handleScroll = () => {
+     
+      if (window.scrollY > 100) { 
+        setSectionClassName();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); 
+  
 
   return (
     <div>
 
-
+<LazyLoad className={className}>
 <div className="footerPadding" style={{backgroundColor:"rgb(238, 237, 237)"}}>
   <div className="container container-max">
     <div className="row">
@@ -143,14 +185,12 @@ const Footer = () => {
       <div className="subscribePopUp">
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-        <img className="subslogo" style={{width:"20%"}} src="https://enterprisetalk.com/wp-content/uploads/2022/10/Asset-5-300x61.png.webp" alt="Footer Logo" />
-        {/* <Modal.Title style={{textAlign:"center", margin:"auto", fontWeight:"bold"}}>Subscribe to Newsletter</Modal.Title> */}
+        <img className="subslogo" style={{width:"20%"}} src={EnterpriseLogo} alt="Footer Logo" />
 
         </Modal.Header>
         <Container className="popupBack">
           <Row>
             <Col  md={5} className="mb-3 laptopmImgback">
-              {/* <img className="DesktopResponsive mt-3" style={{width:"100%", height:"-webkit-fill-available" ,objectFit:"cover", borderRadius:"10px"}} src="https://www.alexhyett.com/static/674af38197248298565547353d5a5069/5f237/newsletter-iphone.png" alt="" /> */}
               <img className="DesktopResponsive mt-3" style={{width:"100%" ,objectFit:"cover", borderRadius:"10px"}} src={laptopImg} alt="" />
 
             </Col>
@@ -191,9 +231,9 @@ const Footer = () => {
       </div>
             </p>
           </div>
-          {/* <div className="border-bottom mt-3">
-            <p className='hoverHead'>Advertise</p>
-          </div> */}
+          <div className="border-bottom mt-3">
+            <a href="/sitemap"><p className='hoverHead'>Sitemap</p></a>
+          </div>
         </div>
       </div>
       <div className="col-md-3">
@@ -204,9 +244,7 @@ const Footer = () => {
           <div className="border-bottom mt-3">
            <a href='/privacy'> <p className='hoverHead'>Privacy Policy</p></a>
           </div>
-          {/* <div className="border-bottom mt-3">
-            <p className='hoverHead'>Terms Of Use</p>
-          </div> */}
+       
           <div className="border-bottom mt-3">
            <a href="/opt-out-form"> <p className='hoverHead'>Do Not Sell My Information</p> </a>
           </div>
@@ -218,20 +256,17 @@ const Footer = () => {
         </div>
         <div className="d-flex mt-2">
           <div style={{width:"18%"}} className='facebookImg'>
-            
             <a href="https://www.facebook.com/EnterpriseTalk"><img src={facebook} alt="facebook" style={{width:"10px"}} /></a>
-            {/* <a href="https://www.facebook.com/EnterpriseTalk"><img src="https://www.freepnglogos.com/uploads/facebook-logo-13.png" alt="facebook img"  style={{width:"60%", borderRadius:"6px"}} /></a> */}
           </div>
           <div style={{width:"18%"}} className='facebookImg'>
           <a href="https://www.instagram.com/enterprisetalk"><img src={instagram} alt="instagram" style={{width:"15px"}} /></a>
-            {/* <a href="https://www.instagram.com/enterprisetalk"><img src="https://i.pinimg.com/736x/dc/70/7c/dc707c0e2e4a1883d4ebb81d107aec9a.jpg" alt="instagram img" style={{width:"60%", borderRadius:"6px"}} /></a> */}
           </div>
           <div style={{width:"18%"}} className='facebookImg'>
             <a  href="https://www.twitter.com/Enterprise_Talk"><img src="https://cdn.punchng.com/wp-content/uploads/2023/07/24084806/Twitter-new-logo.jpeg" alt="twitter img" style={{width:"70%", borderRadius:"6px"}} /></a>
           </div>
           <div style={{width:"18%"}} className='facebookImg'>
             <a href="https://www.linkedin.com/company/enterprisetalk/"><img src={linkedin} alt="linkedin" style={{width:"15px"}} /></a>
-            {/* <a href="https://www.linkedin.com/company/enterprisetalk/"><img src="https://cdn-icons-png.flaticon.com/256/174/174857.png" alt="linkedin img" style={{width:"60%", borderRadius:"6px"}} /></a> */}
+           
           </div>
         </div>
       </div>
@@ -241,29 +276,28 @@ const Footer = () => {
     </div>
     <div className="d-flex text-center otherPublic" >
       <div>
-       <a href="https://itsecuritywire.com/"> <img className='imgPublica'  src={talkit} alt="talkit" /></a>
+       <a href="https://itsecuritywire.com/"> <img className='imgPublica'  src={`${talkit}?width=100`} alt="talkit" /></a>
       </div>
       <div>
-       <a href="https://talkmartech.com/"> <img className='imgPublica' src={talkmar} alt="talkmar" /> </a>
+       <a href="https://talkmartech.com/"> <img className='imgPublica' src={`${talkmar}?width=100`} alt="talkmar" /> </a>
       </div>
       <div>
-       <a href="https://talkfintech.com/"> <img className='imgPublica' src={talkfin} alt="talkfin" /> </a>
+       <a href="https://talkfintech.com/"> <img className='imgPublica' src={`${talkfin}?width=100`} alt="talkfin" /> </a>
       </div>
       <div>
-       <a href="https://talkcmo.com/"> <img className='imgPublicaCMO' src={talkcmo1} alt="talkcmo" /> </a>
+       <a href="https://talkcmo.com/"> <img className='imgPublicaCMO' src={`${talkcmo1}?width=100`} alt="talkcmo" /> </a>
       </div>
       <div>
-       <a href="https://talkdev.com/"> <img className='imgPublica' src={talkdev} alt="talkdev" /> </a> 
+       <a href="https://talkdev.com/"> <img className='imgPublica' src={`${talkdev}?width=100`} alt="talkdev" /> </a> 
       </div>
-      {/* <div className="text-center mt-3">
-        <img style={{width:"40%"}} className="publicImg" src={groupImg} alt="" />
-      </div> */}
+      
     </div>
     <div className="mt-4" style={{borderTop:"1px solid #bdbdbd"}}>
       <p className="mt-2" style={{fontSize:" 13px"}}>An Imprint of OnDot ® Media © | All Rights Reserved | <a href="/privacy" className='colorRed hoverHead'>Privacy Policy</a></p>
     </div>
   </div>
 </div>
+</LazyLoad>
 
 
 

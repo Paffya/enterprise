@@ -16,7 +16,7 @@ import useOnclickOutside from "react-cool-onclickoutside";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import news6 from "../Images/news6.png";
-
+import EnterpriseLogo from "../Images/enterpriseLogo.webp"
 // import { Link } from "react-router-dom";
 import {API_ROOT,webPath} from "../apiConfig";
 
@@ -872,7 +872,7 @@ const Navigation = () => {
               <Modal.Header closeButton>
                 <img
                  
-                  src="https://enterprisetalk.com/wp-content/uploads/2022/10/Asset-5-300x61.png.webp"
+                  src={EnterpriseLogo}
                   alt="logo"
                   className="subslogo"
                 />

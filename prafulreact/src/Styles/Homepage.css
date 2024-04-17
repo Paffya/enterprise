@@ -91,7 +91,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 65vh;
+    /* height: 65vh; */
 }
 
 .btn-pod{
@@ -169,7 +169,47 @@
 
 
 
+.lazyload-wrapper {
+  opacity: 0; /* Initially hide the lazy-loaded component */
+  transition: opacity 1.5s ease; /* Add a transition effect for opacity change */
+}
 
+.lazyload-wrapper.loaded {
+  opacity: 1; /* Show the lazy-loaded component when it's loaded */
+}
+
+
+.lazyload-wrapper.loaded1 {
+    opacity: 1; /* Show the lazy-loaded component when it's loaded */
+  }
+
+  .lazyload-wrapper.loaded2 {
+    opacity: 1; /* Show the lazy-loaded component when it's loaded */
+  }
+
+  .lazyload-wrapper.loaded3 {
+    opacity: 1; /* Show the lazy-loaded component when it's loaded */
+  }
+
+  .lazyload-wrapper.loaded4 {
+    opacity: 1; /* Show the lazy-loaded component when it's loaded */
+  }
+  .lazyload-wrapper.loaded5 {
+    opacity: 1; /* Show the lazy-loaded component when it's loaded */
+  }
+
+  .lazyload-wrapper.loaded6 {
+    opacity: 1; /* Show the lazy-loaded component when it's loaded */
+  }
+
+  .lazyload-wrapper.loaded7 {
+    opacity: 1; /* Show the lazy-loaded component when it's loaded */
+  }
+
+  .lazyload-wrapper.loaded8 {
+    opacity: 1; /* Show the lazy-loaded component when it's loaded */
+  }
+  
 
 
 

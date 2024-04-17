@@ -60,6 +60,7 @@ const Search = () => {
       setLoading(false);
     }
   }, [searchQuery]);
+  
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {

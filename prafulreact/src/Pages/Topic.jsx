@@ -7,9 +7,135 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import {API_ROOT,webPath} from "../apiConfig";
 import getYouTubeID from 'get-youtube-id';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+import LazyLoad from 'react-lazyload';
+
+
 
 const Searchart = ( ) => {
+
+
+  const [className, setClassName] = useState('');
+  const [className1, setClassName1] = useState('');
+  const [className2, setClassName2] = useState('');
+  
+  
+  useEffect(() => {
+    const sections = 5; 
+    let currentSection = 1;
+  
+    const setSectionClassName = () => {
+      
+      const removeTimer = setTimeout(() => {
+        setClassName('');
+      }, 0);
+  
+     
+      const setTimer = setTimeout(() => {
+        setClassName('loaded');
+        currentSection++;
+  
+        
+        if (currentSection <= sections) {
+          setSectionClassName();
+        }
+      }, currentSection * 30); 
+  
+    
+      return () => {
+        clearTimeout(removeTimer);
+        clearTimeout(setTimer);
+      };
+    };
+  
+    setSectionClassName();
+  }, []); 
+  
+   useEffect(() => {
+      const sections = 5; 
+      let currentSection = 1;
+  
+      const setSectionClassName = () => {
+        const removeTimer = setTimeout(() => {
+          setClassName1('');
+        }, 0);
+  
+        const setTimer = setTimeout(() => {
+          setClassName1('loaded1');
+          currentSection++;
+  
+          if (currentSection <= sections) {
+            setSectionClassName();
+          } else {
+            
+            window.removeEventListener('scroll', handleScroll);
+          }
+        }, currentSection * 150);
+  
+        return () => {
+          clearTimeout(removeTimer);
+          clearTimeout(setTimer);
+        };
+      };
+  
+      const handleScroll = () => {
+       
+        if (window.scrollY > 100) { 
+          setSectionClassName();
+        }
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+  
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []); 
+  
+    useEffect(() => {
+      const sections = 5; 
+      let currentSection = 1;
+  
+      const setSectionClassName = () => {
+        const removeTimer = setTimeout(() => {
+          setClassName2('');
+        }, 0);
+  
+        const setTimer = setTimeout(() => {
+          setClassName2('loaded2');
+          currentSection++;
+  
+          if (currentSection <= sections) {
+            setSectionClassName();
+          } else {
+            // Remove scroll event listener if currentSection * 190 is reached
+            window.removeEventListener('scroll', handleScroll);
+          }
+        }, currentSection * 190);
+  
+        return () => {
+          clearTimeout(removeTimer);
+          clearTimeout(setTimer);
+        };
+      };
+  
+      const handleScroll = () => {
+        // Add your logic here to determine when to trigger the code based on scroll
+        if (window.scrollY > 190) { // Example condition: execute code when scrolled more than 100 pixels
+          setSectionClassName();
+        }
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+  
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []); 
+
+  
+
+
   const options = {
     year: "numeric",
     month: "short",
@@ -84,7 +210,7 @@ const Searchart = ( ) => {
           }
 
           const countData = await countResponse.json();
-          // console.log('Count data:', countData);
+          console.log('Count data:', countData);
         } else {
           console.error('Error fetching IP address:', ipResponse.status);
         }
@@ -292,24 +418,132 @@ const [accordionOpen, setAccordionOpen] = useState(false);
   const canonicalUrl = `https://enterprisetalk.com/${cat_slug}/${post_name}`
 
 
-  
-
+ 
   return (
     <div>
-   
+
+
+
+
+   <HelmetProvider>
          <Helmet>
         <title>{postData[0].post_title}</title>
-        <meta name="description" content={postData[0].meta_description} />
-        <meta property="og:title" content={postData[0].post_title} />
-        <meta property="og:description" content={postData[0].meta_description} />
-        <meta property="og:url" content={canonicalUrl} />
-        <meta property="og:image" content={`${webPath}${postData[0].banner_img}`}/>
+        <meta name="title" property="og:title" content={postData[0].post_title} />
+        <meta property="og:type" content="PostDetails" />
+        <meta name="image" property="og:image" content={`${webPath}${postData[0].banner_img}`} />
+        <meta name="description" property="og:description" content={postData[0].meta_description} />
+        <meta property="og:url" content={`https://enterprisetalk.com/${cat_slug}/${post_name}`} />
         <meta property="og:image:width" content="844" />
-	<meta property="og:image:height" content="172" />
-  <meta property="og:image:type" content="image/png" />
-        <link rel="canonical" href={canonicalUrl} />
+        <meta property="og:image:height" content="172" />
+        <meta property="og:image:type" content="image/png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="https://twitter.com/Enterprise_Talk"></meta>
+        <link rel="canonical" href={`https://enterprisetalk.com/${cat_slug}/${post_name}`} />
+
+
+
+        
+        <script type="application/ld+json">
+  {`
+    "@context": "http://schema.org",
+    "@type": "NewsArticle",
+    "headline": "${postData[0].post_title}",
+    "description": "${postData[0].meta_description}",
+    "datePublished": "${new Date(postData[0].post_date).toLocaleDateString(undefined, options)}",
+    "dateModified": "${new Date(postData[0].post_date).toLocaleDateString(undefined, options)}",
+    "author": {
+      "@type": "Person",
+      "name": "${postData[0].post_author}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Enterprise Talk",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://enterprisetalk.com/static/media/enterpriseLogo.0c9f185de2e44cf44932.webp"
+      }
+    },
+    "image": {
+      "@type": "ImageObject",
+      "url": "${webPath}${postData[0].banner_img}",
+      "height": "844 px",
+      "width": "1500 px"
+    },
+    "articleBody": "Full text of the article"
+  `}
+</script>
+
+<script type="application/ld+json">
+  {`
+    "@context": "http://schema.org",
+    "@type": "CreativeWork",
+    "headline": "${postData[0].post_title}",
+    "author": "${postData[0].post_author}",
+    "datePublished": "${new Date(postData[0].post_date).toLocaleDateString(undefined, options)}",
+    "description": "${postData[0].meta_description}"
+  `}
+</script>
+
+<script type="application/ld+json">
+  {`
+    "@context": "http://schema.org",
+    "@type": "SocialMediaPosting",
+    "headline": "${postData[0].post_title}",
+    "datePublished": "${new Date(postData[0].post_date).toLocaleDateString(undefined, options)}",
+    "author": {
+      "@type": "Person",
+      "name": "${postData[0].post_author}"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Enterprise Talk",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://enterprisetalk.com/static/media/enterpriseLogo.0c9f185de2e44cf44932.webp"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "${canonicalUrl}"
+    }
+ ` }
+</script>
+ 
+<script type="application/ld+json">
+  {`
+    "@context": "http://schema.org",
+    "@type": "ImageObject",
+    "url": "${webPath}${postData[0].banner_img}",
+    "caption": "",
+    "description": "${postData[0].meta_description}"
+  `}
+</script>
+
+<script type="application/ld+json">
+  {`
+    "@context": "http://schema.org",
+    "@type": "VideoObject",
+    "name": "${postData[0].post_title}",
+    "description": "${postData[0].meta_description}",
+    "duration": "Video Duration in ISO 8601 format",
+    "thumbnailUrl": "${postData[0].podcast_link}",
+    "uploadDate": "${new Date(postData[0].post_date).toLocaleDateString(undefined, options)}",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Enterprise Talk",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://enterprisetalk.com/static/media/enterpriseLogo.0c9f185de2e44cf44932.webp"
+      }
+    }
+  `}
+</script>
+        
       </Helmet>
+      </HelmetProvider>
     
+<p style={{display:"none"}}>{userIp}</p>
+    <LazyLoad className={className}>
       <div className="container container-max ">
         <div className="row ">
           <div className="hr"></div>
@@ -340,15 +574,49 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                     </div>
 
                     <div className="">
-                      <ShareButton />
+        
+
+        {/* <ShareBtn url={canonicalUrl} /> */}
+    
+                    <ShareButton />
+
+                    {/* <FacebookShareButton url={`https://enterprisetalk.com/${cat_slug}/${post_name}`} img={`${webPath}${postData[0].banner_img}`} title={postData[0].post_title} >
+                    <FacebookIcon size={30} url={`https://enterprisetalk.com/${cat_slug}/${post_name}`} img={`${webPath}${postData[0].banner_img}`} title={postData[0].post_title}/>
+                   </FacebookShareButton>
+
+
+                                <LinkedinShareButton
+                url={canonicalUrl}
+                title= {`${API_ROOT}${postData[0].post_title}`}
+                summary={`${API_ROOT}${postData[0].meta_description}`}
+                imageUrl={`${webPath}${postData[0].banner_img}`}
+              >
+                <LinkedinIcon size={30} />
+              </LinkedinShareButton>
+
+                   <PinterestShareButton url={`https://enterprisetalk.com/${cat_slug}/${post_name}`} img={`${webPath}${postData[0].banner_img}`} title={postData[0].post_title} >
+                    <PinterestIcon size={30} url={`https://enterprisetalk.com/${cat_slug}/${post_name}`} img={`${webPath}${postData[0].banner_img}`} title={postData[0].post_title}/>
+                   </PinterestShareButton>
+
+
+                   <TwitterShareButton url={`https://enterprisetalk.com/${cat_slug}/${post_name}`} img={`${webPath}${postData[0].banner_img}`} title={postData[0].post_title} >
+                    <TwitterIcon size={30} url={`https://enterprisetalk.com/${cat_slug}/${post_name}`} img={`${webPath}${postData[0].banner_img}`} title={postData[0].post_title}/>
+                   </TwitterShareButton> */}
+
+
+                      {/* <ShareButton 
+                       url={canonicalUrl} 
+                       title={postData[0].post_title} 
+                       image={`${webPath}${postData[0].banner_img}`}
+                      />  */}
                     </div>
                   </div>
                 </div>
-                {postData[0].banner_img && postData[0].banner_show == 1 && (
+                {postData[0].banner_img && postData[0].banner_show === 1 && (
                   <div className="mt-3">
                     <img
                       className="topicImg"
-                      src={`${webPath}${postData[0].banner_img}`}
+                      src={`${webPath}${postData[0].banner_img}?width=700`}
                       alt={postData[0].banner_alt}
                     />
                   </div>
@@ -372,7 +640,7 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                   <p className="paddings">
                     {headings.length > 0 && (
                       <div
-                        className="contentTableBox"
+                        className="contentTableBox mb-5"
                         onClick={handleHeaderClick}
                       >
                         <h2 className="fw-bold px-1 h4 clippath">
@@ -449,7 +717,7 @@ const [accordionOpen, setAccordionOpen] = useState(false);
         <div>
           <img
             className="ArticleImg"
-            src={`${webPath}${authorData?.author_photo || 'default-author.jpg'}`}
+            src={`${webPath}${authorData?.author_photo || 'default-author.jpg'}?width=300`}
             alt={authorData?.author_name}
           />
         </div>
@@ -476,7 +744,7 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                   <div className="quickImgBox">
                     <img
                       style={{ width: "90%", borderRadius: "14px" }}
-                      src={`${webPath}${post.banner_img}`}
+                      src={`${webPath}${post.banner_img}?width=300`}
                       alt={post.banner_alt}
                     />
                   </div>
@@ -546,7 +814,7 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                   {" "}
                   <img
                     style={{ height: "", width: "100%" }}
-                    src={`${webPath}${advertisementData[0].banner_img}`}
+                    src={`${webPath}${advertisementData[0].banner_img}?width=400`}
                     alt={advertisementData[0].banner_name}
                   />{" "}
                 </a>
@@ -555,7 +823,9 @@ const [accordionOpen, setAccordionOpen] = useState(false);
           </div>
         </div>
       </div>
+      </LazyLoad>
 
+      <LazyLoad className={className1}>
       <div className="container container-max ">
         <div className="row">
           {/* <h5 className="fw-bold borderB py-1 h5">More from Enterprise Talk</h5> */}
@@ -579,7 +849,9 @@ const [accordionOpen, setAccordionOpen] = useState(false);
           </div> */}
         </div>
       </div>
+      </LazyLoad>
 
+      <LazyLoad className={className2}>
       <div className="container container-max ">
         <div className="row mt-5 spaceincontentbottm">
           <div className="col-md-12 mb-2 borderB">
@@ -598,6 +870,8 @@ const [accordionOpen, setAccordionOpen] = useState(false);
           </div>
         </div>
       </div>
+      </LazyLoad>
+
     </div>
   );
 };

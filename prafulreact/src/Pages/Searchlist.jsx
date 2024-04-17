@@ -5,6 +5,8 @@ import SearchTab from "../Components/SearchTab";
 import { useParams } from "react-router-dom";
 import {API_ROOT,webPath} from "../apiConfig";
 import {Helmet} from "react-helmet"
+import LazyLoad from 'react-lazyload';
+
 
 const Searchlist = () => {
   const {  searchVal } = useParams();
@@ -27,6 +29,40 @@ const Searchlist = () => {
   
   const canonicalUrl = `https://enterprisetalk.com/${searchVal}`
 
+  const [className, setClassName] = useState('');
+  
+  useEffect(() => {
+    const sections = 5; 
+    let currentSection = 1;
+  
+    const setSectionClassName = () => {
+      
+      const removeTimer = setTimeout(() => {
+        setClassName('');
+      }, 0);
+  
+     
+      const setTimer = setTimeout(() => {
+        setClassName('loaded');
+        currentSection++;
+  
+        
+        if (currentSection <= sections) {
+          setSectionClassName();
+        }
+      }, currentSection * 30); 
+  
+    
+      return () => {
+        clearTimeout(removeTimer);
+        clearTimeout(setTimer);
+      };
+    };
+  
+    setSectionClassName();
+  }, []); 
+
+
   return (
     <div>
 
@@ -46,8 +82,11 @@ const Searchlist = () => {
           </div>
           <div className="hr"></div>
           </div>
+          <LazyLoad className={className}>
           <SearchTab />
+          </LazyLoad>
 
+          <LazyLoad className={className}>
           <div className="container container-max ">
         <div className="row mt-5 spaceincontentbottm">
           <div className="col-md-12 mb-2 borderB">
@@ -62,7 +101,8 @@ const Searchlist = () => {
             </div>
           </div>
         </div>
-      </div>
+          </div>
+      </LazyLoad>
 
 
        

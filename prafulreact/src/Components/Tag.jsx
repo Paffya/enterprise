@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom'
 import Sidenav from '../Components/Sidenav';
 import {API_ROOT,webPath} from "../apiConfig";
 import {Helmet} from "react-helmet"
+import LazyLoad from 'react-lazyload';
 
 
 
@@ -75,6 +76,391 @@ useEffect(() => {
    const pageTitle = `${subcatName}`
    const canonicalUrl = `https://enterprisetalk.com/tag/${subcat}`
 
+
+
+
+   const [className, setClassName] = useState('');
+const [className1, setClassName1] = useState('');
+const [className2, setClassName2] = useState('');
+const [className3, setClassName3] = useState('');
+const [className4, setClassName4] = useState('');
+const [className5, setClassName5] = useState('');
+const [className6, setClassName6] = useState('');
+const [className7, setClassName7] = useState('');
+const [className8, setClassName8] = useState('');
+// const [className9, setClassName9] = useState('');
+
+useEffect(() => {
+  const sections = 5; 
+  let currentSection = 1;
+
+  const setSectionClassName = () => {
+    
+    const removeTimer = setTimeout(() => {
+      setClassName('');
+    }, 0);
+
+   
+    const setTimer = setTimeout(() => {
+      setClassName('loaded');
+      currentSection++;
+
+      
+      if (currentSection <= sections) {
+        setSectionClassName();
+      }
+    }, currentSection * 30); 
+
+  
+    return () => {
+      clearTimeout(removeTimer);
+      clearTimeout(setTimer);
+    };
+  };
+
+  setSectionClassName();
+}, []); 
+
+ useEffect(() => {
+    const sections = 5; 
+    let currentSection = 1;
+
+    const setSectionClassName = () => {
+      const removeTimer = setTimeout(() => {
+        setClassName1('');
+      }, 0);
+
+      const setTimer = setTimeout(() => {
+        setClassName1('loaded1');
+        currentSection++;
+
+        if (currentSection <= sections) {
+          setSectionClassName();
+        } else {
+          
+          window.removeEventListener('scroll', handleScroll);
+        }
+      }, currentSection * 150);
+
+      return () => {
+        clearTimeout(removeTimer);
+        clearTimeout(setTimer);
+      };
+    };
+
+    const handleScroll = () => {
+     
+      if (window.scrollY > 100) { 
+        setSectionClassName();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); 
+
+  useEffect(() => {
+    const sections = 5; 
+    let currentSection = 1;
+
+    const setSectionClassName = () => {
+      const removeTimer = setTimeout(() => {
+        setClassName2('');
+      }, 0);
+
+      const setTimer = setTimeout(() => {
+        setClassName2('loaded2');
+        currentSection++;
+
+        if (currentSection <= sections) {
+          setSectionClassName();
+        } else {
+          // Remove scroll event listener if currentSection * 190 is reached
+          window.removeEventListener('scroll', handleScroll);
+        }
+      }, currentSection * 190);
+
+      return () => {
+        clearTimeout(removeTimer);
+        clearTimeout(setTimer);
+      };
+    };
+
+    const handleScroll = () => {
+      // Add your logic here to determine when to trigger the code based on scroll
+      if (window.scrollY > 190) { // Example condition: execute code when scrolled more than 100 pixels
+        setSectionClassName();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); 
+
+  useEffect(() => {
+    const sections = 5; 
+    let currentSection = 1;
+
+    const setSectionClassName = () => {
+      const removeTimer = setTimeout(() => {
+        setClassName3('');
+      }, 0);
+
+      const setTimer = setTimeout(() => {
+        setClassName3('loaded3');
+        currentSection++;
+
+        if (currentSection <= sections) {
+          setSectionClassName();
+        } else {
+          // Remove scroll event listener if currentSection * 230 is reached
+          window.removeEventListener('scroll', handleScroll);
+        }
+      }, currentSection * 230);
+
+      return () => {
+        clearTimeout(removeTimer);
+        clearTimeout(setTimer);
+      };
+    };
+
+    const handleScroll = () => {
+      // Add your logic here to determine when to trigger the code based on scroll
+      if (window.scrollY > 230) { // Example condition: execute code when scrolled more than 100 pixels
+        setSectionClassName();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+
+  useEffect(() => {
+    const sections = 5; 
+    let currentSection = 1;
+
+    const setSectionClassName = () => {
+      const removeTimer = setTimeout(() => {
+        setClassName4('');
+      }, 0);
+
+      const setTimer = setTimeout(() => {
+        setClassName4('loaded4');
+        currentSection++;
+
+        if (currentSection <= sections) {
+          setSectionClassName();
+        } else {
+          // Remove scroll event listener if currentSection * 290 is reached
+          window.removeEventListener('scroll', handleScroll);
+        }
+      }, currentSection * 290);
+
+      return () => {
+        clearTimeout(removeTimer);
+        clearTimeout(setTimer);
+      };
+    };
+
+    const handleScroll = () => {
+      // Add your logic here to determine when to trigger the code based on scroll
+      if (window.scrollY > 290) { // Example condition: execute code when scrolled more than 100 pixels
+        setSectionClassName();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); 
+
+
+  useEffect(() => {
+    const sections = 5; 
+    let currentSection = 1;
+
+    const setSectionClassName = () => {
+      const removeTimer = setTimeout(() => {
+        setClassName5('');
+      }, 0);
+
+      const setTimer = setTimeout(() => {
+        setClassName5('loaded5');
+        currentSection++;
+
+        if (currentSection <= sections) {
+          setSectionClassName();
+        } else {
+          // Remove scroll event listener if currentSection * 290 is reached
+          window.removeEventListener('scroll', handleScroll);
+        }
+      }, currentSection * 290);
+
+      return () => {
+        clearTimeout(removeTimer);
+        clearTimeout(setTimer);
+      };
+    };
+
+    const handleScroll = () => {
+      // Add your logic here to determine when to trigger the code based on scroll
+      if (window.scrollY > 290) { // Example condition: execute code when scrolled more than 100 pixels
+        setSectionClassName();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); 
+
+
+  
+  useEffect(() => {
+    const sections = 5; 
+    let currentSection = 1;
+
+    const setSectionClassName = () => {
+      const removeTimer = setTimeout(() => {
+        setClassName6('');
+      }, 0);
+
+      const setTimer = setTimeout(() => {
+        setClassName6('loaded6');
+        currentSection++;
+
+        if (currentSection <= sections) {
+          setSectionClassName();
+        } else {
+          // Remove scroll event listener if currentSection * 290 is reached
+          window.removeEventListener('scroll', handleScroll);
+        }
+      }, currentSection * 320);
+
+      return () => {
+        clearTimeout(removeTimer);
+        clearTimeout(setTimer);
+      };
+    };
+
+    const handleScroll = () => {
+      // Add your logic here to determine when to trigger the code based on scroll
+      if (window.scrollY > 320) { // Example condition: execute code when scrolled more than 100 pixels
+        setSectionClassName();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); 
+
+  
+  useEffect(() => {
+    const sections = 5; 
+    let currentSection = 1;
+
+    const setSectionClassName = () => {
+      const removeTimer = setTimeout(() => {
+        setClassName7('');
+      }, 0);
+
+      const setTimer = setTimeout(() => {
+        setClassName7('loaded7');
+        currentSection++;
+
+        if (currentSection <= sections) {
+          setSectionClassName();
+        } else {
+          // Remove scroll event listener if currentSection * 290 is reached
+          window.removeEventListener('scroll', handleScroll);
+        }
+      }, currentSection * 360);
+
+      return () => {
+        clearTimeout(removeTimer);
+        clearTimeout(setTimer);
+      };
+    };
+
+    const handleScroll = () => {
+      // Add your logic here to determine when to trigger the code based on scroll
+      if (window.scrollY > 360) { // Example condition: execute code when scrolled more than 100 pixels
+        setSectionClassName();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); 
+
+
+  
+  useEffect(() => {
+    const sections = 5; 
+    let currentSection = 1;
+
+    const setSectionClassName = () => {
+      const removeTimer = setTimeout(() => {
+        setClassName8('');
+      }, 0);
+
+      const setTimer = setTimeout(() => {
+        setClassName8('loaded8');
+        currentSection++;
+
+        if (currentSection <= sections) {
+          setSectionClassName();
+        } else {
+          // Remove scroll event listener if currentSection * 290 is reached
+          window.removeEventListener('scroll', handleScroll);
+        }
+      }, currentSection * 400);
+
+      return () => {
+        clearTimeout(removeTimer);
+        clearTimeout(setTimer);
+      };
+    };
+
+    const handleScroll = () => {
+      // Add your logic here to determine when to trigger the code based on scroll
+      if (window.scrollY > 400) { // Example condition: execute code when scrolled more than 100 pixels
+        setSectionClassName();
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); 
+
+
+
+
+
+
   return (
 
     
@@ -87,11 +473,15 @@ useEffect(() => {
 	<link rel="canonical" href={canonicalUrl} />
   <meta property="og:title" content="Home" />
         <meta property="og:url" content={canonicalUrl} />
+
+       
+
+  
       </Helmet> 
   
   <Sidenav />
   
-  
+  <LazyLoad className={className}>
     <div className='container container-max' id="news">
    
 
@@ -168,7 +558,7 @@ useEffect(() => {
               <a href={`/${post.cat_slug}/${post.post_name}`}>
                 <div>
                   <figure>
-                    <img style={{ width: '100%', borderRadius: '20px', height: 'auto', objectFit: 'cover' }} src={`${webPath}${post.banner_img}`} alt={post.banner_alt} />
+                    <img style={{ width: '100%', borderRadius: '20px', height: 'auto', objectFit: 'cover' }} src={`${webPath}${post.banner_img}?width=500`} alt={post.banner_alt} />
                   </figure>
                 </div>
               </a>
@@ -196,45 +586,10 @@ useEffect(() => {
         </div>
 
     </div>
+    </LazyLoad>
 
 
-
-
-
-    {/* <div className='container container-max d-flex gap-2 mt-5'>
-  {loading ? (
-    <p></p>
-  ) : (
-    
-    data.events && data.events.length > 0 ? (
-      <div className='row border-top border-bottom' style={{ padding: '10px' }}>
-        <div className='col-md-6 borderR paddings mt-3 mb-4'>
-          <a href={`/${data.events[0].cat_slug}/${data.events[0].post_name}`}>
-            <h3 className='fw-bold hoverHead'>{data.events[0].post_title}</h3>
-          </a>
-          <p style={{ fontSize: '13px' }}>
-            By <span className='fw-bold'>{data.events[0].post_author}</span> |{' '}
-            {new Date(data.events[0].post_date).toLocaleDateString(undefined, options)}
-          </p>
-        </div>
-
-        {data.events.length > 1 && (
-          <div className='col-md-6 paddings mt-3 mb-4'>
-            <a href={`/${data.events[1].cat_slug}/${data.events[1].post_name}`}>
-              <h3 className='fw-bold hoverHead'>{data.events[1].post_title}</h3>
-            </a>
-            <p style={{ fontSize: '13px' }}>
-              By <span className='fw-bold'>{data.events[1].post_author}</span> |{' '}
-              {new Date(data.events[1].post_date).toLocaleDateString(undefined, options)}
-            </p>
-          </div>
-        )}
-      </div>
-    ) : null 
-  )}
-</div> */}
-
-
+<LazyLoad className={className}>
 <div className='container container-max d-flex gap-2 '>
       {loading ? (
         <p></p>
@@ -256,9 +611,10 @@ useEffect(() => {
         ) : null
       )}
     </div>
+    </LazyLoad>
 
 
-
+    <LazyLoad className={className}>
     <div className="container container-max">
         <div className="row mt-5 spaceincontent">
           <div className="col-md-12 mb-5 spaceincontentbottm borderB">
@@ -276,9 +632,9 @@ useEffect(() => {
           </div>
         </div>
       </div>
+      </LazyLoad>
 
-
-
+      <LazyLoad className={className1}>
 <div className='container container-max' >
 {loading ? (
     <p></p>
@@ -315,7 +671,7 @@ useEffect(() => {
     <a href={`/${featured.cat_slug}/${featured.post_name}`}> <div >
             
            <div >
-           <img  className='homeImg' src={`${webPath}${featured.banner_img}`} alt={featured.banner_alt} />
+           <img  className='homeImg' src={`${webPath}${featured.banner_img}?width=700`} alt={featured.banner_alt} />
            </div>
            
            <div className='paddings'>
@@ -338,10 +694,10 @@ useEffect(() => {
  ) : null // Render nothing when there is no data or remove complete Div
  )}
 </div>
+</LazyLoad>
 
 
-
-
+<LazyLoad className={className2}>
 <div className='container container-max' >
 {loading ? (
     <p></p>
@@ -357,7 +713,7 @@ useEffect(() => {
     {data.quickbytes.map((post, index) => (
     <div key={index} className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
       <div  className='quickImgBox'>
-        <img style={{ width:"90%"  , borderRadius:"14px"}} src={`${webPath}${post.banner_img}`} alt={post.banner_alt} />
+        <img style={{ width:"90%"  , borderRadius:"14px"}} src={`${webPath}${post.banner_img}?width=500`} alt={post.banner_alt} />
       </div>
 
       <div className='' style={{width:"74%"}}>
@@ -394,9 +750,9 @@ useEffect(() => {
   ) : null // Render nothing when there is no data or remove complete Div
   )}
 </div>
+</LazyLoad>
 
-
-
+<LazyLoad className={className2}>
 <div className="container container-max ">
         <div className="row mt-5 spaceincontentbottm">
           <div className="col-md-12 mb-2 ">
@@ -413,10 +769,10 @@ useEffect(() => {
           </div>
         </div>
       </div>
+      </LazyLoad>
 
 
-
-
+      <LazyLoad className={className3}>
 <div className='container container-max ' >
 {loading ? (
     <p></p>
@@ -425,7 +781,7 @@ useEffect(() => {
     data.podcasts && data.podcasts.length > 0 ? (
   <a href={`/${data.podcasts[0].cat_slug}/${data.podcasts[0].post_name}`}><div className='row mt-5 spaceincontent justify-content-between'>
   <h4  className='fw-bold borderB py-1 h4'>Podcasts</h4>
-    <div className="col-md-7">
+    <div className="col-md-7 d-flex">
       <div className='podText'>
       <h4 className='fw-bold hoverHead guestFont2' > <p style={{fontSize:"50px"}} className='fw-bold hoverHead guestFont2 line-clamp'>{data.podcasts[0].post_title}</p>
       <p style={{ fontSize: "18px" }} className='fw-bold mt-2'>In conversation with</p>
@@ -441,7 +797,7 @@ useEffect(() => {
     </div>
 
     <div className="col-md-5 " style={{margin:"auto"}}>
-      <img className='ImgBoxGuets'  src={`${webPath}${data.podcasts[0].banner_img}`} alt={data.podcasts[0].banner_alt} />
+      <img className='ImgBoxGuets'  src={`${webPath}${data.podcasts[0].banner_img}?width=700`} alt={data.podcasts[0].banner_alt} />
       
     </div>
 
@@ -452,11 +808,11 @@ useEffect(() => {
  ) : null // Render nothing when there is no data or remove complete Div
  )}
 </div>
+</LazyLoad>
 
 
 
-
-
+<LazyLoad className={className4}>
 <div className='container container-max' >
 {loading ? (
     <p></p>
@@ -472,7 +828,7 @@ useEffect(() => {
    
     <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
       <div style={{width:"40%", height:"150px"}}>
-        <img style={{ width:"90%", height:"150px", objectFit:"cover"  , borderRadius:"14px"}} src={`${webPath}${post.banner_img}`} alt={post.banner_alt} />
+        <img style={{ width:"90%", height:"150px", objectFit:"cover"  , borderRadius:"14px"}} src={`${webPath}${post.banner_img}?width=500`} alt={post.banner_alt} />
       </div>
 
       <div className='mt-2' style={{width:"60%"}}>
@@ -546,48 +902,13 @@ useEffect(() => {
    ) : null // Render nothing when there is no data or remove complete Div
    )}
 </div>
-
-
-{/* 
-
-{loading ? (
-        <p></p>
-      ) : error ? (
-        <p>Error: {error}</p>
-      ) : data && data.interview && data.interview.length > 0 ? (
-<div className='container container-max' >
-<h5  className='fw-bold borderB py-1 h4 mt-5'>Featured Interview <Scrolltop /></h5>
-  <div className="row">
-  <div>
-      
-        <div className="col-md-12 justify-content-center intervieBox">
-          {data.interview.slice(0, cardLimit).map((interview, index) => (
-           <a href={`/${interview.cat_slug}/${interview.post_name}`}> <Card key={index} style={{ width: '21rem', marginRight: '10px' }} className='box-Card'>
-              <Card.Img variant="top" src={interview.banner_img} />
-              <Card className='p-md-3 cardHover' style={{ fontSize: '14px' }}>
-                <div id="future"></div>
-                <Card.Title className='fw-bold'>
-                  
-                  <span>
-                   
-                  </span>
-                </Card.Title>
-                <Card.Text className='fw-bold line-clamp hoverHead'>{interview.post_title}</Card.Text>
-                <Card.Text className='mt-1 line-clamp cardText'>{interview.p_content}</Card.Text>
-              </Card>
-            </Card></a>
-          ))}
-        </div>
-      
-    </div>
-  </div>
-
-</div>
-) : null } */}
+</LazyLoad>
 
 
 
 
+
+<LazyLoad className={className5}>
 <div className='container container-max d-flex gap-2  mt-5 spaceincontent' >
 {loading ? (
     <p></p>
@@ -618,11 +939,11 @@ useEffect(() => {
   ) : null // Render nothing when there is no data or remove complete Div
   )}
 </div>
- 
+</LazyLoad>
 
 
 
-
+<LazyLoad className={className6}>
 <div className='container container-max mt-5 spaceincontent' >
 {loading ? (
         <p></p>
@@ -632,7 +953,7 @@ useEffect(() => {
   <div className="row">
   <h5  className='fw-bold borderB py-1 h4'>Guest Author</h5>
     <div className="col-md-6 guestImg">
-      <img className='ImgBoxGuets'  src={`${webPath}${data.guestauthor[0].banner_img}`} alt={data.guestauthor[0].banner_alt}/>
+      <img className='ImgBoxGuets'  src={`${webPath}${data.guestauthor[0].banner_img}?width=500`} alt={data.guestauthor[0].banner_alt}/>
     </div>
 
     <div className="col-md-6  guestText" >
@@ -659,44 +980,11 @@ useEffect(() => {
   ) : null /* Render nothing when there is no data */}
 
 </div>
+</LazyLoad>
 
 
 
-
-{/* 
-<div className='container container-max mt-5 spaceincontent borderB' >
-{loading ? (
-    <p></p>
-  ) : (
-    // Check if there is data.learningcenter and it has at least one item
-    data.learningcenter && data.learningcenter.length > 0 ? (
-  <div className="row mb-2">
-  <h5  className='fw-bold borderB py-1 h4'>Learning Center</h5>
-    <div className="col-md-12  learningBox" style={{gap:"50px"}}>
-
-    {data.learningcenter.slice(0,3).map((learningcenter, index) => (
-    <a href={`/${learningcenter.cat_slug}/${learningcenter.post_name}`}>  
-    <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
-      <div style={{ height:"140px"}}>
-        <img style={{ width:"93%", height:"140px", objectFit:"cover"  , borderRadius:"14px"}} src={learningcenter.banner_img} alt={learningcenter.banner_alt} />
-      </div>
-
-      <div className='mt-2' >
-      <h5 className='fw-bold hoverHead h5 line-clamp' style={{width:"100%"}}>{learningcenter.post_title}</h5>
-      <p style={{ fontSize: "13px" }}>
-                          By <span className="fw-bold">{learningcenter.post_author}</span> | {new Date(learningcenter.post_date).toLocaleDateString(undefined, options)}
-                        </p>
-      </div>
-    </div> 
-    </a>
-    ))}
-
-    </div>
-  </div>
- ) : null // Render nothing when there is no data or remove complete Div
- )}
-</div> */}
-
+<LazyLoad className={className7}>
 {data && data.learningcenter && data.learningcenter.length > 0 && (
   <div className='container container-max mt-5 spaceincontent '>
     <div className="row justify-content-between ">
@@ -705,7 +993,7 @@ useEffect(() => {
         <div className="col-md-4 d-flex mt-4 mb-4 " style={{ alignItems: "center" }} key={index}>
           <a href={`/${learningcenter.cat_slug}/${learningcenter.post_name}`} className="d-flex w-100" style={{ textDecoration: 'none', color: 'inherit' }}>
             <div style={{ width: "50%" }}>
-              <img style={{ width: "92%", height:"130px" ,objectFit: "cover", borderRadius: "14px" }} src={`${webPath}${learningcenter.banner_img}`} alt={learningcenter.banner_alt} />
+              <img style={{ width: "92%", height:"130px" ,objectFit: "cover", borderRadius: "14px" }} src={`${webPath}${learningcenter.banner_img}?width=500`} alt={learningcenter.banner_alt} />
             </div>
             <div style={{ width: "50%" }} className='m-auto'>
               <h5 className='line-clamp h5 fw-bold hoverHead' title={learningcenter.post_title}>{learningcenter.post_title}</h5>
@@ -719,13 +1007,13 @@ useEffect(() => {
     </div>
   </div>
 )}
+</LazyLoad>
 
 
 
 
 
-
-
+<LazyLoad className={className8}>
 <div className="container container-max ">
         <div className="row mt-5 spaceincontentbottm">
           <div className="col-md-12 mb-2 borderB">
@@ -741,6 +1029,7 @@ useEffect(() => {
           </div>
         </div>
       </div>
+      </LazyLoad>
 
     </div>
   )
