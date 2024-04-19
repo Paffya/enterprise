@@ -1,0 +1,270 @@
+.ArticleImg{
+    /* max-width: 250px; */
+    max-width: 160px;
+    height: auto;
+    border-radius: 20px;
+    margin: 0px 20px 0px 0px;
+}
+
+.ArticleBox{
+    box-shadow: rgba(0, 0, 0, 0.24) 4px 4px 7px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+}
+
+
+
+
+
+
+
+
+
+.content h2{
+  font-size: 30px;
+}
+
+.content img{
+  display: block;
+}
+
+.content a{
+  color: #f46363;
+}
+
+.content h1, h2, h3, h4, h5, h6 {
+margin-top: 20px;
+margin-bottom: 20px;
+}
+
+
+.content h3{
+  font-size: 24px;
+}
+
+.content p{
+  margin: 0 0 10px;
+}
+
+
+
+
+
+
+
+blockquote {
+  padding: 10px 20px;
+  margin: 0 0 20px;
+  font-size: 17.5px;
+  border-left: 5px solid #eee;
+}
+
+
+
+
+.player-card {
+    width: 15rem;
+    background-color: black;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+
+  
+.track-duration {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top:0px;
+    /* color: white !important;  */
+  }
+  
+  .track-duration > p {
+    font-size: 10px;
+    font-weight: 500;
+    /* color: #18181F; */
+    margin: 0;
+    color: white !important;
+    
+  }
+
+  .audioImg{
+    width: 13rem;
+  height: auto;
+  border-radius: 0.5rem;
+  }
+
+  .audioBtn{
+   display: flex;
+   margin: auto;
+   border-radius: 20px;
+   font-size: 30px;
+   color: white;
+   background-color: #f46363;
+   border: transparent;
+  }
+
+  .audioWid{
+    width: 100%;
+    margin-top: 20px;
+    background-color: #F1F4F9;
+  }
+
+  .fa-play{
+    padding: 7px;
+    font-size: 20px !important;
+  }
+
+  .fa-pause{
+    padding: 7px;
+    font-size: 20px !important;
+    border: transparent;
+  }
+
+  
+
+/* 
+  input[type=range] {
+  height: 25px;
+  -webkit-appearance: none;
+  margin: 10px 0;
+  width: 100%;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 0px #000000;
+  background: #F46363;
+  border-radius: 2px;
+  border: 0px solid #000000;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 0px 0px 0px #000000;
+  border: 1px solid #F46363;
+  height: 18px;
+  width: 18px;
+  border-radius: 25px;
+  background: #f46363;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -7px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #F46363;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 0px #000000;
+  background: #F46363;
+  border-radius: 2px;
+  border: 0px solid #000000;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 0px 0px 0px #000000;
+  border: 1px solid #F46363;
+  height: 18px;
+  width: 18px;
+  border-radius: 25px;
+  background: #f46363;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 5px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #F46363;
+  border: 0px solid #000000;
+  border-radius: 4px;
+  box-shadow: 0px 0px 0px #000000;
+}
+input[type=range]::-ms-fill-upper {
+  background: #F46363;
+  border: 0px solid #000000;
+  border-radius: 4px;
+  box-shadow: 0px 0px 0px #000000;
+}
+input[type=range]::-ms-thumb {
+  margin-top: 1px;
+  box-shadow: 0px 0px 0px #000000;
+  border: 1px solid #F46363;
+  height: 18px;
+  width: 18px;
+  border-radius: 25px;
+  background: #f46363;
+  cursor: pointer;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #F46363;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #F46363;
+}
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 576px) {
+
+   
+   
+}
+
+@media (max-width: 767px) {
+ 
+    .ArticleBox{
+       
+        /* display: grid; */
+    }
+
+    .ArticleImg{
+    
+        width: 100%;
+        max-width: fit-content;
+    }
+    
+  
+}
+
+@media (max-width: 992px) {
+ 
+ 
+}
+
+@media (max-width: 1200px) {
+ 
+}
+
+@media (max-width: 1400px) {
+ 
+}
+

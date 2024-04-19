@@ -1,0 +1,148 @@
+
+
+
+
+
+
+.footerPadding{
+    padding: 30px 50px 10px 50px;
+}
+
+
+
+
+
+.followPadding{
+    padding-right: 3rem;
+    padding-left: 3rem;
+    margin-top: 50px;
+}
+
+
+
+.FootLogo{
+    width: 80%;
+}
+
+
+.otherPublic{
+    width: 50%;
+    text-align: center;
+    margin: auto;
+}
+
+.imgPublica{
+    width: 100%;
+   
+}
+
+.imgPublicaCMO{
+    width: 100%;
+    margin-top: 10px;
+   
+}
+
+
+.facebookImg{
+    background-color: black;
+    margin: auto;
+    text-align: center;
+    padding: 6px;
+    border-radius: 7px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 576px) {
+
+   .spaceincontent{
+    margin-top: 10px !important;
+   }
+
+   .spaceincontentbottm{
+    margin-bottom: 10px !important;
+   }
+   
+}
+
+@media (max-width: 767px) {
+ 
+
+.publicImg{
+    width: 100%;
+}
+
+.footerPadding{
+    padding: 0px;
+}
+
+.followPadding{
+    padding-right: 150px;
+    padding-left: 13px;
+    margin-top: 15px;
+}
+
+.FootLogo{
+    width: 60%;
+    margin-top: 30px;
+}
+
+.otherPublic{
+    width: 100%;
+    
+    text-align: center;
+    margin: auto;
+}
+
+.imgPublica{
+    width: 100%;
+    
+}
+
+
+.imgPublicaCMO{
+    width: 100%;
+    margin-top: 5px; 
+}
+
+
+  
+}
+
+@media (max-width: 992px) {
+
+ 
+}
+
+@media (max-width: 1200px) {
+  
+}
+
+@media (max-width: 1400px) {
+}
