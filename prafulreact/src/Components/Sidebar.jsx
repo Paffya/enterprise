@@ -44,6 +44,8 @@ const Button = () => {
     <button
       style={{ border: "transparent", backgroundColor: "#fff" }}
       onClick={ctx.toggleMenu}
+      title="Sub-Category"
+      aria-label="Sub-Category"
     >
       <FontAwesomeIcon icon={faBars} size="2xl" />
     </button>
@@ -500,8 +502,8 @@ const Navigation = () => {
                       </div> */}
                   </div>
                 </div>
-                <NavDropdown.Item href="/topic/news">
-                  <a href="/topic/news" className="text-black ended mt-0">
+                <NavDropdown.Item href="/topics/news">
+                  <a href="/topics/news" className="text-black ended mt-0">
                     See more
                   </a>
                 </NavDropdown.Item>
@@ -543,9 +545,9 @@ const Navigation = () => {
                       </div> */}
                   </div>
                 </div>
-                <NavDropdown.Item href="/topic/featured">
+                <NavDropdown.Item href="/topics/featured">
                   <a
-                    href="/topic/featured"
+                    href="/topics/featured"
                     className="text-black ended mt-0"
                   >
                     See more
@@ -589,9 +591,9 @@ const Navigation = () => {
                       </div> */}
                   </div>
                 </div>
-                <NavDropdown.Item href="/topic/podcasts">
+                <NavDropdown.Item href="/topics/podcasts">
                   <a
-                    href="/topic/podcasts"
+                    href="/topics/podcasts"
                     className="text-black ended mt-0"
                   >
                     See more
@@ -633,9 +635,9 @@ const Navigation = () => {
                       </div> */}
                   </div>
                 </div>
-                <NavDropdown.Item href="/topic/interview">
+                <NavDropdown.Item href="/topics/interview">
                   <a
-                    href="/topic/interview"
+                    href="/topics/interview"
                     className="text-black ended mt-0"
                   >
                     See more
@@ -677,9 +679,9 @@ const Navigation = () => {
                     </div>
                   </div>
                 </div>
-                <NavDropdown.Item href="/topic/guest-author">
+                <NavDropdown.Item href="/topics/guest-author">
                   <a
-                    href="/topic/guest-author"
+                    href="/topics/guest-author"
                     className="text-black ended mt-0"
                   >
                     See more
@@ -723,9 +725,9 @@ const Navigation = () => {
                       </div> */}
                   </div>
                 </div>
-                <NavDropdown.Item href="/topic/featured">
+                <NavDropdown.Item href="/topics/featured">
                   <a
-                    href="/topic/featured"
+                    href="/topics/featured"
                     className="text-black ended mt-0"
                   >
                     See more
@@ -767,9 +769,9 @@ const Navigation = () => {
                       </div> */}
                   </div>
                 </div>
-                <NavDropdown.Item href="/topic/future-ready">
+                <NavDropdown.Item href="/topics/future-ready">
                   <a
-                    href="/topic/future-ready"
+                    href="/topics/future-ready"
                     className="text-black ended mt-0"
                   >
                     See more
@@ -811,9 +813,9 @@ const Navigation = () => {
                     </div>
                   </div>
                 </div>
-                <NavDropdown.Item href="/topic/learning-center">
+                <NavDropdown.Item href="/topics/learning-center">
                   <a
-                    href="/topic/learning-center"
+                    href="/topics/learning-center"
                     className="text-black ended mt-0"
                   >
                     See more
@@ -832,9 +834,9 @@ const Navigation = () => {
             </p>
           </Nav.Link>
 
-          <Nav.Link className="text-white MobileResponsive" href="/Connect">
+          <Nav.Link className="text-white MobileResponsive" href="/contact-us">
             <p className=" text-white">
-              <a href="/Connect">Connect</a>
+              <a href="/contact-us">Contact Us</a>
             </p>
           </Nav.Link>
 
@@ -930,7 +932,7 @@ const Sidebar = () => {
   return (
     <MyProvider>
       <div>
-        <Button />
+        <Button  />
         <Navigation />
       </div>
     </MyProvider>

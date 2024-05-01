@@ -552,9 +552,9 @@ useEffect(() => {
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-        <div className='flexAddver mt-3' style={{ gap: '11px' }}>
+        <div className='mainSecondBox mt-3' style={{ gap: '11px' }}>
           {data.news.slice(0, limit).map((post, index) => (
-            <div key={index} className='addvert hover01'>
+            <div key={index} className='secondBox hover01'>
               <a href={`/${post.cat_slug}/${post.post_name}`}>
                 <div>
                   <figure>

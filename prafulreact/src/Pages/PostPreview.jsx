@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../Styles/Article.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import ShareButton from "../Components/ShareButton";
+import ShareButton from "../Components/SocialShare";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import {API_ROOT,webPath} from "../apiConfig";
@@ -327,7 +327,7 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                     </div>
 
                     <div className="">
-                      <ShareButton />
+                      {/* <ShareButton /> */}
                     </div>
                   </div>
                 </div>

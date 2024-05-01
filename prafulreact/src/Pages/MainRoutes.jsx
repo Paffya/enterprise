@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes , Router} from "react-router-dom";
 import ContentCategory from "./ContentCategory";
 import Tag from "../Components/Tag";
 import NotFound from "../Components/NotFound";
@@ -19,23 +19,30 @@ import Searchlist from "./Searchlist";
 import Unsubscribe from "./Unsubscribe";
 import PostPreview from "./PostPreview";
 import Sitemap from "./Sitemap";
-import Sitemappost from "./Sitemappost";
-import Sitemapsubcategory from "./Sitemapsubcategory";
-import Sitemapcategory from "./Sitemapcategory";
-import Sitemapmisc from "./Sitemapmisc";
+// import Sitemappost from "./Sitemappost";
+// import Sitemapsubcategory from "./Sitemapsubcategory";
+// import Sitemapcategory from "./Sitemapcategory";
+// import Sitemapmisc from "./Sitemapmisc";
+
+
 
 
 
 
 const MainRoutes = () => {
   return (
+
+    
+    <>
+
+{/* <Router basename="/:7000"> */}
     <Routes>
       <Route path="/" element={<Homepage />}></Route>
       
       <Route path="/About" element={<About />}></Route>
       <Route path="/ContentCategory" element={<ContentCategory />}></Route>
     
-      <Route path="/Connect" element={<Connect />}></Route>
+      <Route path="/contact-us" element={<Connect />}></Route>
       <Route path="/Author" element={<Author />}></Route>
       <Route path="/Unsubscribe" element={<Unsubscribe />}></Route>
       <Route path="/Tag" element={<Tag />}></Route>
@@ -48,33 +55,42 @@ const MainRoutes = () => {
       <Route exact path="/tag/:subcat" element={<Tag />} />
       <Route exact path="/:cat_slug/:post_name" element={<Topic />} /> 
       {/* <Route exact path="/:post_name" element={<Topic />} /> */}
-      <Route exact path="/topic/:cat" element={<ContentCategory />} />
-      <Route exact path="/topic/:cat/:subcat" element={<ContentCategory />} />
+      <Route exact path="/topics/:cat" element={<ContentCategory />} />
+      <Route exact path="/topics/:cat/:subcat" element={<ContentCategory />} />
       <Route exact path="/search/:cat/:searchVal" element={<Searchlist />} />
       <Route exact path="/search/:cat/:searchVal/:subcat" element={<Searchlist />} />
-
-
-  
+      {/* 
       <Route path="/sitemap-posts.xml" element={<Sitemappost />}></Route>
       <Route path="/sitemap-subcategory.xml" element={<Sitemapsubcategory />}></Route>
       <Route path="/sitemap-category.xml" element={<Sitemapcategory />}></Route>
-      <Route path="/sitemap-misc.xml" element={<Sitemapmisc />}></Route>
-
+      <Route path="/sitemap-misc.xml" element={<Sitemapmisc />}></Route> */}
+       
+     
      
 
-      
 
 
       {/* Post detail page preview  */}
       <Route exact path="/preview/:cat_slug/:post_name"  element={<PostPreview />} />
       {/* Post detail page preview  */}
 
-      
 
-
+  
 
       <Route path="*" element={<NotFound />} />
+
+      
     </Routes>
+    {/* </Router> */}
+
+ {/* <Navigate exact from=":7000/:cat_slug/:post_name" to="/:cat_slug/:post_name" >
+
+    </Navigate> */}
+
+    
+
+    </>
+    
   );
 };
 

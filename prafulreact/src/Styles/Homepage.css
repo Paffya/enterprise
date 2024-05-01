@@ -28,12 +28,12 @@
 }
 
 
-.flexAddver{
+.mainSecondBox{
     display: flex;
 }
 
 
-.addvert{
+.secondBox{
     width: 50%;
 }
 
@@ -275,12 +275,12 @@
         margin-right: 5px ;
     }
 
-    .flexAddver{
+    .mainSecondBox{
         display: grid;
         width: 100%;
     }
 
-    .addvert{
+    .secondBox{
         width: 100%;
     }
 

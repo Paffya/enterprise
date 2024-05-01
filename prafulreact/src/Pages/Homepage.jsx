@@ -16,8 +16,9 @@ import axios from "axios"
 import {API_ROOT,webPath} from "../apiConfig";
 import {Helmet} from "react-helmet"
 import LazyLoad from 'react-lazyload';
-import HomepageMainSection from '../Components/HomepageMainSection';
-import Loadable from '@react-loadable/revised';
+
+
+
 
 
 
@@ -39,7 +40,7 @@ const Homepage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API_ROOT}/api/post/homepost`);
+        const response = await axios.get(`https://app-node.enterprisetalk.com:3000/api/post/homepost`);
         const removeHtmlTags = (html) => html.replace(/<[^>]*>/g, '');
 
         // Remove HTML tags from specific fields in the response data
@@ -128,7 +129,7 @@ useEffect(() => {
       if (currentSection <= sections) {
         setSectionClassName();
       }
-    }, currentSection * 50); 
+    }, currentSection * 40); 
 
   
     return () => {
@@ -348,14 +349,23 @@ useEffect(() => {
   }, []); 
 
 
+  const ogTitle = pageTitle ;
+  const ogDescription = pageTitle ;
+  const ogImage = "https://enterprisetalk.com/static/media/enterpriseLogo.0c9f185de2e44cf44932.webp";
+  const ogUrl = "https://enterprisetalk.com/";
+ 
 
 
 
   return (
 
   
-    <div style={{overflow:"hidden"}}> 
+  
+    <div style={{overflow:"hidden"}} id='root' > 
 
+
+
+      
     <Helmet>
       <title>{pageTitle}</title>
 	<meta name="description" content="A Peer Knowledge Resource Expert inputs on challenges, triumphs &amp; innovative solutions from corporate Movers &amp; Shakers in global Leadership." />
@@ -375,12 +385,14 @@ useEffect(() => {
         <meta name="twitter:image" content="https://enterprisetalk.com/static/media/enterpriseLogo.0c9f185de2e44cf44932.webp" />
     </Helmet> 
 
-    <LazyLoad className={className}>
-  <HomepageMainSection />
-   </LazyLoad> 
+
+
+      {/* <HomepageMainSection /> */}
+ 
      
-   
-  {/* <LazyLoad className={className}>
+     
+
+  
    <div className='mt-3 spaceincontent'>
   <div className="container container-max" >
     <div className="row ">
@@ -388,6 +400,7 @@ useEffect(() => {
       <div className="col-md-9 borderR">
       <div>
       <div>
+        
      
       {data && data.latestNews && data.latestNews.length > 0 && (
 <a href={`/${data.latestNews[0].cat_slug}/${data.latestNews[0].post_name}`} aria-label={`Read more about ${data.latestNews[0].post_title}`}>
@@ -411,13 +424,13 @@ useEffect(() => {
   </div>
 
 
-        <div className='flexAddver mt-3 ' style={{gap:"11px"}}>
+        <div className='mainSecondBox mt-3 ' style={{gap:"11px"}}>
 
         {loading ? (
       <p></p>
       
     ) : (
-          <div  className='addvert hover01' >
+          <div  className='secondBox hover01' >
           <div>
           <a href={`/${data.latestNews[1].cat_slug}/${data.latestNews[1].post_name}`} aria-label={`Read more about ${data.latestNews[1].post_title}`}> 
           <figure className="">
@@ -441,7 +454,7 @@ useEffect(() => {
       <p></p>
       
     ) : (
-          <div  className='addvert hover01'>
+          <div  className='secondBox hover01'>
           <div>
           <a href={`/${data.latestNews[2].cat_slug}/${data.latestNews[2].post_name}`} aria-label={`Read more about ${data.latestNews[2].post_title}`}> <figure className=""> 
           <img className='zoom-in'  style={{width:"100%" , borderRadius:"20px", height:"auto", objectFit:"cover"}} src={`${webPath}${data.latestNews[2].banner_img}?width=500`} alt={data.latestNews[2].post_title} aria-label={data.latestNews[2].post_title}   loading="lazy" width="100" height="100" />
@@ -472,6 +485,7 @@ useEffect(() => {
          
 
           <div>
+          <LazyLoad className={className}>
           <Tabs activeKey={activeKey} onSelect={handleTabSelect} id="tabs-example" className='tabBtn nav-link1' style={{color:"black !important"}}>
 
     <Tab eventKey="tab1" title="Latest" className='text-black'>
@@ -529,12 +543,14 @@ useEffect(() => {
     </Tab>
 
   </Tabs>
+  </LazyLoad> 
 
     
   </div>
   
 
   
+  <LazyLoad className={className1}>
   <div className='marTop heightAuto' style={{  textAlign:"center", height:"400px"}}>
         
           {advertisementData && advertisementData.length > 0 && (
@@ -545,6 +561,8 @@ useEffect(() => {
 
 
         </div>
+        </LazyLoad>
+
         
           
         </div>
@@ -557,7 +575,7 @@ useEffect(() => {
 
 
   </div>
-    </LazyLoad> */}
+ 
    
    
  
@@ -572,7 +590,6 @@ useEffect(() => {
         <div className='swiperBox'>
         
         <Swiper
-          
           onSwiper={setThumbsSwiper}
           loop={true}
           spaceBetween={10}
@@ -619,8 +636,8 @@ useEffect(() => {
           {data.interview.map((interview, index) => (
             <SwiperSlide key={index} style={{}}>
              <a href={`/${interview.cat_slug}/${interview.post_name}`} > <Card style={{}}>
-                <Card.Img style={{ objectFit: 'cover' }} src={`${webPath}${interview.banner_img}?width=500`} alt={interview.post_title} aria-label={interview.post_title} width="100" height="550" />
-                <Card className='p-md-3 px-2 mb-2'>
+                <Card.Img style={{ objectFit: 'cover', height:"auto" }} src={`${webPath}${interview.banner_img}?width=500`} alt={interview.post_title} aria-label={interview.post_title} width="100" height="550" />
+                <Card className='p-md-3 px-2 mb-2' style={{height:"157px"}} >
                 <Card.Title className='fw-bold line-clamp hoverHead'>{interview.post_title}</Card.Title> 
                   <Card.Title>{interview.post_author}</Card.Title>
                   {/* <Card.Text className='fw-bold line-clamp1'>{interview.post_name}</Card.Text> */}

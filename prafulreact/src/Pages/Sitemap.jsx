@@ -93,7 +93,7 @@ const Sitemap = () => {
                 <li>
                   <h6 className="h6 ">
                     <a
-                      href="https://enterprisetalk.com/topic/news"
+                      href="https://enterprisetalk.com/topics/news"
                       className="text-black  hoverHead "
                     >
                       News
@@ -103,7 +103,7 @@ const Sitemap = () => {
                 <li>
                   <h6 className="h6 ">
                     <a
-                      href="https://enterprisetalk.com/topic/featured"
+                      href="https://enterprisetalk.com/topics/featured"
                       className="text-black  hoverHead "
                     >
                       Article
@@ -113,7 +113,7 @@ const Sitemap = () => {
                 <li>
                   <h6 className="h6 ">
                     <a
-                      href="https://enterprisetalk.com/topic/podcasts"
+                      href="https://enterprisetalk.com/topics/podcasts"
                       className="text-black  hoverHead "
                     >
                       Podcasts
@@ -123,7 +123,7 @@ const Sitemap = () => {
                 <li>
                   <h6 className="h6 ">
                     <a
-                      href="https://enterprisetalk.com/topic/interview"
+                      href="https://enterprisetalk.com/topics/interview"
                       className="text-black  hoverHead "
                     >
                       Featured Interview
@@ -133,7 +133,7 @@ const Sitemap = () => {
                 <li>
                   <h6 className="h6 ">
                     <a
-                      href="https://enterprisetalk.com/topic/guest-author"
+                      href="https://enterprisetalk.com/topics/guest-author"
                       className="text-black  hoverHead "
                     >
                       Guest Posts
@@ -143,7 +143,7 @@ const Sitemap = () => {
                 <li>
                   <h6 className="h6 ">
                     <a
-                      href="https://enterprisetalk.com/topic/featured"
+                      href="https://enterprisetalk.com/topics/featured"
                       className="text-black  hoverHead "
                     >
                       Articles
@@ -153,7 +153,7 @@ const Sitemap = () => {
                 <li>
                   <h6 className="h6 ">
                     <a
-                      href="https://enterprisetalk.com/topic/future-ready"
+                      href="https://enterprisetalk.com/topics/future-ready"
                       className="text-black  hoverHead "
                     >
                       Future Ready
@@ -163,7 +163,7 @@ const Sitemap = () => {
                 <li>
                   <h6 className="h6 ">
                     <a
-                      href="https://enterprisetalk.com/topic/learning-center"
+                      href="https://enterprisetalk.com/topics/learning-center"
                       className="text-black  hoverHead "
                     >
                       Learning Center

@@ -173,10 +173,10 @@ const Searchtab = () => {
             
             <Tab.Pane eventKey="first">
    
-                <div className='flexAddver mt-4' style={{gap:"11px"}}>
+                <div className='mainSecondBox mt-4' style={{gap:"11px"}}>
 
                 {postData.slice(0, 3).map((post, result) => (     
-<div  className='addvert ' >
+<div  className='secondBox ' >
 <div>
 <a href={`/${post.cat_slug}/${post.post_name}`}> 
 <figure>
