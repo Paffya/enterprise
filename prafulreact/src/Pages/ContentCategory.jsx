@@ -28,7 +28,7 @@ const ContentCategory = () => {
   }, []); // The empty dependency array ensures that this effect runs once when the component mounts
   
 
-  const canonicalUrl = `https://enterprisetalk.com/topic/${cat}`
+  const canonicalUrl = `https://enterprisetalk.com/topics/${cat}`
   // const pageTitle = `${cat}`
 
   const [className, setClassName] = useState('');

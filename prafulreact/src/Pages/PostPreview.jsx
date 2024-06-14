@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../Styles/Article.css";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import ShareButton from "../Components/ShareButton";
+import ShareButton from "../Components/SocialShare";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import {API_ROOT,webPath} from "../apiConfig";
@@ -327,7 +327,7 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                     </div>
 
                     <div className="">
-                      <ShareButton />
+                      {/* <ShareButton /> */}
                     </div>
                   </div>
                 </div>
@@ -337,7 +337,7 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                     <img
                       className="topicImg"
                       src={`${webPath}${postData[0].banner_img}`}
-                      alt={postData[0].banner_alt}
+                      alt={postData[0].post_title}
                     />
                   </div>
                 )}
@@ -345,7 +345,7 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                   <img
                     className="topicImg"
                     src={`${API_ROOT}/uploads/${postData[0].banner_img}`}
-                    alt={postData[0].banner_alt}
+                    alt={postData[0].post_title}
                   />
                 </div> */}
 
@@ -458,7 +458,7 @@ const [accordionOpen, setAccordionOpen] = useState(false);
                     <img
                       style={{ width: "90%", borderRadius: "14px" }}
                       src={`${webPath}${post.banner_img}`}
-                      alt={post.banner_alt}
+                      alt={post.post_title}
                     />
                   </div>
 

@@ -142,7 +142,7 @@ const Footer = () => {
   return (
     <div>
 
-<LazyLoad className={className}>
+
 <div className="footerPadding" style={{backgroundColor:"rgb(238, 237, 237)"}}>
   <div className="container container-max">
     <div className="row">
@@ -174,7 +174,7 @@ const Footer = () => {
             <p ><a href="/about" className='text-black hoverHead'>About Us</a></p>
           </div>
           <div className="border-bottom mt-3">
-            <a href="/connect"><p className='hoverHead'>Contact Us</p></a>
+            <a href="/contact-us"><p className='hoverHead'>Contact Us</p></a>
           </div>
           <div className="border-bottom mt-3">
             <p className='hoverHead'>
@@ -256,16 +256,28 @@ const Footer = () => {
         </div>
         <div className="d-flex mt-2">
           <div style={{width:"18%"}} className='facebookImg'>
-            <a href="https://www.facebook.com/EnterpriseTalk"><img src={facebook} alt="facebook" style={{width:"10px"}} /></a>
+            <a href="https://www.facebook.com/EnterpriseTalk">
+            <source srcSet={facebook} type="image/webp" />
+              <img src={facebook} alt="facebook" defer="defer"  width="10px" height="auto" />
+              </a>
           </div>
           <div style={{width:"18%"}} className='facebookImg'>
-          <a href="https://www.instagram.com/enterprisetalk"><img src={instagram} alt="instagram" style={{width:"15px"}} /></a>
+          <a href="https://www.instagram.com/enterprisetalk">
+          <source srcSet={instagram} type="image/webp" />
+            <img src={instagram} alt="instagram" defer="defer"  width="15px" height="auto"/>
+            </a>
           </div>
           <div style={{width:"18%"}} className='facebookImg'>
-            <a  href="https://www.twitter.com/Enterprise_Talk"><img src="https://cdn.punchng.com/wp-content/uploads/2023/07/24084806/Twitter-new-logo.jpeg" alt="twitter img" style={{width:"70%", borderRadius:"6px"}} /></a>
+            <a  href="https://www.twitter.com/Enterprise_Talk">
+            <source  type="image/webp" />
+              <img src="https://cdn.punchng.com/wp-content/uploads/2023/07/24084806/Twitter-new-logo.jpeg" alt="twitter img" defer="defer" style={{width:"70%", borderRadius:"6px"}} width="10px" height="auto" />
+              </a>
           </div>
           <div style={{width:"18%"}} className='facebookImg'>
-            <a href="https://www.linkedin.com/company/enterprisetalk/"><img src={linkedin} alt="linkedin" style={{width:"15px"}} /></a>
+            <a href="https://www.linkedin.com/company/enterprisetalk/">
+            <source srcSet={linkedin} type="image/webp" />
+              <img src={linkedin} alt="linkedin"  width="15px" height="auto" defer="defer" />
+              </a>
            
           </div>
         </div>
@@ -276,28 +288,28 @@ const Footer = () => {
     </div>
     <div className="d-flex text-center otherPublic" >
       <div>
-       <a href="https://itsecuritywire.com/"> <img className='imgPublica'  src={`${talkit}?width=100`} alt="talkit" /></a>
+       <a href="https://itsecuritywire.com/"> <img className='imgPublica'  src={`${talkit}?width=100`} alt="talkit"  width="100" height="auto" defer="defer" /></a>
       </div>
       <div>
-       <a href="https://talkmartech.com/"> <img className='imgPublica' src={`${talkmar}?width=100`} alt="talkmar" /> </a>
+       <a href="https://talkmartech.com/"> <img className='imgPublica' src={`${talkmar}?width=100`} alt="talkmar"  width="100" height="auto" defer="defer" /> </a>
       </div>
       <div>
-       <a href="https://talkfintech.com/"> <img className='imgPublica' src={`${talkfin}?width=100`} alt="talkfin" /> </a>
+       <a href="https://talkfintech.com/"> <img className='imgPublica' src={`${talkfin}?width=100`} alt="talkfin"   width="100" height="auto" defer="defer" /> </a>
       </div>
       <div>
-       <a href="https://talkcmo.com/"> <img className='imgPublicaCMO' src={`${talkcmo1}?width=100`} alt="talkcmo" /> </a>
+       <a href="https://talkcmo.com/"> <img className='imgPublicaCMO' src={`${talkcmo1}?width=100`} alt="talkcmo"  width="100" height="auto" defer="defer" /> </a>
       </div>
       <div>
-       <a href="https://talkdev.com/"> <img className='imgPublica' src={`${talkdev}?width=100`} alt="talkdev" /> </a> 
+       <a href="https://talkdev.com/"> <img className='imgPublica' src={`${talkdev}?width=100`} alt="talkdev"   width="100" height="auto" defer="defer" /> </a> 
       </div>
       
-    </div>
+    </div> 
     <div className="mt-4" style={{borderTop:"1px solid #bdbdbd"}}>
       <p className="mt-2" style={{fontSize:" 13px"}}>An Imprint of OnDot ® Media © | All Rights Reserved | <a href="/privacy" className='colorRed hoverHead'>Privacy Policy</a></p>
     </div>
   </div>
 </div>
-</LazyLoad>
+
 
 
 

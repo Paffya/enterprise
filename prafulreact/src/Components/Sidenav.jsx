@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import "../Styles/Content.css";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 const Sidenav = () => {
   const [sidenavWidth, setSidenavWidth] = useState(0);
   const [activeLink, setActiveLink] = useState('');
 
-  // const openNav = () => {
-  //   setSidenavWidth(125 );
-  // };
+ 
 
   const closeNav = () => {
     setSidenavWidth(0);

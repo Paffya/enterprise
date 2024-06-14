@@ -28,12 +28,12 @@
 }
 
 
-.flexAddver{
+.mainSecondBox{
     display: flex;
 }
 
 
-.addvert{
+.secondBox{
     width: 50%;
 }
 
@@ -167,7 +167,7 @@
 
 
 
-
+/* Lazyload CSS start */
 
 .lazyload-wrapper {
   opacity: 0; /* Initially hide the lazy-loaded component */
@@ -212,7 +212,7 @@
   
 
 
-
+/* Lazyload CSS end */
 
 
 
@@ -275,12 +275,12 @@
         margin-right: 5px ;
     }
 
-    .flexAddver{
+    .mainSecondBox{
         display: grid;
         width: 100%;
     }
 
-    .addvert{
+    .secondBox{
         width: 100%;
     }
 

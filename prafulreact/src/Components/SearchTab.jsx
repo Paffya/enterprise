@@ -173,14 +173,14 @@ const Searchtab = () => {
             
             <Tab.Pane eventKey="first">
    
-                <div className='flexAddver mt-4' style={{gap:"11px"}}>
+                <div className='mainSecondBox mt-4' style={{gap:"11px"}}>
 
                 {postData.slice(0, 3).map((post, result) => (     
-<div  className='addvert ' >
+<div  className='secondBox ' >
 <div>
 <a href={`/${post.cat_slug}/${post.post_name}`}> 
 <figure>
-<img  style={{width:"100%", borderRadius:"20px",  height: "auto", objectFit:"cover"}} src={`${webPath}${post.banner_img}`} alt={post.banner_alt} />
+<img  style={{width:"100%", borderRadius:"20px",  height: "auto", objectFit:"cover"}} src={`${webPath}${post.banner_img}`} alt={post.post_title} />
 </figure>
 </a>
 </div>
@@ -220,7 +220,7 @@ const Searchtab = () => {
             <img
               style={{ width: '90%', borderRadius: '14px' }}
               src={`${webPath}${post.banner_img}`}
-              alt={post.banner_alt}
+              alt={post.post_title}
             />
           </div>
 

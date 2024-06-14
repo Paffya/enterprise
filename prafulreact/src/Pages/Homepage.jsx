@@ -13,10 +13,12 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import axios from "axios"
-// import { Link } from "react-router-dom";
 import {API_ROOT,webPath} from "../apiConfig";
 import {Helmet} from "react-helmet"
 import LazyLoad from 'react-lazyload';
+
+
+
 
 
 
@@ -38,7 +40,7 @@ const Homepage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API_ROOT}/api/post/homepost`);
+        const response = await axios.get(`https://app-node.enterprisetalk.com:3000/api/post/homepost`);
         const removeHtmlTags = (html) => html.replace(/<[^>]*>/g, '');
 
         // Remove HTML tags from specific fields in the response data
@@ -127,7 +129,7 @@ useEffect(() => {
       if (currentSection <= sections) {
         setSectionClassName();
       }
-    }, currentSection * 30); 
+    }, currentSection * 40); 
 
   
     return () => {
@@ -347,21 +349,50 @@ useEffect(() => {
   }, []); 
 
 
+  const ogTitle = pageTitle ;
+  const ogDescription = pageTitle ;
+  const ogImage = "https://enterprisetalk.com/static/media/enterpriseLogo.0c9f185de2e44cf44932.webp";
+  const ogUrl = "https://enterprisetalk.com/";
+ 
+
+
+
   return (
 
   
-    <div style={{overflow:"hidden"}}> 
+  
+    <div style={{overflow:"hidden"}} id='root' > 
 
+
+
+      
     <Helmet>
       <title>{pageTitle}</title>
 	<meta name="description" content="A Peer Knowledge Resource Expert inputs on challenges, triumphs &amp; innovative solutions from corporate Movers &amp; Shakers in global Leadership." />
-	<link rel="canonical" href="https://enterprisetalk.com/" />
-  <meta property="og:url" content="https://enterprisetalk.com/" />
+  <meta name="title" property="og:title" content={pageTitle} />
+        <meta property="og:type" content="PostDetails" />
+        <meta name="image" property="og:image" content="https://enterprisetalk.com/static/media/enterpriseLogo.0c9f185de2e44cf44932.webp" />
+        <meta name="description" property="og:description" content="A Peer Knowledge Resource Expert inputs on challenges, triumphs &amp; innovative solutions from corporate Movers &amp; Shakers in global Leadership." />
+        <meta property="og:url" content="https://enterprisetalk.com/" />
+        <meta property="og:image:width" content="844" />
+        <meta property="og:image:height" content="172" />
+        <meta property="og:image:type" content="image/png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="https://twitter.com/Enterprise_Talk"></meta>
+        <link rel="canonical" href="https://enterprisetalk.com/" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content="A Peer Knowledge Resource Expert inputs on challenges, triumphs &amp; innovative solutions from corporate Movers &amp; Shakers in global Leadership." />
+        <meta name="twitter:image" content="https://enterprisetalk.com/static/media/enterpriseLogo.0c9f185de2e44cf44932.webp" />
     </Helmet> 
 
-    
+
+
+      {/* <HomepageMainSection /> */}
+ 
+     
+     
+
   
-    <LazyLoad className={className}>
    <div className='mt-3 spaceincontent'>
   <div className="container container-max" >
     <div className="row ">
@@ -369,12 +400,13 @@ useEffect(() => {
       <div className="col-md-9 borderR">
       <div>
       <div>
+        
      
       {data && data.latestNews && data.latestNews.length > 0 && (
 <a href={`/${data.latestNews[0].cat_slug}/${data.latestNews[0].post_name}`} aria-label={`Read more about ${data.latestNews[0].post_title}`}>
   <div>
   
-    <img className='homeImg' src={`${webPath}${data.latestNews[0].banner_img}?width=700`} alt={data.latestNews[0].banner_alt} aria-label={data.latestNews[0].banner_alt}  width="100" height="100" />
+    <img className='homeImg' src={`${webPath}${data.latestNews[0].banner_img}?width=700`} alt={data.latestNews[0].post_title} aria-label={data.latestNews[0].post_title}  width="100" height="100" />
    
     <div className='paddings'>
       <h2 className='fw-bold h2 hoverHead mt-2'>{data.latestNews[0].post_title}</h2>
@@ -392,17 +424,17 @@ useEffect(() => {
   </div>
 
 
-        <div className='flexAddver mt-3 ' style={{gap:"11px"}}>
+        <div className='mainSecondBox mt-3 ' style={{gap:"11px"}}>
 
         {loading ? (
       <p></p>
       
     ) : (
-          <div  className='addvert hover01' >
+          <div  className='secondBox hover01' >
           <div>
           <a href={`/${data.latestNews[1].cat_slug}/${data.latestNews[1].post_name}`} aria-label={`Read more about ${data.latestNews[1].post_title}`}> 
           <figure className="">
-          <img className='zoom-in' style={{width:"100%", borderRadius:"20px", height:"auto", objectFit:"cover"}} src={`${webPath}${data.latestNews[1].banner_img}?width=500`} alt={data.latestNews[1].banner_alt} aria-label={data.latestNews[1].banner_alt}  loading="lazy" width="100" height="100" />
+          <img className='zoom-in' style={{width:"100%", borderRadius:"20px", height:"auto", objectFit:"cover"}} src={`${webPath}${data.latestNews[1].banner_img}?width=500`} alt={data.latestNews[1].post_title} aria-label={data.latestNews[1].post_title}  loading="lazy" width="100" height="100" />
           </figure>
           </a>
           </div>
@@ -422,10 +454,10 @@ useEffect(() => {
       <p></p>
       
     ) : (
-          <div  className='addvert hover01'>
+          <div  className='secondBox hover01'>
           <div>
           <a href={`/${data.latestNews[2].cat_slug}/${data.latestNews[2].post_name}`} aria-label={`Read more about ${data.latestNews[2].post_title}`}> <figure className=""> 
-          <img className='zoom-in'  style={{width:"100%" , borderRadius:"20px", height:"auto", objectFit:"cover"}} src={`${webPath}${data.latestNews[2].banner_img}?width=500`} alt={data.latestNews[2].banner_alt} aria-label={data.latestNews[2].banner_alt}   loading="lazy" width="100" height="100" />
+          <img className='zoom-in'  style={{width:"100%" , borderRadius:"20px", height:"auto", objectFit:"cover"}} src={`${webPath}${data.latestNews[2].banner_img}?width=500`} alt={data.latestNews[2].post_title} aria-label={data.latestNews[2].post_title}   loading="lazy" width="100" height="100" />
           </figure>
           </a>
           </div>
@@ -453,6 +485,7 @@ useEffect(() => {
          
 
           <div>
+          <LazyLoad className={className}>
           <Tabs activeKey={activeKey} onSelect={handleTabSelect} id="tabs-example" className='tabBtn nav-link1' style={{color:"black !important"}}>
 
     <Tab eventKey="tab1" title="Latest" className='text-black'>
@@ -510,10 +543,14 @@ useEffect(() => {
     </Tab>
 
   </Tabs>
+  </LazyLoad> 
 
     
   </div>
+  
 
+  
+  <LazyLoad className={className1}>
   <div className='marTop heightAuto' style={{  textAlign:"center", height:"400px"}}>
         
           {advertisementData && advertisementData.length > 0 && (
@@ -524,6 +561,9 @@ useEffect(() => {
 
 
         </div>
+        </LazyLoad>
+
+        
           
         </div>
       </div>
@@ -535,7 +575,8 @@ useEffect(() => {
 
 
   </div>
-    </LazyLoad>
+ 
+   
    
  
 
@@ -549,7 +590,6 @@ useEffect(() => {
         <div className='swiperBox'>
         
         <Swiper
-          
           onSwiper={setThumbsSwiper}
           loop={true}
           spaceBetween={10}
@@ -596,8 +636,8 @@ useEffect(() => {
           {data.interview.map((interview, index) => (
             <SwiperSlide key={index} style={{}}>
              <a href={`/${interview.cat_slug}/${interview.post_name}`} > <Card style={{}}>
-                <Card.Img style={{ objectFit: 'cover' }} src={`${webPath}${interview.banner_img}?width=500`} alt={interview.banner_alt} aria-label={interview.banner_alt} width="100" height="550" />
-                <Card className='p-md-3 px-2 mb-2'>
+                <Card.Img style={{ objectFit: 'cover', height:"auto" }} src={`${webPath}${interview.banner_img}?width=500`} alt={interview.post_title} aria-label={interview.post_title} width="100" height="550" />
+                <Card className='p-md-3 px-2 mb-2' style={{height:"157px"}} >
                 <Card.Title className='fw-bold line-clamp hoverHead'>{interview.post_title}</Card.Title> 
                   <Card.Title>{interview.post_author}</Card.Title>
                   {/* <Card.Text className='fw-bold line-clamp1'>{interview.post_name}</Card.Text> */}
@@ -660,7 +700,7 @@ useEffect(() => {
         <a  href={`/${data.quickbyte[0].cat_slug}/${data.quickbyte[0].post_name}`}> <div  className='hover01' >
             <div>
             <figure>
-              <img className='' style={{width:"100%", borderRadius:"20px", height:"auto", objectFit:"cover"}} src={`${webPath}${data.quickbyte[0].banner_img}?width=500`} alt={data.quickbyte[0].banner_alt} aria-label={data.quickbyte[0].banner_alt} loading="lazy" width="100" height="100"/>
+              <img className='' style={{width:"100%", borderRadius:"20px", height:"auto", objectFit:"cover"}} src={`${webPath}${data.quickbyte[0].banner_img}?width=500`} alt={data.quickbyte[0].post_title} aria-label={data.quickbyte[0].post_title} loading="lazy" width="100" height="100"/>
               </figure>
             </div>
             <div className='padLR'>
@@ -685,7 +725,7 @@ useEffect(() => {
          <a href={`/${data.quickbyte[1].cat_slug}/${data.quickbyte[1].post_name}`}><div  className='hover01' >
             <div>
             <figure>
-              <img  style={{width:"100%", borderRadius:"20px", height:"auto", objectFit:"cover"}} src={`${webPath}${data.quickbyte[1].banner_img}?width=500`} alt={data.quickbyte[1].banner_alt} aria-label={data.quickbyte[1].banner_alt} loading="lazy" width="100" height="100"/>
+              <img  style={{width:"100%", borderRadius:"20px", height:"auto", objectFit:"cover"}} src={`${webPath}${data.quickbyte[1].banner_img}?width=500`} alt={data.quickbyte[1].post_title} aria-label={data.quickbyte[1].post_title} loading="lazy" width="100" height="100"/>
               </figure>
             </div>
             <div className='padLR'>
@@ -741,7 +781,7 @@ useEffect(() => {
               <img
                 style={{ width: '100%', borderRadius: '20px', height: 'auto', objectFit: 'cover' }}
                 src={`${webPath}${data.article[0].banner_img}?width=500`} // Assuming your API response has an 'imageSrc' property
-                alt={data.article[0].banner_alt} aria-label={data.article[0].banner_alt}
+                alt={data.article[0].post_title} aria-label={data.article[0].post_title}
                 loading="lazy" width="100" height="100" /> </figure>
             </div>
             <div className='padLR'>
@@ -767,7 +807,7 @@ useEffect(() => {
         <a href={`/${data.article[1].cat_slug}/${data.article[1].post_name}`}> <div  className='hover01' >
             <div>
               <figure>
-              <img  style={{width:"100%", borderRadius:"20px", height:"auto", objectFit:"cover"}} src={`${webPath}${data.article[1].banner_img}?width=500`} alt={data.article[1].banner_alt}  aria-label={data.article[1].banner_alt} loading="lazy" width="100" height="100"/>
+              <img  style={{width:"100%", borderRadius:"20px", height:"auto", objectFit:"cover"}} src={`${webPath}${data.article[1].banner_img}?width=500`} alt={data.article[1].post_title}  aria-label={data.article[1].post_title} loading="lazy" width="100" height="100"/>
               </figure>
             </div>
             <div className='padLR'>
@@ -859,7 +899,7 @@ useEffect(() => {
           <p></p>
         ) : (
     <div className="col-md-5 ">
-     <a href={`/${data.podcast[0].cat_slug}/${data.podcast[0].post_name}`}> <img className='ImgBoxGuets2'  src={`${webPath}${data.podcast[0].banner_img}?width=500`} alt={data.podcast[0].banner_alt} aria-label={data.podcast[0].banner_alt} loading="lazy" /></a>
+     <a href={`/${data.podcast[0].cat_slug}/${data.podcast[0].post_name}`}> <img className='ImgBoxGuets2'  src={`${webPath}${data.podcast[0].banner_img}?width=500`} alt={data.podcast[0].post_title} aria-label={data.podcast[0].post_title} loading="lazy" /></a>
       
     </div>
 )}

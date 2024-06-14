@@ -90,7 +90,11 @@
 
 
 
-
+.xmlClasses li{
+    list-style-type: none;
+    font-size: 13px;
+    font-weight: 500;
+}
 
 
 

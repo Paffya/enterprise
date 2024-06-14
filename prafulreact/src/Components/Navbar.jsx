@@ -142,22 +142,7 @@ const CustomNavbar = () => {
 
 
 
-  // useEffect(() => {
-  //   if (!isValidEmail) {
-  //     const hideErrorTimeout = setTimeout(() => {
-  //       setIsValidEmail(true);
-  //     }, 1000);
-
-  //     return () => clearTimeout(hideErrorTimeout);
-  //   }
-  // }, [isValidEmail]);
-  
-
-  // setTimeout(() => {
  
-  //   const isValid = validateEmail();
-  //   setIsValidEmail(isValid);
-  // }, 300); 
 
 
   const resetForm = () => {
@@ -218,11 +203,13 @@ const CustomNavbar = () => {
   };
 
 
+
  
 
   return (
     <>
-      <div>
+      <div >
+        
         <div
           style={{ backgroundColor: "#fff", height: "83px" }}
           className="fixed-top"
@@ -361,8 +348,8 @@ const CustomNavbar = () => {
                   onMouseEnter={showDropdown}
                   onMouseLeave={hideDropdown}
                   title="Latest"
-                  id="basic-nav-dropdown"
-                  className="custom-dropdown hover-underline-animation "
+                  id="basic-nav-dropdown key1"
+                  className="custom-dropdown hover-underline-animation fw-bold"
                 >
                   
                   <div className="dropdownLeader1">
@@ -393,7 +380,7 @@ const CustomNavbar = () => {
                                     objectFit: "cover",
                                   }}
                                   src={`${webPath}${post.banner_img}`}
-                                  alt={post.banner_alt}
+                                  alt={post.post_title}
                                 />
                               </div>
 
@@ -431,7 +418,7 @@ const CustomNavbar = () => {
                           </NavDropdown.Item>
                         ))}
 
-                        <a href="/topic/news" className="text-black ended mx-4">
+                        <a href="/topics/news" className="text-black ended mx-4">
                           See more
                         </a>
                       </div>
@@ -463,7 +450,7 @@ const CustomNavbar = () => {
                                     objectFit: "cover",
                                   }}
                                   src={`${webPath}${post.banner_img}`}
-                                  alt={post.banner_alt}
+                                  alt={post.post_title}
                                 />
                               </div>
 
@@ -502,7 +489,7 @@ const CustomNavbar = () => {
                         ))}
 
                         <a
-                          href="/topic/featured"
+                          href="/topics/featured"
                           className="text-black ended mx-4"
                         >
                           See more
@@ -518,8 +505,8 @@ const CustomNavbar = () => {
                   onMouseEnter={showFeatdownNav}
                   onMouseLeave={hideFeatdownNav}
                   title="Leadership"
-                  id="basic-nav-dropdown"
-                  className="custom-dropdown hover-underline-animation "
+                  id="basic-nav-dropdown key2"
+                  className="custom-dropdown hover-underline-animation fw-bold"
                   // onSelect={handleDropdownSelect}
                 >
                   
@@ -549,7 +536,7 @@ const CustomNavbar = () => {
                                     objectFit: "cover",
                                   }}
                                   src={`${webPath}${post.banner_img}`}
-                                  alt={post.banner_alt}
+                                  alt={post.post_title}
                                 />
                               </div>
 
@@ -588,7 +575,7 @@ const CustomNavbar = () => {
                         ))}
 
                         <a
-                          href="/topic/podcasts"
+                          href="/topics/podcasts"
                           className="text-black ended mx-4"
                         >
                           See more
@@ -623,7 +610,7 @@ const CustomNavbar = () => {
                                     objectFit: "cover",
                                   }}
                                   src={`${webPath}${post.banner_img}`}
-                                  alt={post.banner_alt}
+                                  alt={post.post_title}
                                 />
                               </div>
 
@@ -662,7 +649,7 @@ const CustomNavbar = () => {
                         ))}
 
                         <a
-                          href="/topic/interview"
+                          href="/topics/interview"
                           className="text-black ended mx-4"
                         >
                           See more
@@ -695,7 +682,7 @@ const CustomNavbar = () => {
                                     objectFit: "cover",
                                   }}
                                   src={`${webPath}${post.banner_img}`}
-                                  alt={post.banner_alt}
+                                  alt={post.post_title}
                                 />
                               </div>
 
@@ -734,7 +721,7 @@ const CustomNavbar = () => {
                         ))}
 
                         <a
-                          href="/topic/guest-author"
+                          href="/topics/guest-author"
                           className="text-black ended mx-4"
                         >
                           See more
@@ -749,8 +736,8 @@ const CustomNavbar = () => {
                   onMouseEnter={showDropdownNav}
                   onMouseLeave={hideDropdownNav}
                   title="Features"
-                  id="basic-nav-dropdown"
-                  className="custom-dropdown hover-underline-animation "
+                  id="basic-nav-dropdown key3"
+                  className="custom-dropdown hover-underline-animation fw-bold"
                 >
                   <div className="dropdownLeader3">
                     <div className="d-flex justify-content-evenly">
@@ -778,7 +765,7 @@ const CustomNavbar = () => {
                                     objectFit: "cover",
                                   }}
                                   src={`${webPath}${post.banner_img}`}
-                                  alt={post.banner_alt}
+                                  alt={post.post_title}
                                 />
                               </div>
 
@@ -817,7 +804,7 @@ const CustomNavbar = () => {
                         ))}
 
                         <a
-                          href="/topic/featured"
+                          href="/topics/featured"
                           className="text-black ended mx-4"
                         >
                           See more
@@ -852,7 +839,7 @@ const CustomNavbar = () => {
                                     objectFit: "cover",
                                   }}
                                   src={`${webPath}${post.banner_img}`}
-                                  alt={post.banner_alt}
+                                  alt={post.post_title}
                                 />
                               </div>
 
@@ -891,7 +878,7 @@ const CustomNavbar = () => {
                         ))}
 
                         <a
-                          href="/topic/future-ready"
+                          href="/topics/future-ready"
                           className="text-black ended mx-4"
                         >
                           See more
@@ -924,7 +911,7 @@ const CustomNavbar = () => {
                                     objectFit: "cover",
                                   }}
                                   src={`${webPath}${post.banner_img}`}
-                                  alt={post.banner_alt}
+                                  alt={post.post_title}
                                 />
                               </div>
 
@@ -963,7 +950,7 @@ const CustomNavbar = () => {
                         ))}
 
                         <a
-                          href="/topic/learning-center"
+                          href="/topics/learning-center"
                           className="text-black ended mx-4"
                         >
                           See more
@@ -979,11 +966,12 @@ const CustomNavbar = () => {
                 >
                   Resources
                 </Nav.Link>
+
                 <Nav.Link
-                  href="/connect"
+                  href="/contact-us"
                   className="text-black fw-bold hover-underline-animation hoverHead"
                 >
-                  Connect
+                  Contact Us
                 </Nav.Link>
               </Nav>
             </Container>

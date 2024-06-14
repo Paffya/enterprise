@@ -552,13 +552,13 @@ useEffect(() => {
       ) : error ? (
         <p>Error: {error}</p>
       ) : (
-        <div className='flexAddver mt-3' style={{ gap: '11px' }}>
+        <div className='mainSecondBox mt-3' style={{ gap: '11px' }}>
           {data.news.slice(0, limit).map((post, index) => (
-            <div key={index} className='addvert hover01'>
+            <div key={index} className='secondBox hover01'>
               <a href={`/${post.cat_slug}/${post.post_name}`}>
                 <div>
                   <figure>
-                    <img style={{ width: '100%', borderRadius: '20px', height: 'auto', objectFit: 'cover' }} src={`${webPath}${post.banner_img}?width=500`} alt={post.banner_alt} />
+                    <img style={{ width: '100%', borderRadius: '20px', height: 'auto', objectFit: 'cover' }} src={`${webPath}${post.banner_img}?width=500`} alt={post.post_title} />
                   </figure>
                 </div>
               </a>
@@ -671,7 +671,7 @@ useEffect(() => {
     <a href={`/${featured.cat_slug}/${featured.post_name}`}> <div >
             
            <div >
-           <img  className='homeImg' src={`${webPath}${featured.banner_img}?width=700`} alt={featured.banner_alt} />
+           <img  className='homeImg' src={`${webPath}${featured.banner_img}?width=700`} alt={featured.post_title} />
            </div>
            
            <div className='paddings'>
@@ -713,7 +713,7 @@ useEffect(() => {
     {data.quickbytes.map((post, index) => (
     <div key={index} className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
       <div  className='quickImgBox'>
-        <img style={{ width:"90%"  , borderRadius:"14px"}} src={`${webPath}${post.banner_img}?width=500`} alt={post.banner_alt} />
+        <img style={{ width:"90%"  , borderRadius:"14px"}} src={`${webPath}${post.banner_img}?width=500`} alt={post.post_title} />
       </div>
 
       <div className='' style={{width:"74%"}}>
@@ -797,7 +797,7 @@ useEffect(() => {
     </div>
 
     <div className="col-md-5 " style={{margin:"auto"}}>
-      <img className='ImgBoxGuets'  src={`${webPath}${data.podcasts[0].banner_img}?width=700`} alt={data.podcasts[0].banner_alt} />
+      <img className='ImgBoxGuets'  src={`${webPath}${data.podcasts[0].banner_img}?width=700`} alt={data.podcasts[0].post_title} />
       
     </div>
 
@@ -828,7 +828,7 @@ useEffect(() => {
    
     <div className='d-flex mt-3 mb-3' style={{alignItems:"center"}}>
       <div style={{width:"40%", height:"150px"}}>
-        <img style={{ width:"90%", height:"150px", objectFit:"cover"  , borderRadius:"14px"}} src={`${webPath}${post.banner_img}?width=500`} alt={post.banner_alt} />
+        <img style={{ width:"90%", height:"150px", objectFit:"cover"  , borderRadius:"14px"}} src={`${webPath}${post.banner_img}?width=500`} alt={post.post_title} />
       </div>
 
       <div className='mt-2' style={{width:"60%"}}>
@@ -953,7 +953,7 @@ useEffect(() => {
   <div className="row">
   <h5  className='fw-bold borderB py-1 h4'>Guest Author</h5>
     <div className="col-md-6 guestImg">
-      <img className='ImgBoxGuets'  src={`${webPath}${data.guestauthor[0].banner_img}?width=500`} alt={data.guestauthor[0].banner_alt}/>
+      <img className='ImgBoxGuets'  src={`${webPath}${data.guestauthor[0].banner_img}?width=500`} alt={data.guestauthor[0].post_title}/>
     </div>
 
     <div className="col-md-6  guestText" >
@@ -993,7 +993,7 @@ useEffect(() => {
         <div className="col-md-4 d-flex mt-4 mb-4 " style={{ alignItems: "center" }} key={index}>
           <a href={`/${learningcenter.cat_slug}/${learningcenter.post_name}`} className="d-flex w-100" style={{ textDecoration: 'none', color: 'inherit' }}>
             <div style={{ width: "50%" }}>
-              <img style={{ width: "92%", height:"130px" ,objectFit: "cover", borderRadius: "14px" }} src={`${webPath}${learningcenter.banner_img}?width=500`} alt={learningcenter.banner_alt} />
+              <img style={{ width: "92%", height:"130px" ,objectFit: "cover", borderRadius: "14px" }} src={`${webPath}${learningcenter.banner_img}?width=500`} alt={learningcenter.post_title} />
             </div>
             <div style={{ width: "50%" }} className='m-auto'>
               <h5 className='line-clamp h5 fw-bold hoverHead' title={learningcenter.post_title}>{learningcenter.post_title}</h5>

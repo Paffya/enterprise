@@ -177,7 +177,7 @@ const Author = () => {
                     className={`tabButton text-black backgRed ${
                       category.subcat_slug === subcat ? "isActive" : ""
                     }`}
-                    href={`/topic/${cat}/${category.subcat_slug}`}
+                    href={`/topics/${cat}/${category.subcat_slug}`}
                   >
                     {category.subcat_name}
                   </Nav.Link>
@@ -196,7 +196,7 @@ const Author = () => {
                       className={`colorblack backgRed ${
                         category.subcat_slug === subcat ? "isActive" : ""
                       }`}
-                      href={`/topic/${cat}/${category.subcat_slug}`}
+                      href={`/topics/${cat}/${category.subcat_slug}`}
                     >
                       {category.subcat_name}
                     </NavDropdown.Item>
@@ -209,7 +209,7 @@ const Author = () => {
           <Col sm={12}>
             <Tab.Content>
               <Tab.Pane eventKey="first">
-                <div className="flexAddver mt-4" style={{ gap: "11px" }}>
+                <div className="mainSecondBox mt-4" style={{ gap: "11px" }}>
                   {postData.slice(0, 3).map((post) => (
                     <div className="addvert hover01">
                       <a href={`/${post.cat_slug}/${post.post_name}`}>
@@ -223,7 +223,7 @@ const Author = () => {
                                 objectFit: "cover",
                               }}
                               src={`${webPath}${post.banner_img}`}
-                              alt={post.banner_alt}
+                              alt={post.post_title}
                             />
                           </figure>
                         </div>{" "}
@@ -271,7 +271,7 @@ const Author = () => {
                                 <img
                                   style={{ width: "90%", borderRadius: "14px" }}
                                   src={`${webPath}${post.banner_img}`}
-                                  alt={post.banner_alt}
+                                  alt={post.post_title}
                                 />
                               </div>
 
