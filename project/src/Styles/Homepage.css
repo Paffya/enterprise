@@ -1,0 +1,33 @@
+.HomeText{
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.HomeText h1{
+    color: white;
+}
+
+.HomeText p{
+    color: white;
+}
+
+.middleImg{
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.line-clamp {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;  
+    overflow: hidden !important;
+  }
+
+  
+.card{
+    border: none;
+  }
