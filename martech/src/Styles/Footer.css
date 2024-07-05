@@ -1,0 +1,136 @@
+.footerPadding {
+  padding: 5px;
+  color: white;
+  background-color: rgb(238, 237, 237);
+  height: auto;
+}
+
+
+.subclickbtn{
+  cursor: pointer;
+}
+
+
+
+.followPadding {
+  padding-right: 3rem;
+  padding-left: 3rem;
+  margin-top: 50px;
+}
+
+.SubBtn {
+  margin: auto !important;
+}
+
+
+.textdata p{
+  font-size: 14px;
+}
+.FootLogo {
+  width: 100%;
+  object-fit: cover;
+ 
+  height: auto;
+
+}
+
+
+
+
+.dd{
+  border-bottom: 1px solid white;
+}
+.imgPublica {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.imgPublicaCMO {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.imgET {
+  width: 100%;
+}
+.facebookImg {
+  border: 2px solid white;
+  margin: auto;
+  text-align: center;
+  padding: 5px;
+  border-radius: 7px;
+  width: 14%;
+}
+
+
+
+
+  .facebookImg{
+    background-color: black;
+    margin: auto;
+    text-align: center;
+    padding: 6px;
+    border-radius: 7px;
+}
+
+.followPadding{
+  padding-right: 3rem;
+  padding-left: 3rem;
+  margin-top: 50px;
+}
+
+.iIMG{
+  width: 18px;
+  height: auto;
+}
+
+.fIMG{
+width: 11px;
+height: auto;
+}
+
+.xIMG{
+width: 56%;
+border-radius: 6px;
+height: auto;
+}
+
+
+
+.otherPublic {
+width: 50% !important;
+text-align: center;
+margin: auto;
+gap: 20px;
+display: flex;
+}
+
+
+.pRed{
+  color: #f7a01e;
+}
+
+@media (max-width: 576px) {
+  .spaceincontent {
+    margin-top: 10px !important;
+  }
+
+  .spaceincontentbottm {
+    margin-bottom: 10px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .FootLogo{
+    width: 50%;
+  }
+
+  .footerPadding{
+    height: auto;
+  }
+
+  .otherPublic{
+    display: grid !important;
+  grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1,0 +1,86 @@
+.subslogo{
+    width: 16%;
+    left: 45%;
+    position: absolute;
+  }
+
+
+  .laptopmImgback{
+    align-items: center;
+    display: grid;
+  }
+
+
+  .start{
+    display: flow;
+    text-align: center;
+  }
+
+
+  .popupBack{
+   background-color: #ebebeb;
+   border-radius: 5px;
+   height: 460px;
+ }
+
+ .sidenav li:hover{
+  color: #f7a01e;
+ }
+
+
+ .SubBtn{
+    background-color: #f7a01e;
+  color: white;
+  border: transparent;
+  padding: 8px;
+  width: 130px;
+  border-radius: 4px;
+  margin-right: 30px;
+}
+
+.SubBtn:hover{
+    background-color: #f7a01e;
+}
+ 
+ 
+.modal-backdrop{
+    --bs-backdrop-opacity:1;
+  }
+  
+  
+  .modal{
+
+    --bs-modal-width:1000px !important;
+  }
+  
+  .modal-dialog{
+    margin-top: 130px !important;
+  }
+  
+
+.modal-header{
+  padding: 20px !important;
+}
+
+.modal-backdrop.show{
+    opacity: 100 !important;
+}
+
+
+
+
+
+
+
+
+
+  @media (max-width: 767px) {
+    .subslogo{
+        width: 40%;
+        left: 30%;
+      }
+
+      .modal-dialog{
+        margin-top: 50px !important;
+      }
+  }

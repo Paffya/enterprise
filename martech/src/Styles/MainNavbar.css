@@ -1,0 +1,40 @@
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+
+  .wrapLogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  @media (max-width: 768px) {
+    .search-sub-comp {
+      display: none;
+    }
+
+    .Desktopresponsive{
+        display: none;
+    }
+  
+    .wrap-search{
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between;
+     margin-top: 45px;
+     width: 100%;
+    
+  
+    }
+  
+    .search-icon{
+      background-color: black;
+      margin-bottom: 20px;
+    }
+  }
+  
+
+  

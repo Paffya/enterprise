@@ -1,0 +1,117 @@
+.menu-icon {
+  font-size: 30px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 70px;
+  left: 0;
+
+  overflow-x: hidden;
+  transition: 0.5s;
+
+  background: #000;
+  border-top-right-radius: 12px;
+  font-size: 16px;
+  /* height: auto !important; */
+  scrollbar-width: none !important;
+}
+
+.sidebar.open {
+  width: 320px;
+}
+
+.sidebar.closed{
+  width: 0px !important;
+}
+
+
+
+
+.menu-list {
+  /* Remove max-height to display all items without scrolling */
+ 
+  height: auto;
+  padding: 5px 10px 30px 5px !important; /* Space for scrollbar */
+  /* padding-bottom: 10px; */
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  font-size: 20px;
+  color: white;
+  background: black;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 5px;
+  margin-top: 25px;
+  white-space: nowrap;
+  /* height: 100vh; */
+}
+
+.sidebar ul li {
+  padding: 0px 0px 8px 10px;
+  text-decoration: none;
+  font-size: 16px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+  text-transform: capitalize;
+  top: -10px;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: white !important;
+  text-align: start;
+}
+
+
+.sidebar a:hover{
+  color: #f7a01e !important;
+}
+
+
+.MobileSearch {
+  display: flex !important;
+}
+
+.MobileResponsive {
+  display: block;
+}
+
+.search-comp-display {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .search-sub-comp1 {
+    display: block;
+  }
+  .search-comp-display {
+    display: block;
+    margin-top: 20px;
+    margin-left: 10px;
+  }
+  .search-data {
+    color: white !important;
+  }
+
+  .sidebar ul {
+    margin-top: 25px;
+  }
+}
+
+@media (min-width: 768px) {
+  .search-sub-comp1 {
+    display: none;
+  }
+}
